@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+	<product>
+		<name>노트북</name>
+		<price>1000000</price>
+		<comments>윈도우 11, i7, 1tb</comments>
+	</product>
+	<product>
+		<name>스마트폰</name>
+		<price>2000000</price>
+		<comments>갤럭시폴드3, SD888, 512gb</comments>
+	</product>
+	<product>
+		<name>냉장고</name>
+		<price>3000000</price>
+		<comments>비스포크 양문형, 800L</comments>
+	</product>
+</products>
