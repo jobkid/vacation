@@ -96,9 +96,7 @@ public class PageDAO {
 			
 		}catch(Exception ex) {
 			System.out.println("pDAO.getNumberOfRows 접속 종료 후 오류발생 : "+ex);
-		}
-		
+		}	
 		return numberOfRows;
-	}
-	
+	}	
 }
