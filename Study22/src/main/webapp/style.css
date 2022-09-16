@@ -1,0 +1,18 @@
+@charset "utf-8";
+*{
+	margin:0;
+	padding:0;
+}
+#wrap{
+	border : 10px solid red;
+	width : 1000px;
+	margin: 0 auto;
+	padding:30px;
+}
+input{
+	width:20%;
+	
+}
+phone{
+	width:15%;
+}

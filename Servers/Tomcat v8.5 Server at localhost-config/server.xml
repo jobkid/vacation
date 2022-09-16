@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+--><!-- Note:  A "Server" is not itself a "Container", so you may not
+     define subcomponents such as "Valves" at this level.
+     Documentation at /docs/config/server.html
+ --><Server port="8005" shutdown="SHUTDOWN">
+  <Listener className="org.apache.catalina.startup.VersionLoggerListener"/>
+  <!-- Security listener. Documentation at /docs/config/listeners.html
+  <Listener className="org.apache.catalina.security.SecurityListener" />
+  -->
+  <!-- APR library loader. Documentation at /docs/apr.html -->
+  <Listener SSLEngine="on" className="org.apache.catalina.core.AprLifecycleListener"/>
+  <!-- Prevent memory leaks due to use of particular java/javax APIs-->
+  <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener"/>
+  <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener"/>
+  <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener"/>
+
+  <!-- Global JNDI resources
+       Documentation at /docs/jndi-resources-howto.html
+  -->
+  <GlobalNamingResources>
+    <!-- Editable user database that can also be used by
+         UserDatabaseRealm to authenticate users
+    -->
+    <Resource auth="Container" description="User database that can be updated and saved" factory="org.apache.catalina.users.MemoryUserDatabaseFactory" name="UserDatabase" pathname="conf/tomcat-users.xml" type="org.apache.catalina.UserDatabase"/>
+  </GlobalNamingResources>
+
+  <!-- A "Service" is a collection of one or more "Connectors" that share
+       a single "Container" Note:  A "Service" is not itself a "Container",
+       so you may not define subcomponents such as "Valves" at this level.
+       Documentation at /docs/config/service.html
+   -->
+  <Service name="Catalina">
+
+    <!--The connectors can use a shared executor, you can define one or more named thread pools-->
+    <!--
+    <Executor name="tomcatThreadPool" namePrefix="catalina-exec-"
+        maxThreads="150" minSpareThreads="4"/>
+    -->
+
+
+    <!-- A "Connector" represents an endpoint by which requests are received
+         and responses are returned. Documentation at :
+         Java HTTP Connector: /docs/config/http.html
+         Java AJP  Connector: /docs/config/ajp.html
+         APR (HTTP/AJP) Connector: /docs/apr.html
+         Define a non-SSL/TLS HTTP/1.1 Connector on port 8080
+    -->
+    <Connector connectionTimeout="20000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/>
+    <!-- A "Connector" using the shared thread pool-->
+    <!--
+    <Connector executor="tomcatThreadPool"
+               port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443" />
+    -->
+    <!-- Define an SSL/TLS HTTP/1.1 Connector on port 8443
+         This connector uses the NIO implementation. The default
+         SSLImplementation will depend on the presence of the APR/native
+         library and the useOpenSSL attribute of the AprLifecycleListener.
+         Either JSSE or OpenSSL style configuration may be used regardless of
+         the SSLImplementation selected. JSSE style configuration is used below.
+    -->
+    <!--
+    <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+               maxThreads="150" SSLEnabled="true">
+        <SSLHostConfig>
+            <Certificate certificateKeystoreFile="conf/localhost-rsa.jks"
+                         type="RSA" />
+        </SSLHostConfig>
+    </Connector>
+    -->
+    <!-- Define an SSL/TLS HTTP/1.1 Connector on port 8443 with HTTP/2
+         This connector uses the APR/native implementation which always uses
+         OpenSSL for TLS.
+         Either JSSE or OpenSSL style configuration may be used. OpenSSL style
+         configuration is used below.
+    -->
+    <!--
+    <Connector port="8443" protocol="org.apache.coyote.http11.Http11AprProtocol"
+               maxThreads="150" SSLEnabled="true" >
+        <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
+        <SSLHostConfig>
+            <Certificate certificateKeyFile="conf/localhost-rsa-key.pem"
+                         certificateFile="conf/localhost-rsa-cert.pem"
+                         certificateChainFile="conf/localhost-rsa-chain.pem"
+                         type="RSA" />
+        </SSLHostConfig>
+    </Connector>
+    -->
+
+    <!-- Define an AJP 1.3 Connector on port 8009 -->
+    <!--
+    <Connector protocol="AJP/1.3"
+               address="::1"
+               port="8009"
+               redirectPort="8443" />
+    -->
+
+    <!-- An Engine represents the entry point (within Catalina) that processes
+         every request.  The Engine implementation for Tomcat stand alone
+         analyzes the HTTP headers included with the request, and passes them
+         on to the appropriate Host (virtual host).
+         Documentation at /docs/config/engine.html -->
+
+    <!-- You should set jvmRoute to support load-balancing via AJP ie :
+    <Engine name="Catalina" defaultHost="localhost" jvmRoute="jvm1">
+    -->
+    <Engine defaultHost="localhost" name="Catalina">
+
+      <!--For clustering, please take a look at documentation at:
+          /docs/cluster-howto.html  (simple how to)
+          /docs/config/cluster.html (reference documentation) -->
+      <!--
+      <Cluster className="org.apache.catalina.ha.tcp.SimpleTcpCluster"/>
+      -->
+
+      <!-- Use the LockOutRealm to prevent attempts to guess user passwords
+           via a brute-force attack -->
+      <Realm className="org.apache.catalina.realm.LockOutRealm">
+        <!-- This Realm uses the UserDatabase configured in the global JNDI
+             resources under the key "UserDatabase".  Any edits
+             that are performed against this UserDatabase are immediately
+             available for use by the Realm.  -->
+        <Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase"/>
+      </Realm>
+
+      <Host appBase="webapps" autoDeploy="true" name="localhost" unpackWARs="true">
+
+        <!-- SingleSignOn valve, share authentication between web applications
+             Documentation at: /docs/config/valve.html -->
+        <!--
+        <Valve className="org.apache.catalina.authenticator.SingleSignOn" />
+        -->
+
+        <!-- Access log processes all example.
+             Documentation at: /docs/config/valve.html
+             Note: The pattern used is equivalent to using pattern="common" -->
+        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
+
+      <Context docBase="study01" path="/study01" reloadable="true" source="org.eclipse.jst.jee.server:study01"/><Context docBase="Study02" path="/Study02" reloadable="true" source="org.eclipse.jst.jee.server:Study02"/><Context docBase="Study03" path="/Study03" reloadable="true" source="org.eclipse.jst.jee.server:Study03"/><Context docBase="Study04" path="/Study04" reloadable="true" source="org.eclipse.jst.jee.server:Study04"/><Context docBase="Study05" path="/Study05" reloadable="true" source="org.eclipse.jst.jee.server:Study05"/><Context docBase="Study06" path="/Study06" reloadable="true" source="org.eclipse.jst.jee.server:Study06"/><Context docBase="Study07" path="/Study07" reloadable="true" source="org.eclipse.jst.jee.server:Study07"/><Context docBase="Study08" path="/Study08" reloadable="true" source="org.eclipse.jst.jee.server:Study08"/><Context docBase="Study09" path="/Study09" reloadable="true" source="org.eclipse.jst.jee.server:Study09"/><Context docBase="Study10" path="/Study10" reloadable="true" source="org.eclipse.jst.jee.server:Study10"/><Context docBase="Study11" path="/Study11" reloadable="true" source="org.eclipse.jst.jee.server:Study11"/><Context docBase="test1" path="/test1" reloadable="true" source="org.eclipse.jst.jee.server:test1"/><Context docBase="Test001" path="/Test001" reloadable="true" source="org.eclipse.jst.jee.server:Test001"/><Context docBase="Study12" path="/Study12" reloadable="true" source="org.eclipse.jst.jee.server:Study12"/><Context docBase="Study13" path="/Study13" reloadable="true" source="org.eclipse.jst.jee.server:Study13"/><Context docBase="Study14" path="/Study14" reloadable="true" source="org.eclipse.jst.jee.server:Study14"/><Context docBase="Study15" path="/Study15" reloadable="true" source="org.eclipse.jst.jee.server:Study15"/><Context docBase="Study16" path="/Study16" reloadable="true" source="org.eclipse.jst.jee.server:Study16"/><Context docBase="Study17" path="/Study17" reloadable="true" source="org.eclipse.jst.jee.server:Study17"/><Context docBase="Test002" path="/Test002" reloadable="true" source="org.eclipse.jst.jee.server:Test002"/><Context docBase="Study18" path="/Study18" reloadable="true" source="org.eclipse.jst.jee.server:Study18"/><Context docBase="Study19" path="/Study19" reloadable="true" source="org.eclipse.jst.jee.server:Study19"/><Context docBase="Study20" path="/Study20" reloadable="true" source="org.eclipse.jst.jee.server:Study20"/><Context docBase="Study21" path="/Study21" reloadable="true" source="org.eclipse.jst.jee.server:Study21"/><Context docBase="Study22" path="/Study22" reloadable="true" source="org.eclipse.jst.jee.server:Study22"/><Context docBase="AgainStory" path="/AgainStory" reloadable="true" source="org.eclipse.jst.jee.server:AgainStory"/><Context docBase="Study23" path="/Study23" reloadable="true" source="org.eclipse.jst.jee.server:Study23"/><Context docBase="Study24" path="/Study24" reloadable="true" source="org.eclipse.jst.jee.server:Study24"/><Context docBase="Study25" path="/Study25" reloadable="true" source="org.eclipse.jst.jee.server:Study25"/><Context docBase="Study26" path="/Study26" reloadable="true" source="org.eclipse.jst.jee.server:Study26"/><Context docBase="Study27" path="/Study27" reloadable="true" source="org.eclipse.jst.jee.server:Study27"/><Context docBase="Study28" path="/Study28" reloadable="true" source="org.eclipse.jst.jee.server:Study28"/><Context docBase="Study29" path="/Study29" reloadable="true" source="org.eclipse.jst.jee.server:Study29"/><Context docBase="Test003" path="/Test003" reloadable="true" source="org.eclipse.jst.jee.server:Test003"/><Context docBase="CSS" path="/CSS" reloadable="true" source="org.eclipse.jst.jee.server:CSS"/><Context docBase="Study30" path="/Study30" reloadable="true" source="org.eclipse.jst.jee.server:Study30"/><Context docBase="CSSTest1" path="/CSSTest1" reloadable="true" source="org.eclipse.jst.jee.server:CSSTest1"/><Context docBase="Board01" path="/Board01" reloadable="true" source="org.eclipse.jst.jee.server:Board01"/><Context docBase="CSS2" path="/CSS2" reloadable="true" source="org.eclipse.jst.jee.server:CSS2"/><Context docBase="Board02" path="/Board02" reloadable="true" source="org.eclipse.jst.jee.server:Board02"/><Context docBase="AJAX01" path="/AJAX01" reloadable="true" source="org.eclipse.jst.jee.server:AJAX01"/><Context docBase="AJAX02" path="/AJAX02" reloadable="true" source="org.eclipse.jst.jee.server:AJAX02"/><Context docBase="AJAX03" path="/AJAX03" reloadable="true" source="org.eclipse.jst.jee.server:AJAX03"/><Context docBase="AJAX04" path="/AJAX04" reloadable="true" source="org.eclipse.jst.jee.server:AJAX04"/><Context docBase="AJAX05" path="/AJAX05" reloadable="true" source="org.eclipse.jst.jee.server:AJAX05"/><Context docBase="AJAX06" path="/AJAX06" reloadable="true" source="org.eclipse.jst.jee.server:AJAX06"/><Context docBase="Media01" path="/Media01" reloadable="true" source="org.eclipse.jst.jee.server:Media01"/><Context docBase="Media02" path="/Media02" reloadable="true" source="org.eclipse.jst.jee.server:Media02"/><Context docBase="Media03" path="/Media03" reloadable="true" source="org.eclipse.jst.jee.server:Media03"/><Context docBase="Chapter06" path="/Chapter06" reloadable="true" source="org.eclipse.jst.jee.server:Chapter06"/><Context docBase="Media04" path="/Media04" reloadable="true" source="org.eclipse.jst.jee.server:Media04"/><Context docBase="Media05" path="/Media05" reloadable="true" source="org.eclipse.jst.jee.server:Media05"/><Context docBase="JQ01" path="/JQ01" reloadable="true" source="org.eclipse.jst.jee.server:JQ01"/><Context docBase="AgainStoryProject" path="/AgainStoryProject" reloadable="true" source="org.eclipse.jst.jee.server:AgainStoryProject"/><Context docBase="Practice" path="/Practice" reloadable="true" source="org.eclipse.jst.jee.server:Practice"/><Context docBase="JQ02" path="/JQ02" reloadable="true" source="org.eclipse.jst.jee.server:JQ02"/><Context docBase="JQ03" path="/JQ03" reloadable="true" source="org.eclipse.jst.jee.server:JQ03"/><Context docBase="JQ04" path="/JQ04" reloadable="true" source="org.eclipse.jst.jee.server:JQ04"/><Context docBase="dobongex_1" path="/dobongex_1" reloadable="true" source="org.eclipse.jst.jee.server:dobongex_1"/><Context docBase="JQ05" path="/JQ05" reloadable="true" source="org.eclipse.jst.jee.server:JQ05"/><Context docBase="JQ06" path="/JQ06" reloadable="true" source="org.eclipse.jst.jee.server:JQ06"/><Context docBase="JQ07" path="/JQ07" reloadable="true" source="org.eclipse.jst.jee.server:JQ07"/><Context docBase="JQ08" path="/JQ08" reloadable="true" source="org.eclipse.jst.jee.server:JQ08"/><Context docBase="Dobong" path="/Dobong" reloadable="true" source="org.eclipse.jst.jee.server:Dobong"/><Context docBase="JQ09" path="/JQ09" reloadable="true" source="org.eclipse.jst.jee.server:JQ09"/><Context docBase="JQ10" path="/JQ10" reloadable="true" source="org.eclipse.jst.jee.server:JQ10"/><Context docBase="JQ11" path="/JQ11" reloadable="true" source="org.eclipse.jst.jee.server:JQ11"/><Context docBase="exam01" path="/exam01" reloadable="true" source="org.eclipse.jst.jee.server:exam01"/><Context docBase="JQ12" path="/JQ12" reloadable="true" source="org.eclipse.jst.jee.server:JQ12"/><Context docBase="JQ13" path="/JQ13" reloadable="true" source="org.eclipse.jst.jee.server:JQ13"/><Context docBase="JQ14" path="/JQ14" reloadable="true" source="org.eclipse.jst.jee.server:JQ14"/><Context docBase="JQ15" path="/JQ15" reloadable="true" source="org.eclipse.jst.jee.server:JQ15"/><Context docBase="JQ16" path="/JQ16" reloadable="true" source="org.eclipse.jst.jee.server:JQ16"/><Context docBase="JQ17" path="/JQ17" reloadable="true" source="org.eclipse.jst.jee.server:JQ17"/><Context docBase="JQ18" path="/JQ18" reloadable="true" source="org.eclipse.jst.jee.server:JQ18"/><Context docBase="AJAX07" path="/AJAX07" reloadable="true" source="org.eclipse.jst.jee.server:AJAX07"/><Context docBase="AJAX08" path="/AJAX08" reloadable="true" source="org.eclipse.jst.jee.server:AJAX08"/><Context docBase="CANVAS" path="/CANVAS" reloadable="true" source="org.eclipse.jst.jee.server:CANVAS"/><Context docBase="AJAX09" path="/AJAX09" reloadable="true" source="org.eclipse.jst.jee.server:AJAX09"/><Context docBase="JQ19" path="/JQ19" reloadable="true" source="org.eclipse.jst.jee.server:JQ19"/><Context docBase="AJAX10" path="/AJAX10" reloadable="true" source="org.eclipse.jst.jee.server:AJAX10"/><Context docBase="AJAX11" path="/AJAX11" reloadable="true" source="org.eclipse.jst.jee.server:AJAX11"/><Context docBase="AJAX12" path="/AJAX12" reloadable="true" source="org.eclipse.jst.jee.server:AJAX12"/><Context docBase="AJAX13" path="/AJAX13" reloadable="true" source="org.eclipse.jst.jee.server:AJAX13"/><Context docBase="AJAX14" path="/AJAX14" reloadable="true" source="org.eclipse.jst.jee.server:AJAX14"/><Context docBase="Study32" path="/Study32" reloadable="true" source="org.eclipse.jst.jee.server:Study32"/><Context docBase="indicator" path="/indicator" reloadable="true" source="org.eclipse.jst.jee.server:indicator"/><Context docBase="ANIMATION" path="/ANIMATION" reloadable="true" source="org.eclipse.jst.jee.server:ANIMATION"/></Host>
+    </Engine>
+  </Service>
+</Server>

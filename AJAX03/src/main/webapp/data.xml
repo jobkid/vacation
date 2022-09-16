@@ -1,0 +1,14 @@
+<table border="1">
+	<tr>
+		<th>이름</th><th>과목</th><th>시간</th>
+	</tr>
+	<tr>
+		<td>이영준</td><td>jsp</td><td>09:00</td>
+	</tr>
+	<tr>
+		<td>고희선</td><td>android</td><td>13:30</td>
+	</tr>
+	<tr>
+		<td>이진선</td><td>python</td><td>16:30</td>
+	</tr>
+</table>
