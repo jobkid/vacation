@@ -49,6 +49,9 @@ public class ShowShortListServlet extends HttpServlet {
 		}else if(number == 0){
 			dis = request.getRequestDispatcher("shortList.jsp");
 			System.out.println("shortList.jsp으로 gogo");
+		}else if(number == 2) {
+			dis = request.getRequestDispatcher("updateShort2.jsp");
+			System.out.println("updateShort2.jsp으로 gogo");
 		}
 		dis.forward(request, response);
 	}

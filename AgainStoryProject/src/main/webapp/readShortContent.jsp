@@ -23,6 +23,9 @@
 						<td>${sb.getNum() }</td><td>${sb.getNickname() }</td><td>${sb.getWritingdate() }</td>
 					</tr>
 					<tr>
+						<td colspan = "3">${sb.getTitle() }</td>
+					</tr>
+					<tr>
 						<td colspan = "3">${sb.getContent() }</td>
 					</tr>
 				</table>

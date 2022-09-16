@@ -57,12 +57,16 @@
 				</c:choose>
 			</c:forEach>
 		</ul>
-		<form method = "post" action = "write.jsp">
+		<form method = "post" action = "writeShort.jsp">
 			<input type = "submit" value = "글쓰기">
 		</form>
 		<form method = "get" action = "FirstShortList.do?number">
 			<input type = "submit" value="삭제">
 			<input type = "hidden" value = "1" name = "number"><!-- number가 1이므로 FirstShortList.do로 들어간다음에 dis = request.getRequestDispatcher("deleteShort.jsp")로 간다. -->
+		</form>
+		<form method = "get" action = "FirstShortList.do?number">
+			<input type = "submit" value = "수정">
+			<input type = "hidden" value = "2" name = "number">	
 		</form>
 		</div>
 	</body>

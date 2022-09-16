@@ -56,12 +56,18 @@
 				</c:choose>
 			</c:forEach>
 		</ul>
-		<form method = "post" action = "write.jsp">
+		<form method = "post" action = "writeShort.jsp">
 			<input type = "submit" value = "글쓰기">
 		</form>
 		<form method = "get" action = "ShowShortList.do">
 			<input type = "submit" value = "삭제">
 			<input type = "hidden" value = "1" name = "number">
+			<input type = "hidden" value = "${currentPage}" name = "currentPage">
+			<input type = "hidden" value = "${recordsPerPage }" name = "recordsPerPage">
+		</form>
+		<form method = "get" action = "ShowShortList.do">
+			<input type = "submit" value = "수정">
+			<input type = "hidden" value = "2" name = "number">
 			<input type = "hidden" value = "${currentPage}" name = "currentPage">
 			<input type = "hidden" value = "${recordsPerPage }" name = "recordsPerPage">
 		</form>

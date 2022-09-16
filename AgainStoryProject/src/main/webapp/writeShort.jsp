@@ -26,7 +26,6 @@
 				닉네임 : <input name="nick"><br><!-- 멤버 닉네임에서 가져올 것 -->
 				비밀번호 : <input type="password" name="pass"><br>
 				제목 : <input type="text" name="title"><br>
-				날짜 : <input type="date" name="writedate"><br>
 				본문 : <hr> <textarea name="content"></textarea><br>
 				<input type="submit" value="완료"><button type="reset" value="초기화">초기화</button>
 			</form>

@@ -40,8 +40,7 @@ public class StoryDAO {
 		int result = -1;
 		String sql = "insert into shortboard(nickname, pass, title, content) values (?,?,?,?);";
 		Connection conn=null;
-		PreparedStatement pstmt=null;
-		
+		PreparedStatement pstmt=null;		
 		try {
 			conn=getConnection();
 			pstmt=conn.prepareStatement(sql);
@@ -216,6 +215,31 @@ public class StoryDAO {
 				if(conn!=null)conn.close();
 			}catch(Exception ex) {
 				System.out.println("삭제 후 오류 발생"+ex);
+			}
+		}
+	}
+	
+	//게시글 수정
+	public void updateContent(StoryBean sb) {
+		String sql = "update shortboard set nickname=?, pass=?, title=?, content=? where num=?;";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn=getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, sb.getNickname());
+			pstmt.setString(2, sb.getPass());
+			pstmt.setString(3, sb.getTitle());
+			pstmt.setString(4, sb.getContent());
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			System.out.println("수정 중 오류 발생 : "+e);
+		}finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				System.out.println("수정 후 오류 발생");
 			}
 		}
 	}

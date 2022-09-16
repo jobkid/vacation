@@ -52,12 +52,12 @@
 						<li><a>${i}(현재)</a></li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="ShowShortList.do?currentPage=${i}&recordsPerPage=${recordsPerPage}&number=1">${i}<input type = "hidden" value = "1" name = "number"></a></li>
+						<li><a href="ShowShortList.do?currentPage=${i}&recordsPerPage=${recordsPerPage}&number=1">${i}</a></li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 		</ul>
-		<form method = "post" action = "write.jsp">
+		<form method = "post" action = "writeShort.jsp">
 			<input type = "submit" value = "글쓰기">
 		</form>
 		<form method = "get" action = "ShowShortList.do">
@@ -65,6 +65,12 @@
 			<input type = "hidden" value = "${currentPage}" name = "currentPage">
 			<input type = "hidden" value = "${recordsPerPage }" name = "recordsPerPage">
 			<input type = "submit" value="삭제">
+		</form>
+			<form method = "get" action = "ShowShortList.do">
+			<input type = "hidden" value = "2" name = "number">
+			<input type = "hidden" value = "${currentPage }" name = "currentPage">
+			<input type = "hidden" value = "${recordsPerPage }" name = "recordsPerPage">
+			<input type = "submit" value = "수정">
 		</form>
 		</div>
 	</body>
