@@ -145,7 +145,6 @@ public class StoryDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -179,7 +178,6 @@ public class StoryDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
-			
 			if(rs.next()) {
 				sb.setNum(rs.getInt("num"));
 				sb.setNickname(rs.getString("nickname"));
@@ -200,30 +198,20 @@ public class StoryDAO {
 		return sb;
 	}
 	
-	public void deleteStory(int num) {
-		StoryBean sb = new StoryBean();
-		ArrayList<StoryBean> deleteList = new ArrayList<>();
-		String sql = "delete *from shortboard where num = ?;";
+	//게시글 삭제
+	public void deleteContent(int num) {
+		String sql = "delete from shortboard where num = ?;";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				sb.setNum(rs.getInt("num"));
-				sb.setNickname(rs.getString("nickname"));
-				sb.setTitle(rs.getString("title"));
-				sb.setWritingdate(rs.getString("writingdate"));
-				deleteList.add(sb);
-			}
+			pstmt.executeUpdate();
 		}catch(Exception e) {
 			System.out.println("삭제 중 오류 발생"+e);
 		}finally {
 			try {
-				if(rs!=null)rs.close();
 				if(pstmt!=null)pstmt.close();
 				if(conn!=null)conn.close();
 			}catch(Exception ex) {

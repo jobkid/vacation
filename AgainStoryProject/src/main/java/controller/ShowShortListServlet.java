@@ -16,14 +16,15 @@ import java.util.ArrayList;
 /**
  * Servlet implementation class ShowShortListServlet
  */
-@WebServlet("/ShowShort.do")
+@WebServlet("/ShowShortList.do")
 public class ShowShortListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		int recordsPerPage = Integer.parseInt(request.getParameter("recordsPerPage"));
+		int number = Integer.parseInt(request.getParameter("number"));
 		
 		StoryDAO sDAO = StoryDAO.getInstance();
 		ArrayList<StoryBean> storyList = sDAO.getStoryList(currentPage, recordsPerPage);
@@ -40,7 +41,15 @@ public class ShowShortListServlet extends HttpServlet {
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("recordsPerPage", recordsPerPage);
 		
-		RequestDispatcher dis = request.getRequestDispatcher("shortList.jsp");
+		RequestDispatcher dis = null; 
+		
+		if(number == 1) {
+			dis = request.getRequestDispatcher("deleteShort2.jsp");
+			System.out.println("deleteShort2.jsp으로 gogo");
+		}else if(number == 0){
+			dis = request.getRequestDispatcher("shortList.jsp");
+			System.out.println("shortList.jsp으로 gogo");
+		}
 		dis.forward(request, response);
 	}
 

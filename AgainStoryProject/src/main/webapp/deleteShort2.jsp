@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+    
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8">
-		<title>ë‹¨í¸ì†Œì„¤</title>
+	<meta charset="utf-8">
+		<title>»èÁ¦ Ã¢</title>
 		<style>
 			*{
 				margin : 0 auto;
@@ -20,50 +20,51 @@
 	</head>
 	<body>
 		<div id = "wrap">
-			ë‹¨í¸ì†Œì„¤ ë¦¬ìŠ¤íŠ¸ 
+			»èÁ¦ ´ÜÆí¼Ò¼³ ¸®½ºÆ® 22
 			<table border="1">
 				<tr>
-					<th>ë²ˆí˜¸</th><th>ì œëª©</th><th>ì‘ì„±ì</th><th>ë‚ ì§œ</th>
+					<th>¹øÈ£</th><th>Á¦¸ñ</th><th>ÀÛ¼ºÀÚ</th><th>³¯Â¥</th><th>»èÁ¦</th>
 				</tr>
 				<c:forEach items="${data}" var = "data">
 				<tr>
 					<td>${data.getNum()}</td>
 					<td><a href = "ReadContent.do?num=${data.getNum()}">${data.getTitle() }</a></td>
 					<td>${data.getNickname() }</td>
-					<td>${data.getWritingdate() }</td>	
+					<td>${data.getWritingdate() }</td>
+					<td><a href = "deleteShort.do?num=${data.getNum()}">»èÁ¦</a></td>	
 				</tr>
 				</c:forEach>
 			</table>
 		<form action = "ShowShortList.do" method = "get">
-			<input type="hidden" name="currentPage" value="1">
-			<input type="hidden" name = "number" value = "0">
+			<input type = "hidden" name = "currentPage" value="1">
+			<input type = "hidden" name = "number" value = "1">
 			<select name = "recordsPerPage">
-				<option value = "5">ë‹¨í¸ 5ê°œ</option>
-				<option value = "10" selected>ë‹¨í¸ 10ê°œ</option>
-				<option value = "15">ë‹¨í¸ 15ê°œ</option>
+				<option value = "5">´ÜÆí 5°³</option>
+				<option value = "10" selected>´ÜÆí 10°³</option>
+				<option value = "15">´ÜÆí 15°³</option>
 			</select>
-			<input type = "submit" value = "ë³´ê¸°">
+			<input type = "submit" value = "º¸±â">
 		</form>	
 		<ul>
 			<c:forEach begin = "1" end = "${nOfPage}" var = "i">
 				<c:choose>
 					<c:when test = "${currentPage eq i}">
-						<li><a>${i}(í˜„ì¬)</a></li>
+						<li><a>${i}(ÇöÀç)</a></li>
 					</c:when>
-				<c:otherwise>
-						<li><a href="ShowShortList.do?currentPage=${i}&recordsPerPage=${recordsPerPage}&number=0">${i}</a></li>
-				</c:otherwise>
+					<c:otherwise>
+						<li><a href="ShowShortList.do?currentPage=${i}&recordsPerPage=${recordsPerPage}&number=1">${i}<input type = "hidden" value = "1" name = "number"></a></li>
+					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 		</ul>
 		<form method = "post" action = "write.jsp">
-			<input type = "submit" value = "ê¸€ì“°ê¸°">
+			<input type = "submit" value = "±Û¾²±â">
 		</form>
 		<form method = "get" action = "ShowShortList.do">
-			<input type = "submit" value = "ì‚­ì œ">
 			<input type = "hidden" value = "1" name = "number">
 			<input type = "hidden" value = "${currentPage}" name = "currentPage">
 			<input type = "hidden" value = "${recordsPerPage }" name = "recordsPerPage">
+			<input type = "submit" value="»èÁ¦">
 		</form>
 		</div>
 	</body>

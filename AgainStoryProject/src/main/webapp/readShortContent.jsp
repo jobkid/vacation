@@ -28,5 +28,9 @@
 				</table>
 			</div>
 		</div>
+		<form method="get" action = "deleteShort.do">
+			<input type = "hidden" value = "1" name = "number">
+			<input type = "submit" value = "삭제">
+		</form>
 	</body>
 </html>

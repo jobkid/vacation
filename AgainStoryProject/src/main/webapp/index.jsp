@@ -41,11 +41,11 @@
 	</style>
 	</head>
 	<body>
-		<h1>안녕하세요.^^0916ddddd</h1>
+		<h1>안녕하세요. 오늘은 9월 16일입니다.</h1>
 		<div id="wrap">
 			<div id="again">
-				<a href="FirstShortList.do" style = "font-size : 50pt"><input type = "hidden" value = "10" name = "recordsPerPage"><p>Again</p></a><!-- 미리  서블릿을 주지 말 것. -->
-			</div>
+				<a href="FirstShortList.do?number=0" style = "font-size : 50pt"><p>Again</p></a><!-- 미리  서블릿을 주지 말 것. -->
+			</div>									<!-- 메인에서 controller 패키지의 FirstShortList.java 파일로 간다. 즉 FirstShort.do 서블렛으로 간다. -->							
 			<div><a href = "#" id="login">로그인</a></div>
 			<div><a href = "register.jsp">회원가입</a></div>
 			<div id="story">
