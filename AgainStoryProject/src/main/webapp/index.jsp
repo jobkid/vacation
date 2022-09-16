@@ -41,7 +41,7 @@
 	</style>
 	</head>
 	<body>
-		<h1>안녕하세요.^^0916</h1>
+		<h1>안녕하세요.^^0916ddddd</h1>
 		<div id="wrap">
 			<div id="again">
 				<a href="FirstShortList.do" style = "font-size : 50pt"><input type = "hidden" value = "10" name = "recordsPerPage"><p>Again</p></a><!-- 미리  서블릿을 주지 말 것. -->
