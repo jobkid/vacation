@@ -23,7 +23,9 @@ public class UpdateShort extends HttpServlet {
 		StoryDAO sDAO = StoryDAO.getInstance();
 		StoryBean sb = sDAO.getContent(num);
 		
-		System.out.println(sb);
+		System.out.println(sb.getPass());
+		System.out.println(sb.getTitle());
+		System.out.println(sb.getNickname());
 		request.setAttribute("sb", sb);
 		
 		RequestDispatcher dis = request.getRequestDispatcher("rewriteshort.jsp");
@@ -32,6 +34,29 @@ public class UpdateShort extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("UpdateShort.do¿« doPost");
+		request.setCharacterEncoding("utf-8");
+		int num = Integer.parseInt(request.getParameter("num"));
+		String password = request.getParameter("password");
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		
+		StoryBean sb = new StoryBean();
+		sb.setNum(num);
+		sb.setContent(content);
+		sb.setTitle(title);
+		sb.setPass(password);
+		
+		StoryDAO sDAO = StoryDAO.getInstance();
+		sDAO.updateContent(sb);
+		
+		System.out.println(sb.getContent());
+		System.out.println(sb.getTitle());
+		System.out.println(sb.getNickname());
+		//request.setAttribute("sb", sb);
+		
+		RequestDispatcher dis = request.getRequestDispatcher("updateComplete.jsp");
+		dis.forward(request, response);
+		
 	}
 
 }

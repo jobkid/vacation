@@ -180,6 +180,8 @@ public class StoryDAO {
 			if(rs.next()) {
 				sb.setNum(rs.getInt("num"));
 				sb.setNickname(rs.getString("nickname"));
+				sb.setPass(rs.getString("pass"));
+				sb.setTitle(rs.getString("title"));
 				sb.setWritingdate(rs.getString("writingdate"));
 				sb.setContent(rs.getString("content"));
 			}
@@ -221,16 +223,16 @@ public class StoryDAO {
 	
 	//게시글 수정
 	public void updateContent(StoryBean sb) {
-		String sql = "update shortboard set nickname=?, pass=?, title=?, content=? where num=?;";
+		String sql = "update shortboard set pass=?, title=?, content=? where num=?";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
 			conn=getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, sb.getNickname());
-			pstmt.setString(2, sb.getPass());
-			pstmt.setString(3, sb.getTitle());
-			pstmt.setString(4, sb.getContent());
+			pstmt.setString(1, sb.getPass());
+			pstmt.setString(2, sb.getTitle());
+			pstmt.setString(3, sb.getContent());
+			pstmt.setInt(4, sb.getNum());
 			pstmt.executeUpdate();
 		}catch(Exception e) {
 			System.out.println("수정 중 오류 발생 : "+e);
