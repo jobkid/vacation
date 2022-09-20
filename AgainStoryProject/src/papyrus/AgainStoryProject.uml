@@ -1,0 +1,1363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:PapyrusJava="http://www.eclipse.org/papyrus/PapyrusJava/1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
+  <uml:Model xmi:id="_DgkMoDi6Ee28AeEr1cVS6g" name="AgainStoryProject">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_DhziwDi6Ee28AeEr1cVS6g">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Package" xmi:id="_L0PoIDi8Ee2DR-cblne_fA" name="AgainStoryProject">
+      <packagedElement xmi:type="uml:Package" xmi:id="_L0VHsDi8Ee2DR-cblne_fA" name="DAO">
+        <packagedElement xmi:type="uml:Class" xmi:id="_L0WV0Di8Ee2DR-cblne_fA" name="MemberDAO" visibility="public">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_L3IkEDi8Ee2DR-cblne_fA" name="instance" visibility="private" isStatic="true" type="_L0WV0Di8Ee2DR-cblne_fA" isUnique="false">
+            <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_L3KZQDi8Ee2DR-cblne_fA" name="defaultValue">
+              <language>JAVA</language>
+              <body>new MemberDAO()</body>
+            </defaultValue>
+          </ownedAttribute>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_L3GH0Di8Ee2DR-cblne_fA" name="MemberDAO" specification="_L0b1YDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_L3PRwDi8Ee2DR-cblne_fA" name="getInstance" specification="_L3LAUDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    return instance;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_L3g-kDi8Ee2DR-cblne_fA" name="getConnection" specification="_L3RG8Di8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    Connection conn = null;&#xD;
+    String url = &quot;jdbc:mysql://127.0.0.1:3306/againstory&quot;;&#xD;
+    String dbid = &quot;root&quot;;&#xD;
+    String dbpw = &quot;iotiot&quot;;&#xD;
+    String driver = &quot;com.mysql.cj.jdbc.Driver&quot;;&#xD;
+    Class.forName(driver);&#xD;
+    conn = DriverManager.getConnection(url, dbid, dbpw);&#xD;
+    return conn;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_L3qIgDi8Ee2DR-cblne_fA" name="getMember" specification="_L3meIDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    MemberBean m = null;&#xD;
+    String sql = &quot;select *from members where id=?&quot;;&#xD;
+    Connection conn = null;&#xD;
+    PreparedStatement pstmt = null;&#xD;
+    ResultSet rs = null;&#xD;
+    try {&#xD;
+        conn = getConnection();&#xD;
+        pstmt = conn.prepareStatement(sql);&#xD;
+        pstmt = conn.prepareStatement(sql);&#xD;
+        pstmt.setString(1, id);&#xD;
+        rs = pstmt.executeQuery();&#xD;
+        if (rs.next()) {&#xD;
+            m = new MemberBean();&#xD;
+            m.setNum(rs.getString(&quot;num&quot;));&#xD;
+            m.setName(rs.getString(&quot;name&quot;));&#xD;
+            m.setId(rs.getString(&quot;id&quot;));&#xD;
+            m.setPwd(rs.getString(&quot;pwd&quot;));&#xD;
+            m.setNickname(rs.getString(&quot;nickname&quot;));&#xD;
+            m.setEmail(rs.getString(&quot;email&quot;));&#xD;
+            m.setPhone(rs.getString(&quot;phone&quot;));&#xD;
+            m.setBirthday(rs.getString(&quot;birthday&quot;));&#xD;
+            m.setPlace(rs.getString(&quot;place&quot;));&#xD;
+            m.setJoindate(rs.getString(&quot;joindate&quot;));&#xD;
+            m.setAdmin(rs.getString(&quot;admin&quot;));&#xD;
+        }&#xD;
+    } catch (Exception e) {&#xD;
+        System.out.println(&quot;멤버 정보 조회 중 오류 발생 : &quot; + e);&#xD;
+    } finally {&#xD;
+        try {&#xD;
+            if (rs != null)&#xD;
+                rs.close();&#xD;
+            if (pstmt != null)&#xD;
+                pstmt.close();&#xD;
+            if (conn != null)&#xD;
+                conn.close();&#xD;
+        } catch (Exception ex) {&#xD;
+            System.out.println(&quot;멤버정보 조회 종료 중 오류 발생 : &quot; + ex);&#xD;
+        }&#xD;
+    }&#xD;
+    return m;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_L0b1YDi8Ee2DR-cblne_fA" name="MemberDAO" visibility="private" method="_L3GH0Di8Ee2DR-cblne_fA"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_L3LAUDi8Ee2DR-cblne_fA" name="getInstance" visibility="public" isStatic="true" method="_L3PRwDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_L3NckDi8Ee2DR-cblne_fA" type="_L0WV0Di8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_L3RG8Di8Ee2DR-cblne_fA" name="getConnection" visibility="public" method="_L3g-kDi8Ee2DR-cblne_fA" raisedException="_L3bfADi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_L3ZCwDi8Ee2DR-cblne_fA" type="_L3RuADi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_L3meIDi8Ee2DR-cblne_fA" name="getMember" visibility="public" method="_L3qIgDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_L3oTUDi8Ee2DR-cblne_fA" type="_L3nsQDi8Ee2DR-cblne_fA" direction="return"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_L3o6YDi8Ee2DR-cblne_fA" name="id" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_L3rWoDi8Ee2DR-cblne_fA" name="insertMember" visibility="public"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_L3RuADi8Ee2DR-cblne_fA" name="Connection"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_L3nFMDi8Ee2DR-cblne_fA" name="beans">
+        <packagedElement xmi:type="uml:Class" xmi:id="_L3nsQDi8Ee2DR-cblne_fA" name="MemberBean"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_L3aQ4Di8Ee2DR-cblne_fA" name="java">
+      <packagedElement xmi:type="uml:Package" xmi:id="_L3a38Di8Ee2DR-cblne_fA" name="java">
+        <packagedElement xmi:type="uml:Package" xmi:id="_L3a38Ti8Ee2DR-cblne_fA" name="lang">
+          <packagedElement xmi:type="uml:Class" xmi:id="_L3bfADi8Ee2DR-cblne_fA" name="Exception"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_L3iMsDi8Ee2DR-cblne_fA" name="String"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_oXHywDi8Ee2DR-cblne_fA" name="io">
+          <packagedElement xmi:type="uml:Interface" xmi:id="_oXIZ0Di8Ee2DR-cblne_fA" name="IOException"/>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_L36AIDi8Ee2DR-cblne_fA" name="importedTypes">
+      <packagedElement xmi:type="uml:Package" xmi:id="_oVEkUDi8Ee2DR-cblne_fA" name="primitivetype">
+        <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_oVFLYDi8Ee2DR-cblne_fA" name="Integer"/>
+        <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_oW-o0Di8Ee2DR-cblne_fA" name="Long"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_oW6-cDi8Ee2DR-cblne_fA" name="javax">
+        <packagedElement xmi:type="uml:Package" xmi:id="_oW7lgDi8Ee2DR-cblne_fA" name="servlet">
+          <packagedElement xmi:type="uml:Package" xmi:id="_oW7lgTi8Ee2DR-cblne_fA" name="http">
+            <packagedElement xmi:type="uml:Class" xmi:id="_oW7lgji8Ee2DR-cblne_fA" name="HttpServlet"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_oW_28Di8Ee2DR-cblne_fA" name="HttpServletRequest"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_oXBsIDi8Ee2DR-cblne_fA" name="HttpServletResponse"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_oXFWgTi8Ee2DR-cblne_fA" name="ServletException"/>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_oUqUoDi8Ee2DR-cblne_fA" name="generated">
+      <packagedElement xmi:type="uml:Package" xmi:id="_oUtX8Di8Ee2DR-cblne_fA" name="DAO">
+        <packagedElement xmi:type="uml:Class" xmi:id="_oUt_ADi8Ee2DR-cblne_fA" name="MemberDAO" visibility="public">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_oUyQcDi8Ee2DR-cblne_fA" name="instance" visibility="private" isStatic="true" type="_oUt_ADi8Ee2DR-cblne_fA" isUnique="false">
+            <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_oUzekDi8Ee2DR-cblne_fA" name="defaultValue">
+              <language>JAVA</language>
+              <body>new MemberDAO()</body>
+            </defaultValue>
+          </ownedAttribute>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oUxpYDi8Ee2DR-cblne_fA" name="MemberDAO" specification="_oUumEDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oU0ssTi8Ee2DR-cblne_fA" name="getInstance" specification="_oU0FoDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    return instance;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oU6MQDi8Ee2DR-cblne_fA" name="getConnection" specification="_oU160Di8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    Connection conn = null;&#xD;
+    String url = &quot;jdbc:mysql://127.0.0.1:3306/againstory&quot;;&#xD;
+    String dbid = &quot;root&quot;;&#xD;
+    String dbpw = &quot;iotiot&quot;;&#xD;
+    String driver = &quot;com.mysql.cj.jdbc.Driver&quot;;&#xD;
+    Class.forName(driver);&#xD;
+    conn = DriverManager.getConnection(url, dbid, dbpw);&#xD;
+    return conn;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oU8ogDi8Ee2DR-cblne_fA" name="getMember" specification="_oU6zUDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    MemberBean m = null;&#xD;
+    String sql = &quot;select *from members where id=?&quot;;&#xD;
+    Connection conn = null;&#xD;
+    PreparedStatement pstmt = null;&#xD;
+    ResultSet rs = null;&#xD;
+    try {&#xD;
+        conn = getConnection();&#xD;
+        pstmt = conn.prepareStatement(sql);&#xD;
+        pstmt = conn.prepareStatement(sql);&#xD;
+        pstmt.setString(1, id);&#xD;
+        rs = pstmt.executeQuery();&#xD;
+        if (rs.next()) {&#xD;
+            m = new MemberBean();&#xD;
+            m.setNum(rs.getString(&quot;num&quot;));&#xD;
+            m.setName(rs.getString(&quot;name&quot;));&#xD;
+            m.setId(rs.getString(&quot;id&quot;));&#xD;
+            m.setPwd(rs.getString(&quot;pwd&quot;));&#xD;
+            m.setNickname(rs.getString(&quot;nickname&quot;));&#xD;
+            m.setEmail(rs.getString(&quot;email&quot;));&#xD;
+            m.setPhone(rs.getString(&quot;phone&quot;));&#xD;
+            m.setBirthday(rs.getString(&quot;birthday&quot;));&#xD;
+            m.setPlace(rs.getString(&quot;place&quot;));&#xD;
+            m.setJoindate(rs.getString(&quot;joindate&quot;));&#xD;
+            m.setAdmin(rs.getString(&quot;admin&quot;));&#xD;
+        }&#xD;
+    } catch (Exception e) {&#xD;
+        System.out.println(&quot;멤버 정보 조회 중 오류 발생 : &quot; + e);&#xD;
+    } finally {&#xD;
+        try {&#xD;
+            if (rs != null)&#xD;
+                rs.close();&#xD;
+            if (pstmt != null)&#xD;
+                pstmt.close();&#xD;
+            if (conn != null)&#xD;
+                conn.close();&#xD;
+        } catch (Exception ex) {&#xD;
+            System.out.println(&quot;멤버정보 조회 종료 중 오류 발생 : &quot; + ex);&#xD;
+        }&#xD;
+    }&#xD;
+    return m;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oVGZgDi8Ee2DR-cblne_fA" name="insertMember" specification="_oU9PkDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    int result = -1;&#xD;
+    //String sql=&quot;insert into members(name, id, pwd, nickname, email, phone, birthday, place) values (?,?,?,?,?,?,?,?)&quot;;&#xD;
+    String sql = &quot;insert into members(name, id, pwd, nickname, email, phone, birthday, place, admin) values (?,?,?,?,?,?,?,?,?)&quot;;&#xD;
+    Connection conn = null;&#xD;
+    PreparedStatement pstmt = null;&#xD;
+    try {&#xD;
+        conn = getConnection();&#xD;
+        pstmt = conn.prepareStatement(sql);&#xD;
+        pstmt.setString(1, m.getName());&#xD;
+        pstmt.setString(2, m.getId());&#xD;
+        pstmt.setString(3, m.getPwd());&#xD;
+        pstmt.setString(4, m.getNickname());&#xD;
+        pstmt.setString(5, m.getEmail());&#xD;
+        pstmt.setString(6, m.getPhone());&#xD;
+        pstmt.setString(7, m.getBirthday());&#xD;
+        pstmt.setString(8, m.getPlace());&#xD;
+        pstmt.setString(9, m.getAdmin());&#xD;
+        result = pstmt.executeUpdate();&#xD;
+    } catch (Exception e) {&#xD;
+        System.out.println(&quot;MemberDAO.insertMember() 실행 중 오류 발생 : &quot; + e);&#xD;
+    } finally {&#xD;
+        try {&#xD;
+            if (pstmt != null)&#xD;
+                pstmt.close();&#xD;
+            if (conn != null)&#xD;
+                conn.close();&#xD;
+        } catch (Exception ex) {&#xD;
+            System.out.println(&quot;MemberDAO.insertMember() 종료 중 오류 발생 : &quot; + ex);&#xD;
+        }&#xD;
+    }&#xD;
+    return result;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oVKq8Di8Ee2DR-cblne_fA" name="userCheck" specification="_oVIOsDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    int result = -1;&#xD;
+    String sql = &quot;select pwd from members where id=?&quot;;&#xD;
+    Connection conn = null;&#xD;
+    PreparedStatement pstmt = null;&#xD;
+    ResultSet rs = null;&#xD;
+    try {&#xD;
+        conn = getConnection();&#xD;
+        pstmt = conn.prepareStatement(sql);&#xD;
+        pstmt.setString(1, id);&#xD;
+        rs = pstmt.executeQuery();&#xD;
+        if (//해당 아이디가 존재하는 경우&#xD;
+        rs.next()) {&#xD;
+            if (rs.getString(&quot;pwd&quot;).equals(pwd) &amp;&amp; rs.getString(&quot;pwd&quot;) != null) {&#xD;
+                //아이디가 존재하고 비밀번호가 일치하는 경우&#xD;
+                result = 1;&#xD;
+            } else //비밀번호가 없거나 일치하지 않는 경우&#xD;
+            {&#xD;
+                result = 0;&#xD;
+            }&#xD;
+        } else {&#xD;
+            result = -1;&#xD;
+        }&#xD;
+    } catch (Exception e) {&#xD;
+        System.out.println(&quot;로그인 중 오류 발생 : &quot; + e);&#xD;
+    } finally {&#xD;
+        try {&#xD;
+            if (rs != null)&#xD;
+                rs.close();&#xD;
+            if (pstmt != null)&#xD;
+                pstmt.close();&#xD;
+            if (conn != null)&#xD;
+                conn.close();&#xD;
+        } catch (Exception ex) {&#xD;
+            System.out.println(&quot;로그인 회선 종료 중 오류 발생 : &quot; + ex);&#xD;
+        }&#xD;
+    }&#xD;
+    //계산된 결과를 return;&#xD;
+    return result;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oUumEDi8Ee2DR-cblne_fA" name="MemberDAO" visibility="private" method="_oUxpYDi8Ee2DR-cblne_fA"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oU0FoDi8Ee2DR-cblne_fA" name="getInstance" visibility="public" isStatic="true" method="_oU0ssTi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oU0ssDi8Ee2DR-cblne_fA" type="_oUt_ADi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oU160Di8Ee2DR-cblne_fA" name="getConnection" visibility="public" method="_oU6MQDi8Ee2DR-cblne_fA" raisedException="_L3bfADi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oU4-IDi8Ee2DR-cblne_fA" type="_oU2h4Di8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oU6zUDi8Ee2DR-cblne_fA" name="getMember" visibility="public" method="_oU8ogDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oU7aYDi8Ee2DR-cblne_fA" type="_L3nsQDi8Ee2DR-cblne_fA" direction="return"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oU8BcDi8Ee2DR-cblne_fA" name="id" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oU9PkDi8Ee2DR-cblne_fA" name="insertMember" visibility="public" method="_oVGZgDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oVFLYTi8Ee2DR-cblne_fA" type="_oVFLYDi8Ee2DR-cblne_fA" direction="return"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oVFycDi8Ee2DR-cblne_fA" name="m" type="_L3nsQDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oVIOsDi8Ee2DR-cblne_fA" name="userCheck" visibility="public" method="_oVKq8Di8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oVIOsTi8Ee2DR-cblne_fA" type="_oVFLYDi8Ee2DR-cblne_fA" direction="return"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oVI1wDi8Ee2DR-cblne_fA" name="id" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oVJc0Di8Ee2DR-cblne_fA" name="pwd" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_oU2h4Di8Ee2DR-cblne_fA" name="Connection"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_oVPjcDi8Ee2DR-cblne_fA" name="StoryDAO" visibility="public">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_oVTN0Di8Ee2DR-cblne_fA" name="Instance" visibility="private" isStatic="true" type="_oVPjcDi8Ee2DR-cblne_fA" isUnique="false">
+            <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_oVUb8Di8Ee2DR-cblne_fA" name="defaultValue">
+              <language>JAVA</language>
+              <body>new StoryDAO()</body>
+            </defaultValue>
+          </ownedAttribute>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oVSmwDi8Ee2DR-cblne_fA" name="StoryDAO" specification="_oVQKgDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oVVqEDi8Ee2DR-cblne_fA" name="getInstance" specification="_oVUb8Ti8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    return Instance;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oVW4MTi8Ee2DR-cblne_fA" name="getConnection" specification="_oVWRIDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    Connection conn = null;&#xD;
+    String url = &quot;jdbc:mysql://127.0.0.1:3306/againstory&quot;;&#xD;
+    String dbid = &quot;root&quot;;&#xD;
+    String dbpw = &quot;iotiot&quot;;&#xD;
+    String driver = &quot;com.mysql.cj.jdbc.Driver&quot;;&#xD;
+    try {&#xD;
+        Class.forName(driver);&#xD;
+        conn = DriverManager.getConnection(url, dbid, dbpw);&#xD;
+    } catch (Exception e) {&#xD;
+        System.out.println(&quot;connection 객체 생성 중 오류 발생&quot; + e);&#xD;
+    }&#xD;
+    return conn;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oVZUcTi8Ee2DR-cblne_fA" name="insertStory" specification="_oVYGUDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    int result = -1;&#xD;
+    String sql = &quot;insert into shortboard(nickname, pass, title, content) values (?,?,?,?);&quot;;&#xD;
+    Connection conn = null;&#xD;
+    PreparedStatement pstmt = null;&#xD;
+    try {&#xD;
+        conn = getConnection();&#xD;
+        pstmt = conn.prepareStatement(sql);&#xD;
+        pstmt.setString(1, sb.getNickname());&#xD;
+        pstmt.setString(2, sb.getPass());&#xD;
+        pstmt.setString(3, sb.getTitle());&#xD;
+        pstmt.setString(4, sb.getContent());&#xD;
+        result = pstmt.executeUpdate();&#xD;
+    } catch (Exception e) {&#xD;
+        System.out.println(&quot;StoryDAO.insertStory() 실행 중 오류 발생 : &quot; + e);&#xD;
+    } finally {&#xD;
+        try {&#xD;
+            if (pstmt != null)&#xD;
+                pstmt.close();&#xD;
+            if (conn != null)&#xD;
+                conn.close();&#xD;
+        } catch (Exception ex) {&#xD;
+            System.out.println(&quot;StoryDAOinsertStory() 종료 중 오류 발생 : &quot; + ex);&#xD;
+        }&#xD;
+    }&#xD;
+    return result;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oVhQQDi8Ee2DR-cblne_fA" name="getStoryList" specification="_oVZ7gDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    ArrayList&lt;StoryBean> storyList = new ArrayList&lt;StoryBean>();&#xD;
+    ;&#xD;
+    //int start = 0;&#xD;
+    //int recordsPerPage = 10;&#xD;
+    StoryBean story = null;&#xD;
+    String sql = &quot;select * from shortboard order by num desc limit 0, 10;&quot;;&#xD;
+    Connection conn = null;&#xD;
+    PreparedStatement pstmt = null;&#xD;
+    ResultSet rs = null;&#xD;
+    try {&#xD;
+        conn = getConnection();&#xD;
+        pstmt = conn.prepareStatement(sql);&#xD;
+        //pstmt.setInt(1, start);&#xD;
+        //pstmt.setInt(2, recordsPerPage);&#xD;
+        rs = pstmt.executeQuery();&#xD;
+        while (rs.next()) {&#xD;
+            story = new StoryBean();&#xD;
+            story.setNum(rs.getInt(&quot;num&quot;));&#xD;
+            story.setTitle(rs.getString(&quot;title&quot;));&#xD;
+            story.setNickname(rs.getString(&quot;nickname&quot;));&#xD;
+            story.setWritingdate(rs.getString(&quot;writingdate&quot;));&#xD;
+            storyList.add(story);&#xD;
+        }&#xD;
+    } catch (Exception e) {&#xD;
+        System.out.println(&quot;글 목록 조회 중 오류 발생&quot; + e);&#xD;
+    } finally {&#xD;
+        try {&#xD;
+            if (rs != null)&#xD;
+                rs.close();&#xD;
+            if (pstmt != null)&#xD;
+                pstmt.close();&#xD;
+            if (conn != null)&#xD;
+                conn.close();&#xD;
+        } catch (Exception ex) {&#xD;
+            System.out.println(&quot;글 목록 조회 후 오류 발생&quot; + ex);&#xD;
+        }&#xD;
+    }&#xD;
+    return storyList;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oVk6oDi8Ee2DR-cblne_fA" name="getStoryList" specification="_oVieYDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    ArrayList&lt;StoryBean> storyList = new ArrayList&lt;StoryBean>();&#xD;
+    ;&#xD;
+    int start = currentPage * recordsPerPage - recordsPerPage;&#xD;
+    StoryBean story = null;&#xD;
+    String sql = &quot;select * from shortboard order by num desc limit ?, ?;&quot;;&#xD;
+    Connection conn = null;&#xD;
+    PreparedStatement pstmt = null;&#xD;
+    ResultSet rs = null;&#xD;
+    try {&#xD;
+        conn = getConnection();&#xD;
+        pstmt = conn.prepareStatement(sql);&#xD;
+        pstmt.setInt(1, start);&#xD;
+        pstmt.setInt(2, recordsPerPage);&#xD;
+        rs = pstmt.executeQuery();&#xD;
+        while (rs.next()) {&#xD;
+            story = new StoryBean();&#xD;
+            story.setNum(rs.getInt(&quot;num&quot;));&#xD;
+            story.setTitle(rs.getString(&quot;title&quot;));&#xD;
+            story.setNickname(rs.getString(&quot;nickname&quot;));&#xD;
+            story.setWritingdate(rs.getString(&quot;writingdate&quot;));&#xD;
+            storyList.add(story);&#xD;
+        }&#xD;
+    } catch (Exception e) {&#xD;
+        System.out.println(&quot;글 목록 조회 중 오류 발생&quot; + e);&#xD;
+    } finally {&#xD;
+        try {&#xD;
+            if (rs != null)&#xD;
+                rs.close();&#xD;
+            if (pstmt != null)&#xD;
+                pstmt.close();&#xD;
+            if (conn != null)&#xD;
+                conn.close();&#xD;
+        } catch (Exception ex) {&#xD;
+            System.out.println(&quot;글 목록 조회 후 오류 발생&quot; + ex);&#xD;
+        }&#xD;
+    }&#xD;
+    return storyList;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oVmv0Di8Ee2DR-cblne_fA" name="getNumberOfRows" specification="_oVlhsDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    String sql = &quot;select count(num) from shortboard;&quot;;&#xD;
+    //몇 개 데이터가 있는지를 저장할 공간&#xD;
+    int numberOfRows = 0;&#xD;
+    Connection conn = null;&#xD;
+    PreparedStatement pstmt = null;&#xD;
+    ResultSet rs = null;&#xD;
+    try {&#xD;
+        conn = getConnection();&#xD;
+        pstmt = conn.prepareStatement(sql);&#xD;
+        rs = pstmt.executeQuery();&#xD;
+        rs.next();&#xD;
+        numberOfRows = rs.getInt(&quot;count(num)&quot;);&#xD;
+    } catch (Exception e) {&#xD;
+        System.out.println(&quot;게시글 줄 개수 생성 중 오류 발생&quot; + e);&#xD;
+    } finally {&#xD;
+        try {&#xD;
+            if (rs != null)&#xD;
+                rs.close();&#xD;
+            if (pstmt != null)&#xD;
+                pstmt.close();&#xD;
+            if (conn != null)&#xD;
+                conn.close();&#xD;
+        } catch (Exception ex) {&#xD;
+            System.out.println(&quot;게시글 줄 개수 생성 후 오류 발생 : &quot; + ex);&#xD;
+        }&#xD;
+    }&#xD;
+    return numberOfRows;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oVpzIDi8Ee2DR-cblne_fA" name="getContent" specification="_oVn98Di8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    StoryBean sb = new StoryBean();&#xD;
+    ;&#xD;
+    Connection conn = null;&#xD;
+    PreparedStatement pstmt = null;&#xD;
+    ResultSet rs = null;&#xD;
+    //이부분에서 select 뒤에 *이 아닌 content를 써서 getNum을 찾을 수 없다고 오류가 났었음.&#xD;
+    String sql = &quot;select * from shortboard where num = ?;&quot;;&#xD;
+    try {&#xD;
+        conn = getConnection();&#xD;
+        pstmt = conn.prepareStatement(sql);&#xD;
+        pstmt.setInt(1, num);&#xD;
+        rs = pstmt.executeQuery();&#xD;
+        if (rs.next()) {&#xD;
+            sb.setNum(rs.getInt(&quot;num&quot;));&#xD;
+            sb.setNickname(rs.getString(&quot;nickname&quot;));&#xD;
+            sb.setPass(rs.getString(&quot;pass&quot;));&#xD;
+            sb.setTitle(rs.getString(&quot;title&quot;));&#xD;
+            sb.setWritingdate(rs.getString(&quot;writingdate&quot;));&#xD;
+            sb.setContent(rs.getString(&quot;content&quot;));&#xD;
+        }&#xD;
+    } catch (Exception e) {&#xD;
+        System.out.println(&quot;내용 조회 기능 접속 중 오류 발생&quot; + e);&#xD;
+    } finally {&#xD;
+        try {&#xD;
+            if (rs != null)&#xD;
+                conn.close();&#xD;
+            if (pstmt != null)&#xD;
+                pstmt.close();&#xD;
+            if (conn != null)&#xD;
+                rs.close();&#xD;
+        } catch (Exception ex) {&#xD;
+            System.out.println(&quot;내용 조회 종료 후 오류 발생&quot; + ex);&#xD;
+        }&#xD;
+    }&#xD;
+    return sb;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oVsPYDi8Ee2DR-cblne_fA" name="deleteContent" specification="_oVrBQDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    String sql = &quot;delete from shortboard where num = ?;&quot;;&#xD;
+    Connection conn = null;&#xD;
+    PreparedStatement pstmt = null;&#xD;
+    try {&#xD;
+        conn = getConnection();&#xD;
+        pstmt = conn.prepareStatement(sql);&#xD;
+        pstmt.setInt(1, num);&#xD;
+        pstmt.executeUpdate();&#xD;
+    } catch (Exception e) {&#xD;
+        System.out.println(&quot;삭제 중 오류 발생&quot; + e);&#xD;
+    } finally {&#xD;
+        try {&#xD;
+            if (pstmt != null)&#xD;
+                pstmt.close();&#xD;
+            if (conn != null)&#xD;
+                conn.close();&#xD;
+        } catch (Exception ex) {&#xD;
+            System.out.println(&quot;삭제 후 오류 발생&quot; + ex);&#xD;
+        }&#xD;
+    }&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oVuEkDi8Ee2DR-cblne_fA" name="updateContent" specification="_oVs2cDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    String sql = &quot;update shortboard set pass=?, title=?, content=? where num=?&quot;;&#xD;
+    Connection conn = null;&#xD;
+    PreparedStatement pstmt = null;&#xD;
+    try {&#xD;
+        conn = getConnection();&#xD;
+        pstmt = conn.prepareStatement(sql);&#xD;
+        pstmt.setString(1, sb.getPass());&#xD;
+        pstmt.setString(2, sb.getTitle());&#xD;
+        pstmt.setString(3, sb.getContent());&#xD;
+        pstmt.setInt(4, sb.getNum());&#xD;
+        pstmt.executeUpdate();&#xD;
+    } catch (Exception e) {&#xD;
+        System.out.println(&quot;수정 중 오류 발생 : &quot; + e);&#xD;
+    } finally {&#xD;
+        try {&#xD;
+            if (pstmt != null)&#xD;
+                pstmt.close();&#xD;
+            if (conn != null)&#xD;
+                conn.close();&#xD;
+        } catch (Exception ex) {&#xD;
+            System.out.println(&quot;수정 후 오류 발생&quot;);&#xD;
+        }&#xD;
+    }&#xD;
+</body>
+          </ownedBehavior>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oVQKgDi8Ee2DR-cblne_fA" name="StoryDAO" visibility="private" method="_oVSmwDi8Ee2DR-cblne_fA"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oVUb8Ti8Ee2DR-cblne_fA" name="getInstance" visibility="public" isStatic="true" method="_oVVqEDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oVVDADi8Ee2DR-cblne_fA" type="_oVPjcDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oVWRIDi8Ee2DR-cblne_fA" name="getConnection" visibility="public" method="_oVW4MTi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oVW4MDi8Ee2DR-cblne_fA" type="_oU2h4Di8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oVYGUDi8Ee2DR-cblne_fA" name="insertStory" visibility="public" method="_oVZUcTi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oVYtYDi8Ee2DR-cblne_fA" type="_oVFLYDi8Ee2DR-cblne_fA" direction="return"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oVZUcDi8Ee2DR-cblne_fA" name="sb" type="_oVXfQTi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oVZ7gDi8Ee2DR-cblne_fA" name="getStoryList" visibility="public" method="_oVhQQDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oVaikDi8Ee2DR-cblne_fA" type="_oVXfQTi8Ee2DR-cblne_fA" direction="return">
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_oVgCIDi8Ee2DR-cblne_fA"/>
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_oVgpMDi8Ee2DR-cblne_fA" value="*"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oVieYDi8Ee2DR-cblne_fA" name="getStoryList" visibility="public" method="_oVk6oDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oVjFcDi8Ee2DR-cblne_fA" type="_oVXfQTi8Ee2DR-cblne_fA" direction="return">
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_oVjFcTi8Ee2DR-cblne_fA"/>
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_oVjsgDi8Ee2DR-cblne_fA" value="*"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oVjsgTi8Ee2DR-cblne_fA" name="currentPage" type="_oVFLYDi8Ee2DR-cblne_fA"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oVkTkDi8Ee2DR-cblne_fA" name="recordsPerPage" type="_oVFLYDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oVlhsDi8Ee2DR-cblne_fA" name="getNumberOfRows" visibility="public" method="_oVmv0Di8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oVmIwDi8Ee2DR-cblne_fA" type="_oVFLYDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oVn98Di8Ee2DR-cblne_fA" name="getContent" visibility="public" method="_oVpzIDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oVolADi8Ee2DR-cblne_fA" type="_oVXfQTi8Ee2DR-cblne_fA" direction="return"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oVpMEDi8Ee2DR-cblne_fA" name="num" type="_oVFLYDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oVrBQDi8Ee2DR-cblne_fA" name="deleteContent" visibility="public" method="_oVsPYDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oVroUDi8Ee2DR-cblne_fA" name="num" type="_oVFLYDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oVs2cDi8Ee2DR-cblne_fA" name="updateContent" visibility="public" method="_oVuEkDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oVtdgDi8Ee2DR-cblne_fA" name="sb" type="_oVXfQTi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_oVXfQDi8Ee2DR-cblne_fA" name="beans">
+        <packagedElement xmi:type="uml:Class" xmi:id="_oVXfQTi8Ee2DR-cblne_fA" name="StoryBean" visibility="public">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_oWguwDi8Ee2DR-cblne_fA" name="num" visibility="private" type="_oVFLYDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_oWh84Di8Ee2DR-cblne_fA" name="nickname" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_oWij8Di8Ee2DR-cblne_fA" name="pass" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_oWjLADi8Ee2DR-cblne_fA" name="title" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_oWjyEDi8Ee2DR-cblne_fA" name="content" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_oWkZIDi8Ee2DR-cblne_fA" name="writingdate" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWlnQTi8Ee2DR-cblne_fA" name="getNum" specification="_oWlAMDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    return num;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWnccDi8Ee2DR-cblne_fA" name="setNum" specification="_oWm1YDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.num = num;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWpRoDi8Ee2DR-cblne_fA" name="getNickname" specification="_oWoDgDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    return nickname;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWqfwTi8Ee2DR-cblne_fA" name="setNickname" specification="_oWp4sDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.nickname = nickname;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWrt4Ti8Ee2DR-cblne_fA" name="getPass" specification="_oWrG0Di8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    return pass;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWtjETi8Ee2DR-cblne_fA" name="setPass" specification="_oWs8ADi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.pass = pass;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWuxMTi8Ee2DR-cblne_fA" name="getTitle" specification="_oWuKIDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    return title;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWxNcDi8Ee2DR-cblne_fA" name="setTitle" specification="_oWv_UDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.title = title;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWzCoTi8Ee2DR-cblne_fA" name="getContent" specification="_oWybkDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    return content;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oW030Di8Ee2DR-cblne_fA" name="setContent" specification="_oWzpsDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.content = content;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oW2F8Di8Ee2DR-cblne_fA" name="getWritingdate" specification="_oW1e4Di8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    return writingdate;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oW37IDi8Ee2DR-cblne_fA" name="setWritingdate" specification="_oW2tADi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.writingdate = writedate;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWlAMDi8Ee2DR-cblne_fA" name="getNum" visibility="public" method="_oWlnQTi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWlnQDi8Ee2DR-cblne_fA" type="_oVFLYDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWm1YDi8Ee2DR-cblne_fA" name="setNum" visibility="public" method="_oWnccDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWm1YTi8Ee2DR-cblne_fA" name="num" type="_oVFLYDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWoDgDi8Ee2DR-cblne_fA" name="getNickname" visibility="public" method="_oWpRoDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWoqkDi8Ee2DR-cblne_fA" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWp4sDi8Ee2DR-cblne_fA" name="setNickname" visibility="public" method="_oWqfwTi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWqfwDi8Ee2DR-cblne_fA" name="nickname" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWrG0Di8Ee2DR-cblne_fA" name="getPass" visibility="public" method="_oWrt4Ti8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWrt4Di8Ee2DR-cblne_fA" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWs8ADi8Ee2DR-cblne_fA" name="setPass" visibility="public" method="_oWtjETi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWtjEDi8Ee2DR-cblne_fA" name="pass" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWuKIDi8Ee2DR-cblne_fA" name="getTitle" visibility="public" method="_oWuxMTi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWuxMDi8Ee2DR-cblne_fA" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWv_UDi8Ee2DR-cblne_fA" name="setTitle" visibility="public" method="_oWxNcDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWwmYDi8Ee2DR-cblne_fA" name="title" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWybkDi8Ee2DR-cblne_fA" name="getContent" visibility="public" method="_oWzCoTi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWzCoDi8Ee2DR-cblne_fA" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWzpsDi8Ee2DR-cblne_fA" name="setContent" visibility="public" method="_oW030Di8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oW0QwDi8Ee2DR-cblne_fA" name="content" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oW1e4Di8Ee2DR-cblne_fA" name="getWritingdate" visibility="public" method="_oW2F8Di8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oW1e4Ti8Ee2DR-cblne_fA" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oW2tADi8Ee2DR-cblne_fA" name="setWritingdate" visibility="public" method="_oW37IDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oW3UEDi8Ee2DR-cblne_fA" name="writedate" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_oVwg0Di8Ee2DR-cblne_fA" name="MemberBean" visibility="public">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_oVxu8Di8Ee2DR-cblne_fA" name="num" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_oVy9EDi8Ee2DR-cblne_fA" name="name" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_oVzkIDi8Ee2DR-cblne_fA" name="id" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_oV0yQDi8Ee2DR-cblne_fA" name="pwd" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_oV1ZUDi8Ee2DR-cblne_fA" name="nickname" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_oV2ncDi8Ee2DR-cblne_fA" name="email" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_oV3OgDi8Ee2DR-cblne_fA" name="phone" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_oV31kDi8Ee2DR-cblne_fA" name="birthday" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_oV4coDi8Ee2DR-cblne_fA" name="place" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_oV5qwDi8Ee2DR-cblne_fA" name="joindate" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_oV6R0Di8Ee2DR-cblne_fA" name="admin" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oV7f8Di8Ee2DR-cblne_fA" name="getNum" specification="_oV644Di8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    return num;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oV9VIDi8Ee2DR-cblne_fA" name="setNum" specification="_oV8HADi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.num = num;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oV-jQDi8Ee2DR-cblne_fA" name="getName" specification="_oV98MDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    return name;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWAYcDi8Ee2DR-cblne_fA" name="setName" specification="_oV_KUDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.name = name;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWBmkDi8Ee2DR-cblne_fA" name="getId" specification="_oWA_gDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    return id;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWC0sTi8Ee2DR-cblne_fA" name="setId" specification="_oWCNoDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.id = id;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWEp4Di8Ee2DR-cblne_fA" name="getPwd" specification="_oWDbwDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    return pwd;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWGfEDi8Ee2DR-cblne_fA" name="setPwd" specification="_oWFQ8Di8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.pwd = pwd;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWIUQDi8Ee2DR-cblne_fA" name="getNickname" specification="_oWHGIDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    return nickname;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWKJcDi8Ee2DR-cblne_fA" name="setNickname" specification="_oWI7UDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.nickname = nickname;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWLXkTi8Ee2DR-cblne_fA" name="getEmail" specification="_oWKwgDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    return email;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWNz0Di8Ee2DR-cblne_fA" name="setEmail" specification="_oWMlsDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.email = email;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWPB8Ti8Ee2DR-cblne_fA" name="getPhone" specification="_oWOa4Di8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    return phone;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWQ3IDi8Ee2DR-cblne_fA" name="setPhone" specification="_oWQQEDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.phone = phone;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWSsUDi8Ee2DR-cblne_fA" name="getBirthday" specification="_oWReMDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    return birthday;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWT6cTi8Ee2DR-cblne_fA" name="setBirthday" specification="_oWTTYDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.birthday = birthday;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWVvoDi8Ee2DR-cblne_fA" name="getPlace" specification="_oWUhgDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    return place;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWXk0Di8Ee2DR-cblne_fA" name="setPlace" specification="_oWWWsDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.place = place;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWYy8Di8Ee2DR-cblne_fA" name="getJoindate" specification="_oWYL4Di8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    return joindate;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWaoIDi8Ee2DR-cblne_fA" name="setJoindate" specification="_oWZaADi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.joindate = joindate;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWcdUTi8Ee2DR-cblne_fA" name="getAdmin" specification="_oWbPMDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    return admin;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oWe5kDi8Ee2DR-cblne_fA" name="setAdmin" specification="_oWdrcDi8Ee2DR-cblne_fA">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.admin = admin;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oV644Di8Ee2DR-cblne_fA" name="getNum" visibility="public" method="_oV7f8Di8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oV644Ti8Ee2DR-cblne_fA" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oV8HADi8Ee2DR-cblne_fA" name="setNum" visibility="public" method="_oV9VIDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oV8uEDi8Ee2DR-cblne_fA" name="num" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oV98MDi8Ee2DR-cblne_fA" name="getName" visibility="public" method="_oV-jQDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oV98MTi8Ee2DR-cblne_fA" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oV_KUDi8Ee2DR-cblne_fA" name="setName" visibility="public" method="_oWAYcDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oV_xYDi8Ee2DR-cblne_fA" name="name" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWA_gDi8Ee2DR-cblne_fA" name="getId" visibility="public" method="_oWBmkDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWA_gTi8Ee2DR-cblne_fA" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWCNoDi8Ee2DR-cblne_fA" name="setId" visibility="public" method="_oWC0sTi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWC0sDi8Ee2DR-cblne_fA" name="id" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWDbwDi8Ee2DR-cblne_fA" name="getPwd" visibility="public" method="_oWEp4Di8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWEC0Di8Ee2DR-cblne_fA" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWFQ8Di8Ee2DR-cblne_fA" name="setPwd" visibility="public" method="_oWGfEDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWF4ADi8Ee2DR-cblne_fA" name="pwd" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWHGIDi8Ee2DR-cblne_fA" name="getNickname" visibility="public" method="_oWIUQDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWHtMDi8Ee2DR-cblne_fA" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWI7UDi8Ee2DR-cblne_fA" name="setNickname" visibility="public" method="_oWKJcDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWJiYDi8Ee2DR-cblne_fA" name="nickname" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWKwgDi8Ee2DR-cblne_fA" name="getEmail" visibility="public" method="_oWLXkTi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWLXkDi8Ee2DR-cblne_fA" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWMlsDi8Ee2DR-cblne_fA" name="setEmail" visibility="public" method="_oWNz0Di8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWNMwDi8Ee2DR-cblne_fA" name="email" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWOa4Di8Ee2DR-cblne_fA" name="getPhone" visibility="public" method="_oWPB8Ti8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWPB8Di8Ee2DR-cblne_fA" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWQQEDi8Ee2DR-cblne_fA" name="setPhone" visibility="public" method="_oWQ3IDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWQQETi8Ee2DR-cblne_fA" name="phone" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWReMDi8Ee2DR-cblne_fA" name="getBirthday" visibility="public" method="_oWSsUDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWSFQDi8Ee2DR-cblne_fA" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWTTYDi8Ee2DR-cblne_fA" name="setBirthday" visibility="public" method="_oWT6cTi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWT6cDi8Ee2DR-cblne_fA" name="birthday" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWUhgDi8Ee2DR-cblne_fA" name="getPlace" visibility="public" method="_oWVvoDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWVIkDi8Ee2DR-cblne_fA" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWWWsDi8Ee2DR-cblne_fA" name="setPlace" visibility="public" method="_oWXk0Di8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWW9wDi8Ee2DR-cblne_fA" name="place" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWYL4Di8Ee2DR-cblne_fA" name="getJoindate" visibility="public" method="_oWYy8Di8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWYL4Ti8Ee2DR-cblne_fA" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWZaADi8Ee2DR-cblne_fA" name="setJoindate" visibility="public" method="_oWaoIDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWaBEDi8Ee2DR-cblne_fA" name="joindate" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWbPMDi8Ee2DR-cblne_fA" name="getAdmin" visibility="public" method="_oWcdUTi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWcdUDi8Ee2DR-cblne_fA" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_oWdrcDi8Ee2DR-cblne_fA" name="setAdmin" visibility="public" method="_oWe5kDi8Ee2DR-cblne_fA">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oWeSgDi8Ee2DR-cblne_fA" name="admin" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_oW5JQDi8Ee2DR-cblne_fA" name="controller">
+        <packagedElement xmi:type="uml:Class" xmi:id="_oYGqMDi8Ee2DR-cblne_fA" name="ServletException"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_D1aT4Di9Ee2DR-cblne_fA" name="registerServlet" visibility="public">
+      <generalization xmi:type="uml:Generalization" xmi:id="_D1aT4Ti9Ee2DR-cblne_fA" general="_oW7lgji8Ee2DR-cblne_fA"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_D1aT4ji9Ee2DR-cblne_fA" name="serialVersionUID" visibility="private" isLeaf="true" isStatic="true" type="_oW-o0Di8Ee2DR-cblne_fA" isUnique="false">
+        <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_D1aT4zi9Ee2DR-cblne_fA" name="defaultValue">
+          <language>JAVA</language>
+          <body>1L</body>
+        </defaultValue>
+      </ownedAttribute>
+      <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_D1aT5Di9Ee2DR-cblne_fA" name="doGet" specification="_D1aT5ji9Ee2DR-cblne_fA">
+        <language>JAVA</language>
+        <body>&#xD;
+</body>
+      </ownedBehavior>
+      <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_D1aT5Ti9Ee2DR-cblne_fA" name="doPost" specification="_D1aT6Ti9Ee2DR-cblne_fA">
+        <language>JAVA</language>
+        <body>&#xD;
+    request.setCharacterEncoding(&quot;utf-8&quot;);&#xD;
+    String name = request.getParameter(&quot;name&quot;);&#xD;
+    String id = request.getParameter(&quot;id&quot;);&#xD;
+    String pwd = request.getParameter(&quot;pwd&quot;);&#xD;
+    String nickname = request.getParameter(&quot;nickname&quot;);&#xD;
+    String email = request.getParameter(&quot;email&quot;);&#xD;
+    String phone = request.getParameter(&quot;phone&quot;);&#xD;
+    String birthday = request.getParameter(&quot;birthday&quot;);&#xD;
+    String place = request.getParameter(&quot;place&quot;);&#xD;
+    String admin = request.getParameter(&quot;admin&quot;);&#xD;
+    MemberBean m = new MemberBean();&#xD;
+    m.setName(name);&#xD;
+    m.setId(id);&#xD;
+    m.setPwd(pwd);&#xD;
+    m.setNickname(nickname);&#xD;
+    m.setEmail(email);&#xD;
+    m.setPhone(phone);&#xD;
+    m.setBirthday(birthday);&#xD;
+    m.setPlace(place);&#xD;
+    m.setAdmin(admin);&#xD;
+    MemberDAO mDao = MemberDAO.getInstance();&#xD;
+    int result = mDao.insertMember(m);&#xD;
+    HttpSession session = request.getSession();&#xD;
+    if (result == 1) {&#xD;
+        session.setAttribute(&quot;id&quot;, m.getId());&#xD;
+        request.setAttribute(&quot;message&quot;, &quot;회원 가입에 성공했습니다.&quot;);&#xD;
+    } else {&#xD;
+        request.setAttribute(&quot;message&quot;, &quot;회원가입에 실패했습니다.&quot;);&#xD;
+    }&#xD;
+    RequestDispatcher dis = request.getRequestDispatcher(&quot;checkMember.jsp&quot;);&#xD;
+    dis.forward(request, response);&#xD;
+</body>
+      </ownedBehavior>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_D1aT5ji9Ee2DR-cblne_fA" name="doGet" visibility="protected" method="_D1aT5Di9Ee2DR-cblne_fA" raisedException="_oXFWgTi8Ee2DR-cblne_fA _oXIZ0Di8Ee2DR-cblne_fA">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1aT5zi9Ee2DR-cblne_fA" name="request" type="_oW_28Di8Ee2DR-cblne_fA"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1aT6Di9Ee2DR-cblne_fA" name="response" type="_oXBsIDi8Ee2DR-cblne_fA"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_D1aT6Ti9Ee2DR-cblne_fA" name="doPost" visibility="protected" method="_D1aT5Ti9Ee2DR-cblne_fA" raisedException="_oXFWgTi8Ee2DR-cblne_fA _oXIZ0Di8Ee2DR-cblne_fA">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1aT6ji9Ee2DR-cblne_fA" name="request" type="_oW_28Di8Ee2DR-cblne_fA"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1aT6zi9Ee2DR-cblne_fA" name="response" type="_oXBsIDi8Ee2DR-cblne_fA"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_D1a68Di9Ee2DR-cblne_fA" name="deleteShortServlet" visibility="public">
+      <generalization xmi:type="uml:Generalization" xmi:id="_D1a68Ti9Ee2DR-cblne_fA" general="_oW7lgji8Ee2DR-cblne_fA"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_D1a68ji9Ee2DR-cblne_fA" name="serialVersionUID" visibility="private" isLeaf="true" isStatic="true" type="_oW-o0Di8Ee2DR-cblne_fA" isUnique="false">
+        <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_D1a68zi9Ee2DR-cblne_fA" name="defaultValue">
+          <language>JAVA</language>
+          <body>1L</body>
+        </defaultValue>
+      </ownedAttribute>
+      <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_D1a69Di9Ee2DR-cblne_fA" name="doGet" specification="_D1a69ji9Ee2DR-cblne_fA">
+        <language>JAVA</language>
+        <body>&#xD;
+    int num = Integer.parseInt(request.getParameter(&quot;num&quot;));&#xD;
+    System.out.println(&quot;deleteShort.do의 doGet 실행&quot; + num);&#xD;
+    StoryDAO SDao = StoryDAO.getInstance();&#xD;
+    SDao.deleteContent(num);&#xD;
+    response.sendRedirect(&quot;deleteComplete.jsp&quot;);&#xD;
+</body>
+      </ownedBehavior>
+      <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_D1a69Ti9Ee2DR-cblne_fA" name="doPost" specification="_D1a6-Ti9Ee2DR-cblne_fA">
+        <language>JAVA</language>
+        <body>&#xD;
+</body>
+      </ownedBehavior>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_D1a69ji9Ee2DR-cblne_fA" name="doGet" visibility="protected" method="_D1a69Di9Ee2DR-cblne_fA" raisedException="_oXFWgTi8Ee2DR-cblne_fA _oXIZ0Di8Ee2DR-cblne_fA">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1a69zi9Ee2DR-cblne_fA" name="request" type="_oW_28Di8Ee2DR-cblne_fA"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1a6-Di9Ee2DR-cblne_fA" name="response" type="_oXBsIDi8Ee2DR-cblne_fA"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_D1a6-Ti9Ee2DR-cblne_fA" name="doPost" visibility="protected" method="_D1a69Ti9Ee2DR-cblne_fA" raisedException="_oXFWgTi8Ee2DR-cblne_fA _oXIZ0Di8Ee2DR-cblne_fA">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1a6-ji9Ee2DR-cblne_fA" name="request" type="_oW_28Di8Ee2DR-cblne_fA"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1a6-zi9Ee2DR-cblne_fA" name="response" type="_oXBsIDi8Ee2DR-cblne_fA"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_D1a6_Di9Ee2DR-cblne_fA" name="BoardPostServlet" visibility="public">
+      <generalization xmi:type="uml:Generalization" xmi:id="_D1a6_Ti9Ee2DR-cblne_fA" general="_oW7lgji8Ee2DR-cblne_fA"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_D1a6_ji9Ee2DR-cblne_fA" name="serialVersionUID" visibility="private" isLeaf="true" isStatic="true" type="_oW-o0Di8Ee2DR-cblne_fA" isUnique="false">
+        <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_D1a6_zi9Ee2DR-cblne_fA" name="defaultValue">
+          <language>JAVA</language>
+          <body>1L</body>
+        </defaultValue>
+      </ownedAttribute>
+      <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_D1a7ADi9Ee2DR-cblne_fA" name="doGet" specification="_D1a7Aji9Ee2DR-cblne_fA">
+        <language>JAVA</language>
+        <body>&#xD;
+</body>
+      </ownedBehavior>
+      <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_D1a7ATi9Ee2DR-cblne_fA" name="doPost" specification="_D1a7BTi9Ee2DR-cblne_fA">
+        <language>JAVA</language>
+        <body>&#xD;
+    request.setCharacterEncoding(&quot;utf-8&quot;);&#xD;
+    String nickname = request.getParameter(&quot;nick&quot;);&#xD;
+    String password = request.getParameter(&quot;pass&quot;);&#xD;
+    String title = request.getParameter(&quot;title&quot;);&#xD;
+    //매게 변수가 똑같아야 한다. sql필드명과...&#xD;
+    String writedate = request.getParameter(&quot;writedate&quot;);&#xD;
+    String content = request.getParameter(&quot;content&quot;);&#xD;
+    StoryBean sb = new StoryBean();&#xD;
+    sb.setNickname(nickname);&#xD;
+    sb.setPass(password);&#xD;
+    sb.setTitle(title);&#xD;
+    sb.setWritingdate(writedate);&#xD;
+    sb.setContent(content);&#xD;
+    StoryDAO sdao = StoryDAO.getInstance();&#xD;
+    int result = sdao.insertStory(sb);&#xD;
+    HttpSession session = request.getSession();&#xD;
+    if (result == 1) {&#xD;
+        session.setAttribute(&quot;nickname&quot;, sb.getNickname());&#xD;
+        request.setAttribute(&quot;message&quot;, &quot;글쓰기를 마치셨습니다.&quot;);&#xD;
+    } else {&#xD;
+        request.setAttribute(&quot;message&quot;, &quot;글쓰기에 실패했습니다.&quot;);&#xD;
+    }&#xD;
+    RequestDispatcher dis = request.getRequestDispatcher(&quot;checkWriting.jsp&quot;);&#xD;
+    dis.forward(request, response);&#xD;
+</body>
+      </ownedBehavior>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_D1a7Aji9Ee2DR-cblne_fA" name="doGet" visibility="protected" method="_D1a7ADi9Ee2DR-cblne_fA" raisedException="_oXFWgTi8Ee2DR-cblne_fA _oXIZ0Di8Ee2DR-cblne_fA">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1a7Azi9Ee2DR-cblne_fA" name="request" type="_oW_28Di8Ee2DR-cblne_fA"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1a7BDi9Ee2DR-cblne_fA" name="response" type="_oXBsIDi8Ee2DR-cblne_fA"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_D1a7BTi9Ee2DR-cblne_fA" name="doPost" visibility="protected" method="_D1a7ATi9Ee2DR-cblne_fA" raisedException="_oXFWgTi8Ee2DR-cblne_fA _oXIZ0Di8Ee2DR-cblne_fA">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1a7Bji9Ee2DR-cblne_fA" name="request" type="_oW_28Di8Ee2DR-cblne_fA"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1a7Bzi9Ee2DR-cblne_fA" name="response" type="_oXBsIDi8Ee2DR-cblne_fA"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_D1biADi9Ee2DR-cblne_fA" name="ReadContentServlet" visibility="public">
+      <generalization xmi:type="uml:Generalization" xmi:id="_D1biATi9Ee2DR-cblne_fA" general="_oW7lgji8Ee2DR-cblne_fA"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_D1biAji9Ee2DR-cblne_fA" name="serialVersionUID" visibility="private" isLeaf="true" isStatic="true" type="_oW-o0Di8Ee2DR-cblne_fA" isUnique="false">
+        <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_D1biAzi9Ee2DR-cblne_fA" name="defaultValue">
+          <language>JAVA</language>
+          <body>1L</body>
+        </defaultValue>
+      </ownedAttribute>
+      <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_D1biBDi9Ee2DR-cblne_fA" name="doGet" specification="_D1biBji9Ee2DR-cblne_fA">
+        <language>JAVA</language>
+        <body>&#xD;
+    System.out.println(&quot;doget 작용&quot;);&#xD;
+    request.setCharacterEncoding(&quot;utf-8&quot;);&#xD;
+    int num = Integer.parseInt(request.getParameter(&quot;num&quot;));&#xD;
+    StoryDAO sDAO = StoryDAO.getInstance();&#xD;
+    StoryBean sb = sDAO.getContent(num);&#xD;
+    /*
+		sb.getNum();
+		sb.getNickname();
+		sb.getWritingdate();
+		sb.getContent();
+		*/&#xD;
+    request.setAttribute(&quot;sb&quot;, sb);&#xD;
+    /*
+		request.setAttribute(&quot;nickname&quot;, sb.getNickname());
+		request.setAttribute(&quot;writing&quot;, sb.getWritingdate());
+		request.setAttribute(&quot;content&quot;, sb.getContent());
+		*/&#xD;
+    RequestDispatcher dis = request.getRequestDispatcher(&quot;readShortContent.jsp&quot;);&#xD;
+    //RequestDispatcher dis2 = request.getRequestDispatcher(&quot;shortList.jsp&quot;);&#xD;
+    dis.forward(request, response);&#xD;
+//dis2.forward(request, response);&#xD;
+</body>
+      </ownedBehavior>
+      <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_D1biBTi9Ee2DR-cblne_fA" name="doPost" specification="_D1biCTi9Ee2DR-cblne_fA">
+        <language>JAVA</language>
+        <body>&#xD;
+</body>
+      </ownedBehavior>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_D1biBji9Ee2DR-cblne_fA" name="doGet" visibility="protected" method="_D1biBDi9Ee2DR-cblne_fA" raisedException="_oXFWgTi8Ee2DR-cblne_fA _oXIZ0Di8Ee2DR-cblne_fA">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1biBzi9Ee2DR-cblne_fA" name="request" type="_oW_28Di8Ee2DR-cblne_fA"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1biCDi9Ee2DR-cblne_fA" name="response" type="_oXBsIDi8Ee2DR-cblne_fA"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_D1biCTi9Ee2DR-cblne_fA" name="doPost" visibility="protected" method="_D1biBTi9Ee2DR-cblne_fA" raisedException="_oXFWgTi8Ee2DR-cblne_fA _oXIZ0Di8Ee2DR-cblne_fA">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1biCji9Ee2DR-cblne_fA" name="request" type="_oW_28Di8Ee2DR-cblne_fA"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1biCzi9Ee2DR-cblne_fA" name="response" type="_oXBsIDi8Ee2DR-cblne_fA"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_D1biDDi9Ee2DR-cblne_fA" name="ShowShortListServlet" visibility="public">
+      <generalization xmi:type="uml:Generalization" xmi:id="_D1biDTi9Ee2DR-cblne_fA" general="_oW7lgji8Ee2DR-cblne_fA"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_D1biDji9Ee2DR-cblne_fA" name="serialVersionUID" visibility="private" isLeaf="true" isStatic="true" type="_oW-o0Di8Ee2DR-cblne_fA" isUnique="false">
+        <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_D1biDzi9Ee2DR-cblne_fA" name="defaultValue">
+          <language>JAVA</language>
+          <body>1L</body>
+        </defaultValue>
+      </ownedAttribute>
+      <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_D1biEDi9Ee2DR-cblne_fA" name="doGet" specification="_D1biEji9Ee2DR-cblne_fA">
+        <language>JAVA</language>
+        <body>&#xD;
+    request.setCharacterEncoding(&quot;utf-8&quot;);&#xD;
+    int currentPage = Integer.parseInt(request.getParameter(&quot;currentPage&quot;));&#xD;
+    int recordsPerPage = Integer.parseInt(request.getParameter(&quot;recordsPerPage&quot;));&#xD;
+    int number = Integer.parseInt(request.getParameter(&quot;number&quot;));&#xD;
+    StoryDAO sDAO = StoryDAO.getInstance();&#xD;
+    ArrayList&lt;StoryBean> storyList = sDAO.getStoryList(currentPage, recordsPerPage);&#xD;
+    request.setAttribute(&quot;data&quot;, storyList);&#xD;
+    int row = sDAO.getNumberOfRows();&#xD;
+    int nOfPage = row / recordsPerPage;&#xD;
+    if (row % recordsPerPage > 0) {&#xD;
+        nOfPage++;&#xD;
+    }&#xD;
+    request.setAttribute(&quot;nOfPage&quot;, nOfPage);&#xD;
+    request.setAttribute(&quot;currentPage&quot;, currentPage);&#xD;
+    request.setAttribute(&quot;recordsPerPage&quot;, recordsPerPage);&#xD;
+    RequestDispatcher dis = null;&#xD;
+    if (number == 1) {&#xD;
+        dis = request.getRequestDispatcher(&quot;deleteShort2.jsp&quot;);&#xD;
+        System.out.println(&quot;deleteShort2.jsp으로 gogo&quot;);&#xD;
+    } else if (number == 0) {&#xD;
+        dis = request.getRequestDispatcher(&quot;shortList.jsp&quot;);&#xD;
+        System.out.println(&quot;shortList.jsp으로 gogo&quot;);&#xD;
+    } else if (number == 2) {&#xD;
+        dis = request.getRequestDispatcher(&quot;updateShort2.jsp&quot;);&#xD;
+        System.out.println(&quot;updateShort2.jsp으로 gogo&quot;);&#xD;
+    }&#xD;
+    dis.forward(request, response);&#xD;
+</body>
+      </ownedBehavior>
+      <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_D1biETi9Ee2DR-cblne_fA" name="doPost" specification="_D1biFTi9Ee2DR-cblne_fA">
+        <language>JAVA</language>
+        <body>&#xD;
+</body>
+      </ownedBehavior>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_D1biEji9Ee2DR-cblne_fA" name="doGet" visibility="protected" method="_D1biEDi9Ee2DR-cblne_fA" raisedException="_oXFWgTi8Ee2DR-cblne_fA _oXIZ0Di8Ee2DR-cblne_fA">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1biEzi9Ee2DR-cblne_fA" name="request" type="_oW_28Di8Ee2DR-cblne_fA"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1biFDi9Ee2DR-cblne_fA" name="response" type="_oXBsIDi8Ee2DR-cblne_fA"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_D1biFTi9Ee2DR-cblne_fA" name="doPost" visibility="protected" method="_D1biETi9Ee2DR-cblne_fA" raisedException="_oXFWgTi8Ee2DR-cblne_fA _oXIZ0Di8Ee2DR-cblne_fA">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1biFji9Ee2DR-cblne_fA" name="request" type="_oW_28Di8Ee2DR-cblne_fA"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1biFzi9Ee2DR-cblne_fA" name="response" type="_oXBsIDi8Ee2DR-cblne_fA"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_D1biGDi9Ee2DR-cblne_fA" name="FirstShortList" visibility="public">
+      <generalization xmi:type="uml:Generalization" xmi:id="_D1biGTi9Ee2DR-cblne_fA" general="_oW7lgji8Ee2DR-cblne_fA"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_D1biGji9Ee2DR-cblne_fA" name="serialVersionUID" visibility="private" isLeaf="true" isStatic="true" type="_oW-o0Di8Ee2DR-cblne_fA" isUnique="false">
+        <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_D1biGzi9Ee2DR-cblne_fA" name="defaultValue">
+          <language>JAVA</language>
+          <body>1L</body>
+        </defaultValue>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_D1biHDi9Ee2DR-cblne_fA" name="recordsPerpage" visibility="private" type="_oVFLYDi8Ee2DR-cblne_fA" isUnique="false">
+        <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_D1biHTi9Ee2DR-cblne_fA" name="defaultValue">
+          <language>JAVA</language>
+          <body>10</body>
+        </defaultValue>
+      </ownedAttribute>
+      <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_D1biHji9Ee2DR-cblne_fA" name="doGet" specification="_D1biIDi9Ee2DR-cblne_fA">
+        <language>JAVA</language>
+        <body>&#xD;
+    //doPost(request, response);&#xD;
+    System.out.println(&quot;FirstShortList.do 실행실행&quot;);&#xD;
+    // DAO패키지의 storyDAO.java 파일로 간다. 즉 싱글톤으로 객체를 만든다.&#xD;
+    StoryDAO sDAO = StoryDAO.getInstance();&#xD;
+    //게시글 목록을 얻어온다.&#xD;
+    ArrayList&lt;StoryBean> storyList = sDAO.getStoryList();&#xD;
+    //deleteShort.jsp와 firstshortList.jsp로 이따가 보낼 객체의 키와 값 설정&#xD;
+    request.setAttribute(&quot;firstdata&quot;, storyList);&#xD;
+    //DAO에서 게시글 전체 개수를 가져오는 메소드 select count(num) from shortboard;&#xD;
+    int row = sDAO.getNumberOfRows();&#xD;
+    //전체 게시글 개수에서 페이지당 게시글 개수를 나누면 페이지수가 나온다.. 페이지 개수는 멤버변수로 10을 정해놨음.&#xD;
+    int nOfPage = row / recordsPerpage;&#xD;
+    if (row % recordsPerpage > 0) {&#xD;
+        // 전체 게시글 개수에서 페이지당 게시글 개수를 나눈 나머지가 0보다 크면 페이지수를 하나 늘린다. &#xD;
+        nOfPage++;&#xD;
+    }&#xD;
+    //deleteShort.jsp와 firstshortList.jsp에게 보낼 키와 값을 정리&#xD;
+    request.setAttribute(&quot;nOfPage&quot;, nOfPage);&#xD;
+    request.setAttribute(&quot;currentPage&quot;, 1);&#xD;
+    request.setAttribute(&quot;recordsPerPage&quot;, 10);&#xD;
+    request.setCharacterEncoding(&quot;utf-8&quot;);&#xD;
+    //index.jsp의 Again의 a태그에서 받아온 number값.&#xD;
+    int number = Integer.parseInt(request.getParameter(&quot;number&quot;));&#xD;
+    RequestDispatcher dis = null;&#xD;
+    if (//firtshortList.jsp에서 삭제버튼을 클릭하며 여기로 이동한다.&#xD;
+    number == 1) {&#xD;
+        dis = request.getRequestDispatcher(&quot;deleteShort.jsp&quot;);&#xD;
+        System.out.println(&quot;deleteShort.jsp doget 실행&quot;);&#xD;
+    } else if (number == 0) {&#xD;
+        System.out.println(&quot;===================&quot;);&#xD;
+        //index.jsp의 Again a태그에서 처음에 0으로 설정했으므로 else if로 내려온다.&#xD;
+        dis = request.getRequestDispatcher(&quot;firstshortList.jsp&quot;);&#xD;
+        System.out.println(&quot;firstshortList.jsp doget 실행&quot;);&#xD;
+    } else if (//firstshortList.jsp에서 수정 버튼을 클릭하면 여기로 이동한다.&#xD;
+    number == 2) {&#xD;
+        dis = request.getRequestDispatcher(&quot;updateShort.jsp&quot;);&#xD;
+        System.out.println(&quot;updateShort.jsp로 이동&quot;);&#xD;
+    }&#xD;
+    dis.forward(request, response);&#xD;
+</body>
+      </ownedBehavior>
+      <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_D1biHzi9Ee2DR-cblne_fA" name="doPost" specification="_D1biIzi9Ee2DR-cblne_fA">
+        <language>JAVA</language>
+        <body>&#xD;
+//recordsPerpage = Integer.parseInt(request.getParameter(&quot;recordsPerPage&quot;));&#xD;
+</body>
+      </ownedBehavior>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_D1biIDi9Ee2DR-cblne_fA" name="doGet" visibility="protected" method="_D1biHji9Ee2DR-cblne_fA" raisedException="_oXFWgTi8Ee2DR-cblne_fA _oXIZ0Di8Ee2DR-cblne_fA">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1biITi9Ee2DR-cblne_fA" name="request" type="_oW_28Di8Ee2DR-cblne_fA"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1biIji9Ee2DR-cblne_fA" name="response" type="_oXBsIDi8Ee2DR-cblne_fA"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_D1biIzi9Ee2DR-cblne_fA" name="doPost" visibility="protected" method="_D1biHzi9Ee2DR-cblne_fA" raisedException="_oXFWgTi8Ee2DR-cblne_fA _oXIZ0Di8Ee2DR-cblne_fA">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1biJDi9Ee2DR-cblne_fA" name="request" type="_oW_28Di8Ee2DR-cblne_fA"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1biJTi9Ee2DR-cblne_fA" name="response" type="_oXBsIDi8Ee2DR-cblne_fA"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_D1cJEDi9Ee2DR-cblne_fA" name="UpdateShort" visibility="public">
+      <generalization xmi:type="uml:Generalization" xmi:id="_D1cJETi9Ee2DR-cblne_fA" general="_oW7lgji8Ee2DR-cblne_fA"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_D1cJEji9Ee2DR-cblne_fA" name="serialVersionUID" visibility="private" isLeaf="true" isStatic="true" type="_oW-o0Di8Ee2DR-cblne_fA" isUnique="false">
+        <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_D1cJEzi9Ee2DR-cblne_fA" name="defaultValue">
+          <language>JAVA</language>
+          <body>1L</body>
+        </defaultValue>
+      </ownedAttribute>
+      <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_D1cJFDi9Ee2DR-cblne_fA" name="doGet" specification="_D1cJFji9Ee2DR-cblne_fA">
+        <language>JAVA</language>
+        <body>&#xD;
+    System.out.println(&quot;UpdateShort.do 실행&quot;);&#xD;
+    int num = Integer.parseInt(request.getParameter(&quot;num&quot;));&#xD;
+    StoryDAO sDAO = StoryDAO.getInstance();&#xD;
+    StoryBean sb = sDAO.getContent(num);&#xD;
+    System.out.println(sb.getPass());&#xD;
+    System.out.println(sb.getTitle());&#xD;
+    System.out.println(sb.getNickname());&#xD;
+    request.setAttribute(&quot;sb&quot;, sb);&#xD;
+    RequestDispatcher dis = request.getRequestDispatcher(&quot;rewriteshort.jsp&quot;);&#xD;
+    dis.forward(request, response);&#xD;
+</body>
+      </ownedBehavior>
+      <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_D1cJFTi9Ee2DR-cblne_fA" name="doPost" specification="_D1cJGTi9Ee2DR-cblne_fA">
+        <language>JAVA</language>
+        <body>&#xD;
+    System.out.println(&quot;UpdateShort.do의 doPost&quot;);&#xD;
+    request.setCharacterEncoding(&quot;utf-8&quot;);&#xD;
+    int num = Integer.parseInt(request.getParameter(&quot;num&quot;));&#xD;
+    String password = request.getParameter(&quot;password&quot;);&#xD;
+    String title = request.getParameter(&quot;title&quot;);&#xD;
+    String content = request.getParameter(&quot;content&quot;);&#xD;
+    StoryBean sb = new StoryBean();&#xD;
+    sb.setNum(num);&#xD;
+    sb.setContent(content);&#xD;
+    sb.setTitle(title);&#xD;
+    sb.setPass(password);&#xD;
+    StoryDAO sDAO = StoryDAO.getInstance();&#xD;
+    sDAO.updateContent(sb);&#xD;
+    System.out.println(sb.getContent());&#xD;
+    System.out.println(sb.getTitle());&#xD;
+    System.out.println(sb.getNickname());&#xD;
+    //request.setAttribute(&quot;sb&quot;, sb);&#xD;
+    RequestDispatcher dis = request.getRequestDispatcher(&quot;updateComplete.jsp&quot;);&#xD;
+    dis.forward(request, response);&#xD;
+</body>
+      </ownedBehavior>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_D1cJFji9Ee2DR-cblne_fA" name="doGet" visibility="protected" method="_D1cJFDi9Ee2DR-cblne_fA" raisedException="_oYGqMDi8Ee2DR-cblne_fA _oXIZ0Di8Ee2DR-cblne_fA">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1cJFzi9Ee2DR-cblne_fA" name="request" type="_oW_28Di8Ee2DR-cblne_fA"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1cJGDi9Ee2DR-cblne_fA" name="response" type="_oXBsIDi8Ee2DR-cblne_fA"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_D1cJGTi9Ee2DR-cblne_fA" name="doPost" visibility="protected" method="_D1cJFTi9Ee2DR-cblne_fA" raisedException="_oYGqMDi8Ee2DR-cblne_fA _oXIZ0Di8Ee2DR-cblne_fA">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1cJGji9Ee2DR-cblne_fA" name="request" type="_oW_28Di8Ee2DR-cblne_fA"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1cJGzi9Ee2DR-cblne_fA" name="response" type="_oXBsIDi8Ee2DR-cblne_fA"/>
+      </ownedOperation>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="_yEaskDi-Ee2DR-cblne_fA" name="Class7"/>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_L0Q2QDi8Ee2DR-cblne_fA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_L0Q2QTi8Ee2DR-cblne_fA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/PapyrusJava/1#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://PapyrusJava_PROFILES/PapyrusJava.profile.uml#_j9REUByGEduN1bTiWJ0lyw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_L0Q2Qji8Ee2DR-cblne_fA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_L0Q2Qzi8Ee2DR-cblne_fA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/Codegen/1#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://Codegen_PROFILES/Codegen.profile.uml#_fPDsIBa-EearhdjjJ6cVzQ"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_L0RdUDi8Ee2DR-cblne_fA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_L0RdUTi8Ee2DR-cblne_fA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Model>
+  <standard:Create xmi:id="_L256kDi8Ee2DR-cblne_fA" base_BehavioralFeature="_L0b1YDi8Ee2DR-cblne_fA"/>
+  <PapyrusJava:External xmi:id="_L3WmgDi8Ee2DR-cblne_fA" name="Connection" base_Classifier="_L3RuADi8Ee2DR-cblne_fA"/>
+  <PapyrusJava:External xmi:id="_L3eiUDi8Ee2DR-cblne_fA" name="java.lang.Exception" base_Classifier="_L3bfADi8Ee2DR-cblne_fA"/>
+  <PapyrusJava:External xmi:id="_L3ko8Di8Ee2DR-cblne_fA" name="java.lang.String" base_Classifier="_L3iMsDi8Ee2DR-cblne_fA"/>
+  <standard:Create xmi:id="_oUwbQDi8Ee2DR-cblne_fA" base_BehavioralFeature="_oUumEDi8Ee2DR-cblne_fA"/>
+  <PapyrusJava:External xmi:id="_oU3wADi8Ee2DR-cblne_fA" name="Connection" base_Classifier="_oU2h4Di8Ee2DR-cblne_fA"/>
+  <standard:Create xmi:id="_oVR_sDi8Ee2DR-cblne_fA" base_BehavioralFeature="_oVQKgDi8Ee2DR-cblne_fA"/>
+  <PapyrusJava:External xmi:id="_oW8zoDi8Ee2DR-cblne_fA" name="javax.servlet.http.HttpServlet" base_Classifier="_oW7lgji8Ee2DR-cblne_fA"/>
+  <PapyrusJava:External xmi:id="_oXBFEDi8Ee2DR-cblne_fA" name="javax.servlet.http.HttpServletRequest" base_Classifier="_oW_28Di8Ee2DR-cblne_fA"/>
+  <PapyrusJava:External xmi:id="_oXC6QDi8Ee2DR-cblne_fA" name="javax.servlet.http.HttpServletResponse" base_Classifier="_oXBsIDi8Ee2DR-cblne_fA"/>
+  <PapyrusJava:External xmi:id="_oXGkoDi8Ee2DR-cblne_fA" name="javax.servlet.ServletException" base_Classifier="_oXFWgTi8Ee2DR-cblne_fA"/>
+  <PapyrusJava:External xmi:id="_oXJn8Di8Ee2DR-cblne_fA" name="java.io.IOException" base_Classifier="_oXIZ0Di8Ee2DR-cblne_fA"/>
+  <PapyrusJava:External xmi:id="_oYHRQDi8Ee2DR-cblne_fA" name="ServletException" base_Classifier="_oYGqMDi8Ee2DR-cblne_fA"/>
+</xmi:XMI>

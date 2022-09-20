@@ -49,7 +49,7 @@
 			<div><a href = "#" id="login">로그인</a></div>
 			<div><a href = "register.jsp">회원가입</a></div>
 			<div id="story">
-				<a href = "longList" style = "font-size : 50pt"><p>Story</p></a>
+				<a href = "longList" style = "font-size : 50pt" onclick=#><p>Story</p></a>
 			</div>
 		</div>
 		<script>
@@ -62,6 +62,7 @@
 				top.style.backgroundColor="";
 				top.style.color="";
 			});
+			
 		</script>
 	</body>
 </html>

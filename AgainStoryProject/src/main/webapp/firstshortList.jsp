@@ -35,7 +35,7 @@
 				</tr><!-- 위의 테이블은 전부 FirstShortList.java에서 전송한 키값과 그에 따른 StoryBean.java에서 불러옴 -->
 				</c:forEach>
 			</table>
-		<form action = "ShowShortList.do" method = "get"><!-- 개시글 목록을 바꿔 주면 갱신해야 하기 때문에 ShowShortListServlet.java로 이동한다. -->
+		<form action = "ShowShortList.do" method = "get"><!-- 개시글 목록을 바꿔 주면 갱신해야 하기 때문에 ShowShortListServlet.java로 이동한다. 일단 수정0920-->
 			<input type="hidden" name = "currentPage" value = "1"><!-- 참고로 form태그안에 method가 get이라면 action에 주소값을 적지말고 hidden을 만들자 -->
 			<input type="hidden" name = "number" value = "0"><!-- 결론적으로 ShowShortList.do에 보내줄 파라미터(매개변수)은 currentPage, number, recordPerPage-->
 			<select name = "recordsPerPage"><!-- 따라서 주소는 ShowShortList.do?currentPage=값&number=값&recordsPerPage=값 -->
