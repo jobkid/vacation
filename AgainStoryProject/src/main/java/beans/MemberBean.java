@@ -11,7 +11,7 @@ public class MemberBean {
 	private String birthday;
 	private String place;
 	private String joindate;
-	private String admin;
+	private String tribe;
 	
 	public String getNum() {
 		return num;
@@ -73,11 +73,11 @@ public class MemberBean {
 	public void setJoindate(String joindate) {
 		this.joindate = joindate;
 	}
-	public String getAdmin() {
-		return admin;
+	public String getTribe() {
+		return tribe;
 	}
-	public void setAdmin(String admin) {
-		this.admin = admin;
+	public void setTribe(String tribe) {
+		this.tribe = tribe;
 	}
 	
 }

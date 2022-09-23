@@ -30,5 +30,6 @@
 				<input type="submit" value="완료"><button type="reset" value="초기화">초기화</button>
 			</form>
 		</div>
+		<jsp:include page = "goHome.jsp"/>
 	</body>
 </html>

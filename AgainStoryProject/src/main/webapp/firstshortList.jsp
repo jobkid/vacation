@@ -20,6 +20,7 @@
 		</style>
 	</head>
 	<body>
+		<jsp:include page = "loginComplete.jsp"/>
 		<div id = "wrap">
 			단편소설 리스트 
 			<table border="1">
@@ -58,16 +59,31 @@
 			</c:forEach>
 		</ul>
 		<form method = "post" action = "writeShort.jsp">
-			<input type = "submit" value = "글쓰기">
+			<input type = "submit" value = "글쓰기" id="write">
 		</form>
 		<form method = "get" action = "FirstShortList.do?number">
-			<input type = "submit" value="삭제">
+			<input type = "submit" value="삭제" id="delete">
 			<input type = "hidden" value = "1" name = "number"><!-- number가 1이므로 FirstShortList.do로 들어간다음에 dis = request.getRequestDispatcher("deleteShort.jsp")로 간다. -->
 		</form>
 		<form method = "get" action = "FirstShortList.do?number">
-			<input type = "submit" value = "수정">
+			<input type = "submit" value = "수정" id="update">
 			<input type = "hidden" value = "2" name = "number">	
 		</form>
 		</div>
+		<jsp:include page = "goHome.jsp"/>
+		
 	</body>
+	<script>
+		//var update=document.getElementById("update");
+		var need = document.getElementById("update"); 	
+		need.onclick = function(){	
+			if(window.sessionStorage!=null){
+				location.href = "login.jsp";
+				alert("로그인이 필요합니다.");
+			}else if{
+				alert("로그인이 되었습니다.");
+			}
+		}
+		
+	</script>
 </html>

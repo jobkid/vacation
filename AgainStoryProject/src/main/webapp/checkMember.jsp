@@ -9,7 +9,8 @@
 	<body>
 		<h1>회원 가입이 완료되었습니다.</h1>
 		<a href="index.jsp">돌아가기</a>
+		<a href="login.jsp">로그인하러 가기</a>
 		<!--  <h1>${loginId.m }로그인에 성공했습니다.</h1>-->
-
+		<jsp:include page = "goHome.jsp"/>
 	</body>
 </html>

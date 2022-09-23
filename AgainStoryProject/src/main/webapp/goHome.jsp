@@ -4,10 +4,10 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>수정 완료</title>
+		<title>홈으로 돌아가기</title>
 	</head>
-		<body>
-			수정 완료되었습니다.<br>
-		<jsp:include page = "goHome.jsp"/>
+	<body>
+		<hr>
+		<a href = "index.jsp">홈으로 돌아가기</a>
 	</body>
 </html>

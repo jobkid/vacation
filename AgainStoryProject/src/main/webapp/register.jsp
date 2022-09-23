@@ -68,15 +68,15 @@
 					</tr>
 					<tr>
 						<td>
-							관리자<input type="radio" name="admin" value="1">
-							일반 회원<input type="radio" name="admin" value="2">
-							작가<input type="radio" name="admin" value="3">
+							외계인<input type="radio" name="tribe" value="1">
+							마법사<input type="radio" name="tribe" value="2">
 						</td>
 					</tr>
 					<tr><td><input type="submit" value="회원가입 하기" onclick="return joinCheck()"><input type="reset" value="초기화"></td></tr>
 				</table>
 			</form>
 		</div>
+		<jsp:include page = "goHome.jsp"/>
 		<script>
 			function idCheck(){
 				if(document.register.id.value=""){

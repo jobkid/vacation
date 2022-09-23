@@ -19,6 +19,7 @@
 		</style>
 	</head>
 	<body>
+		<jsp:include page = "loginComplete.jsp"/>
 		<div id = "wrap">
 			단편소설 리스트 
 			<table border="1">
@@ -72,5 +73,6 @@
 			<input type = "hidden" value = "${recordsPerPage }" name = "recordsPerPage">
 		</form>
 		</div>
+		<jsp:include page = "goHome.jsp"/>
 	</body>
 </html>

@@ -22,6 +22,7 @@
 		</style>
 	</head>
 	<body>
+		<jsp:include page = "loginComplete.jsp"/>
 		<div id="wrap">
 			<form method="post" action = "UpdateShort.do">
 			<input type = "hidden" value = "${sb.getNum() }" name = "num">
@@ -32,5 +33,6 @@
 				<input type="submit" value="완료"><button type="reset" value="초기화">초기화</button>
 			</form>
 		</div>
+		<jsp:include page = "goHome.jsp"/>
 	</body>
 </html>

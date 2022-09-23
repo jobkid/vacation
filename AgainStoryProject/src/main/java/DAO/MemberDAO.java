@@ -49,7 +49,7 @@ public class MemberDAO {
 				m.setBirthday(rs.getString("birthday"));
 				m.setPlace(rs.getString("place"));
 				m.setJoindate(rs.getString("joindate"));
-				m.setAdmin(rs.getString("admin"));
+				m.setTribe(rs.getString("tribe"));
 			}
 		}catch(Exception e) {
 			System.out.println("멤버 정보 조회 중 오류 발생 : "+e);
@@ -72,10 +72,9 @@ public class MemberDAO {
 		int result=-1;
 		//String sql="insert into members(name, id, pwd, nickname, email, phone, birthday, place) values (?,?,?,?,?,?,?,?)";
 
-		String sql="insert into members(name, id, pwd, nickname, email, phone, birthday, place, admin) values (?,?,?,?,?,?,?,?,?)";
+		String sql="insert into members(name, id, pwd, nickname, email, phone, birthday, place, tribe) values (?,?,?,?,?,?,?,?,?)";
 		Connection conn=null;
-		PreparedStatement pstmt=null;
-		
+		PreparedStatement pstmt=null;	
 		try {
 			conn=getConnection();
 			pstmt=conn.prepareStatement(sql);
@@ -87,7 +86,7 @@ public class MemberDAO {
 			pstmt.setString(6, m.getPhone());
 			pstmt.setString(7, m.getBirthday());
 			pstmt.setString(8, m.getPlace());
-			pstmt.setString(9, m.getAdmin());
+			pstmt.setString(9, m.getTribe());
 			result=pstmt.executeUpdate();
 		}catch(Exception e) {
 			System.out.println("MemberDAO.insertMember() 실행 중 오류 발생 : "+e);
@@ -105,12 +104,11 @@ public class MemberDAO {
 	
 	//사용자 인증처리(로그인)
 	public int userCheck(String id, String pwd) {
-		int result=-1;
-		String sql="select pwd from members where id=?";
+		int result = -1;
+		String sql = "select pwd from members where id=?";
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		
 		try {
 			conn=getConnection();
 			pstmt=conn.prepareStatement(sql);
@@ -137,7 +135,6 @@ public class MemberDAO {
 				System.out.println("로그인 회선 종료 중 오류 발생 : "+ex);
 			}
 		}
-		
 		return result;//계산된 결과를 return;
 	}
 }

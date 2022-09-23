@@ -35,5 +35,6 @@
 			<input type = "hidden" value = "1" name = "number">
 			<input type = "submit" value = "삭제">
 		</form>
+		<jsp:include page = "goHome.jsp"/>
 	</body>
 </html>

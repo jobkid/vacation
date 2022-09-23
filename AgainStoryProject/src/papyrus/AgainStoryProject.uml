@@ -13,6 +13,10 @@
               <body>new MemberDAO()</body>
             </defaultValue>
           </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_PkC1QDltEe2AXfh6SEaN_w" name="memberbean" type="__eSkkDlqEe2AXfh6SEaN_w" association="_Pj8uoDltEe2AXfh6SEaN_w">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_PkC1QTltEe2AXfh6SEaN_w"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_PkC1QjltEe2AXfh6SEaN_w" value="1"/>
+          </ownedAttribute>
           <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_L3GH0Di8Ee2DR-cblne_fA" name="MemberDAO" specification="_L0b1YDi8Ee2DR-cblne_fA">
             <language>JAVA</language>
             <body>&#xD;
@@ -90,7 +94,7 @@
             <ownedParameter xmi:type="uml:Parameter" xmi:id="_L3ZCwDi8Ee2DR-cblne_fA" type="_L3RuADi8Ee2DR-cblne_fA" direction="return"/>
           </ownedOperation>
           <ownedOperation xmi:type="uml:Operation" xmi:id="_L3meIDi8Ee2DR-cblne_fA" name="getMember" visibility="public" method="_L3qIgDi8Ee2DR-cblne_fA">
-            <ownedParameter xmi:type="uml:Parameter" xmi:id="_L3oTUDi8Ee2DR-cblne_fA" type="_L3nsQDi8Ee2DR-cblne_fA" direction="return"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_L3oTUDi8Ee2DR-cblne_fA" direction="return"/>
             <ownedParameter xmi:type="uml:Parameter" xmi:id="_L3o6YDi8Ee2DR-cblne_fA" name="id" type="_L3iMsDi8Ee2DR-cblne_fA"/>
           </ownedOperation>
           <ownedOperation xmi:type="uml:Operation" xmi:id="_L3rWoDi8Ee2DR-cblne_fA" name="insertMember" visibility="public"/>
@@ -98,7 +102,217 @@
         <packagedElement xmi:type="uml:Class" xmi:id="_L3RuADi8Ee2DR-cblne_fA" name="Connection"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_L3nFMDi8Ee2DR-cblne_fA" name="beans">
-        <packagedElement xmi:type="uml:Class" xmi:id="_L3nsQDi8Ee2DR-cblne_fA" name="MemberBean"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="__eSkkDlqEe2AXfh6SEaN_w" name="MemberBean" visibility="public">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="__eUZwDlqEe2AXfh6SEaN_w" name="num" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="__eVn4DlqEe2AXfh6SEaN_w" name="name" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="__eW2ADlqEe2AXfh6SEaN_w" name="id" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="__eYEIDlqEe2AXfh6SEaN_w" name="pwd" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="__eZSQDlqEe2AXfh6SEaN_w" name="nickname" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="__eagYDlqEe2AXfh6SEaN_w" name="email" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="__ebHcDlqEe2AXfh6SEaN_w" name="phone" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="__ecVkDlqEe2AXfh6SEaN_w" name="birthday" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="__ec8oDlqEe2AXfh6SEaN_w" name="place" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="__eeKwDlqEe2AXfh6SEaN_w" name="joindate" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="__efY4DlqEe2AXfh6SEaN_w" name="admin" visibility="private" type="_L3iMsDi8Ee2DR-cblne_fA" isUnique="false"/>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__ek4cDlqEe2AXfh6SEaN_w" name="getNum" specification="__egnADlqEe2AXfh6SEaN_w">
+            <language>JAVA</language>
+            <body>&#xD;
+    return num;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__eoi0DlqEe2AXfh6SEaN_w" name="setNum" specification="__emtoDlqEe2AXfh6SEaN_w">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.num = num;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__ermIDlqEe2AXfh6SEaN_w" name="getName" specification="__eqYADlqEe2AXfh6SEaN_w">
+            <language>JAVA</language>
+            <body>&#xD;
+    return name;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__evQgDlqEe2AXfh6SEaN_w" name="setName" specification="__etbUDlqEe2AXfh6SEaN_w">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.name = name;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__exswDlqEe2AXfh6SEaN_w" name="getId" specification="__eweoDlqEe2AXfh6SEaN_w">
+            <language>JAVA</language>
+            <body>&#xD;
+    return id;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__e0wEDlqEe2AXfh6SEaN_w" name="setId" specification="__ey64DlqEe2AXfh6SEaN_w">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.id = id;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__e3MUDlqEe2AXfh6SEaN_w" name="getPwd" specification="__e1-MDlqEe2AXfh6SEaN_w">
+            <language>JAVA</language>
+            <body>&#xD;
+    return pwd;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__e5BgTlqEe2AXfh6SEaN_w" name="setPwd" specification="__e4acDlqEe2AXfh6SEaN_w">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.pwd = pwd;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__e62sDlqEe2AXfh6SEaN_w" name="getNickname" specification="__e5okDlqEe2AXfh6SEaN_w">
+            <language>JAVA</language>
+            <body>&#xD;
+    return nickname;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__e8r4DlqEe2AXfh6SEaN_w" name="setNickname" specification="__e7dwDlqEe2AXfh6SEaN_w">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.nickname = nickname;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__e-hEDlqEe2AXfh6SEaN_w" name="getEmail" specification="__e9S8DlqEe2AXfh6SEaN_w">
+            <language>JAVA</language>
+            <body>&#xD;
+    return email;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__e_vMTlqEe2AXfh6SEaN_w" name="setEmail" specification="__e_IIDlqEe2AXfh6SEaN_w">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.email = email;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__fCLcDlqEe2AXfh6SEaN_w" name="getPhone" specification="__fA9UDlqEe2AXfh6SEaN_w">
+            <language>JAVA</language>
+            <body>&#xD;
+    return phone;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__fEAoDlqEe2AXfh6SEaN_w" name="setPhone" specification="__fCygDlqEe2AXfh6SEaN_w">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.phone = phone;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__fFOwTlqEe2AXfh6SEaN_w" name="getBirthday" specification="__fEnsDlqEe2AXfh6SEaN_w">
+            <language>JAVA</language>
+            <body>&#xD;
+    return birthday;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__fHrADlqEe2AXfh6SEaN_w" name="setBirthday" specification="__fGc4DlqEe2AXfh6SEaN_w">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.birthday = birthday;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__fKHQDlqEe2AXfh6SEaN_w" name="getPlace" specification="__fI5IDlqEe2AXfh6SEaN_w">
+            <language>JAVA</language>
+            <body>&#xD;
+    return place;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__fMjgDlqEe2AXfh6SEaN_w" name="setPlace" specification="__fLVYDlqEe2AXfh6SEaN_w">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.place = place;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__fNxoTlqEe2AXfh6SEaN_w" name="getJoindate" specification="__fNKkDlqEe2AXfh6SEaN_w">
+            <language>JAVA</language>
+            <body>&#xD;
+    return joindate;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__fPm0DlqEe2AXfh6SEaN_w" name="setJoindate" specification="__fO_wDlqEe2AXfh6SEaN_w">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.joindate = joindate;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__fRcADlqEe2AXfh6SEaN_w" name="getAdmin" specification="__fQN4DlqEe2AXfh6SEaN_w">
+            <language>JAVA</language>
+            <body>&#xD;
+    return admin;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__fSqITlqEe2AXfh6SEaN_w" name="setAdmin" specification="__fSDEDlqEe2AXfh6SEaN_w">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.admin = admin;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="__egnADlqEe2AXfh6SEaN_w" name="getNum" visibility="public" method="__ek4cDlqEe2AXfh6SEaN_w">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="__ehOEDlqEe2AXfh6SEaN_w" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="__emtoDlqEe2AXfh6SEaN_w" name="setNum" visibility="public" method="__eoi0DlqEe2AXfh6SEaN_w">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="__en7wDlqEe2AXfh6SEaN_w" name="num" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="__eqYADlqEe2AXfh6SEaN_w" name="getName" visibility="public" method="__ermIDlqEe2AXfh6SEaN_w">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="__eq_EDlqEe2AXfh6SEaN_w" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="__etbUDlqEe2AXfh6SEaN_w" name="setName" visibility="public" method="__evQgDlqEe2AXfh6SEaN_w">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="__euCYDlqEe2AXfh6SEaN_w" name="name" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="__eweoDlqEe2AXfh6SEaN_w" name="getId" visibility="public" method="__exswDlqEe2AXfh6SEaN_w">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="__exFsDlqEe2AXfh6SEaN_w" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="__ey64DlqEe2AXfh6SEaN_w" name="setId" visibility="public" method="__e0wEDlqEe2AXfh6SEaN_w">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="__ezh8DlqEe2AXfh6SEaN_w" name="id" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="__e1-MDlqEe2AXfh6SEaN_w" name="getPwd" visibility="public" method="__e3MUDlqEe2AXfh6SEaN_w">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="__e2lQDlqEe2AXfh6SEaN_w" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="__e4acDlqEe2AXfh6SEaN_w" name="setPwd" visibility="public" method="__e5BgTlqEe2AXfh6SEaN_w">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="__e5BgDlqEe2AXfh6SEaN_w" name="pwd" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="__e5okDlqEe2AXfh6SEaN_w" name="getNickname" visibility="public" method="__e62sDlqEe2AXfh6SEaN_w">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="__e6PoDlqEe2AXfh6SEaN_w" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="__e7dwDlqEe2AXfh6SEaN_w" name="setNickname" visibility="public" method="__e8r4DlqEe2AXfh6SEaN_w">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="__e8E0DlqEe2AXfh6SEaN_w" name="nickname" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="__e9S8DlqEe2AXfh6SEaN_w" name="getEmail" visibility="public" method="__e-hEDlqEe2AXfh6SEaN_w">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="__e96ADlqEe2AXfh6SEaN_w" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="__e_IIDlqEe2AXfh6SEaN_w" name="setEmail" visibility="public" method="__e_vMTlqEe2AXfh6SEaN_w">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="__e_vMDlqEe2AXfh6SEaN_w" name="email" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="__fA9UDlqEe2AXfh6SEaN_w" name="getPhone" visibility="public" method="__fCLcDlqEe2AXfh6SEaN_w">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="__fBkYDlqEe2AXfh6SEaN_w" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="__fCygDlqEe2AXfh6SEaN_w" name="setPhone" visibility="public" method="__fEAoDlqEe2AXfh6SEaN_w">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="__fDZkDlqEe2AXfh6SEaN_w" name="phone" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="__fEnsDlqEe2AXfh6SEaN_w" name="getBirthday" visibility="public" method="__fFOwTlqEe2AXfh6SEaN_w">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="__fFOwDlqEe2AXfh6SEaN_w" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="__fGc4DlqEe2AXfh6SEaN_w" name="setBirthday" visibility="public" method="__fHrADlqEe2AXfh6SEaN_w">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="__fHD8DlqEe2AXfh6SEaN_w" name="birthday" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="__fI5IDlqEe2AXfh6SEaN_w" name="getPlace" visibility="public" method="__fKHQDlqEe2AXfh6SEaN_w">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="__fJgMDlqEe2AXfh6SEaN_w" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="__fLVYDlqEe2AXfh6SEaN_w" name="setPlace" visibility="public" method="__fMjgDlqEe2AXfh6SEaN_w">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="__fL8cDlqEe2AXfh6SEaN_w" name="place" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="__fNKkDlqEe2AXfh6SEaN_w" name="getJoindate" visibility="public" method="__fNxoTlqEe2AXfh6SEaN_w">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="__fNxoDlqEe2AXfh6SEaN_w" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="__fO_wDlqEe2AXfh6SEaN_w" name="setJoindate" visibility="public" method="__fPm0DlqEe2AXfh6SEaN_w">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="__fO_wTlqEe2AXfh6SEaN_w" name="joindate" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="__fQN4DlqEe2AXfh6SEaN_w" name="getAdmin" visibility="public" method="__fRcADlqEe2AXfh6SEaN_w">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="__fQ08DlqEe2AXfh6SEaN_w" type="_L3iMsDi8Ee2DR-cblne_fA" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="__fSDEDlqEe2AXfh6SEaN_w" name="setAdmin" visibility="public" method="__fSqITlqEe2AXfh6SEaN_w">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="__fSqIDlqEe2AXfh6SEaN_w" name="admin" type="_L3iMsDi8Ee2DR-cblne_fA"/>
+          </ownedOperation>
+        </packagedElement>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_L3aQ4Di8Ee2DR-cblne_fA" name="java">
@@ -293,12 +507,12 @@
             <ownedParameter xmi:type="uml:Parameter" xmi:id="_oU4-IDi8Ee2DR-cblne_fA" type="_oU2h4Di8Ee2DR-cblne_fA" direction="return"/>
           </ownedOperation>
           <ownedOperation xmi:type="uml:Operation" xmi:id="_oU6zUDi8Ee2DR-cblne_fA" name="getMember" visibility="public" method="_oU8ogDi8Ee2DR-cblne_fA">
-            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oU7aYDi8Ee2DR-cblne_fA" type="_L3nsQDi8Ee2DR-cblne_fA" direction="return"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oU7aYDi8Ee2DR-cblne_fA" direction="return"/>
             <ownedParameter xmi:type="uml:Parameter" xmi:id="_oU8BcDi8Ee2DR-cblne_fA" name="id" type="_L3iMsDi8Ee2DR-cblne_fA"/>
           </ownedOperation>
           <ownedOperation xmi:type="uml:Operation" xmi:id="_oU9PkDi8Ee2DR-cblne_fA" name="insertMember" visibility="public" method="_oVGZgDi8Ee2DR-cblne_fA">
             <ownedParameter xmi:type="uml:Parameter" xmi:id="_oVFLYTi8Ee2DR-cblne_fA" type="_oVFLYDi8Ee2DR-cblne_fA" direction="return"/>
-            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oVFycDi8Ee2DR-cblne_fA" name="m" type="_L3nsQDi8Ee2DR-cblne_fA"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_oVFycDi8Ee2DR-cblne_fA" name="m"/>
           </ownedOperation>
           <ownedOperation xmi:type="uml:Operation" xmi:id="_oVIOsDi8Ee2DR-cblne_fA" name="userCheck" visibility="public" method="_oVKq8Di8Ee2DR-cblne_fA">
             <ownedParameter xmi:type="uml:Parameter" xmi:id="_oVIOsTi8Ee2DR-cblne_fA" type="_oVFLYDi8Ee2DR-cblne_fA" direction="return"/>
@@ -313,6 +527,10 @@
               <language>JAVA</language>
               <body>new StoryDAO()</body>
             </defaultValue>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_VnhaozltEe2AXfh6SEaN_w" name="storybean" type="_oVXfQTi8Ee2DR-cblne_fA" association="_VnhaoDltEe2AXfh6SEaN_w">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VnhapDltEe2AXfh6SEaN_w"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VnhapTltEe2AXfh6SEaN_w" value="1"/>
           </ownedAttribute>
           <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_oVSmwDi8Ee2DR-cblne_fA" name="StoryDAO" specification="_oVQKgDi8Ee2DR-cblne_fA">
             <language>JAVA</language>
@@ -963,6 +1181,10 @@
           <body>1L</body>
         </defaultValue>
       </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_26ugsjltEe2AXfh6SEaN_w" name="memberbean" type="__eSkkDlqEe2AXfh6SEaN_w" association="_26t5oDltEe2AXfh6SEaN_w">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_26ugszltEe2AXfh6SEaN_w"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_26ugtDltEe2AXfh6SEaN_w" value="1"/>
+      </ownedAttribute>
       <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_D1aT5Di9Ee2DR-cblne_fA" name="doGet" specification="_D1aT5ji9Ee2DR-cblne_fA">
         <language>JAVA</language>
         <body>&#xD;
@@ -1053,6 +1275,10 @@
           <body>1L</body>
         </defaultValue>
       </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_-U4lIjltEe2AXfh6SEaN_w" name="storydao" type="_oVPjcDi8Ee2DR-cblne_fA" association="_-U3-EDltEe2AXfh6SEaN_w">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-U4lIzltEe2AXfh6SEaN_w"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-U4lJDltEe2AXfh6SEaN_w" value="1"/>
+      </ownedAttribute>
       <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_D1a7ADi9Ee2DR-cblne_fA" name="doGet" specification="_D1a7Aji9Ee2DR-cblne_fA">
         <language>JAVA</language>
         <body>&#xD;
@@ -1104,6 +1330,10 @@
           <body>1L</body>
         </defaultValue>
       </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_J76SozluEe2AXfh6SEaN_w" name="storydao" type="_oVPjcDi8Ee2DR-cblne_fA" association="_J76SoDluEe2AXfh6SEaN_w">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_J76SpDluEe2AXfh6SEaN_w"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_J765sDluEe2AXfh6SEaN_w" value="1"/>
+      </ownedAttribute>
       <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_D1biBDi9Ee2DR-cblne_fA" name="doGet" specification="_D1biBji9Ee2DR-cblne_fA">
         <language>JAVA</language>
         <body>&#xD;
@@ -1151,6 +1381,14 @@
           <language>JAVA</language>
           <body>1L</body>
         </defaultValue>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_9qOekDltEe2AXfh6SEaN_w" name="storydao" type="_oVPjcDi8Ee2DR-cblne_fA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9qOekTltEe2AXfh6SEaN_w"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9qOekjltEe2AXfh6SEaN_w" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_GCWnIjluEe2AXfh6SEaN_w" name="storydao" type="_oVPjcDi8Ee2DR-cblne_fA" association="_GCWAEDluEe2AXfh6SEaN_w">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_GCWnIzluEe2AXfh6SEaN_w"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_GCWnJDluEe2AXfh6SEaN_w" value="1"/>
       </ownedAttribute>
       <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_D1biEDi9Ee2DR-cblne_fA" name="doGet" specification="_D1biEji9Ee2DR-cblne_fA">
         <language>JAVA</language>
@@ -1211,6 +1449,10 @@
           <language>JAVA</language>
           <body>10</body>
         </defaultValue>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_6R8UIjltEe2AXfh6SEaN_w" name="storydao" type="_oVPjcDi8Ee2DR-cblne_fA" association="_6R7tEDltEe2AXfh6SEaN_w">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6R8UIzltEe2AXfh6SEaN_w"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6R8UJDltEe2AXfh6SEaN_w" value="1"/>
       </ownedAttribute>
       <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_D1biHji9Ee2DR-cblne_fA" name="doGet" specification="_D1biIDi9Ee2DR-cblne_fA">
         <language>JAVA</language>
@@ -1279,6 +1521,10 @@
           <body>1L</body>
         </defaultValue>
       </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_80XNkzltEe2AXfh6SEaN_w" name="storydao" type="_oVPjcDi8Ee2DR-cblne_fA" association="_80XNkDltEe2AXfh6SEaN_w">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_80X0oDltEe2AXfh6SEaN_w"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_80X0oTltEe2AXfh6SEaN_w" value="1"/>
+      </ownedAttribute>
       <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_D1cJFDi9Ee2DR-cblne_fA" name="doGet" specification="_D1cJFji9Ee2DR-cblne_fA">
         <language>JAVA</language>
         <body>&#xD;
@@ -1327,6 +1573,54 @@
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1cJGzi9Ee2DR-cblne_fA" name="response" type="_oXBsIDi8Ee2DR-cblne_fA"/>
       </ownedOperation>
       <nestedClassifier xmi:type="uml:Class" xmi:id="_yEaskDi-Ee2DR-cblne_fA" name="Class7"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_Pj8uoDltEe2AXfh6SEaN_w" memberEnd="_PkC1QDltEe2AXfh6SEaN_w _PkDcUDltEe2AXfh6SEaN_w">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Pj9VsDltEe2AXfh6SEaN_w" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Pj98wDltEe2AXfh6SEaN_w" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_PkDcUDltEe2AXfh6SEaN_w" name="memberdao" type="_L0WV0Di8Ee2DR-cblne_fA" association="_Pj8uoDltEe2AXfh6SEaN_w"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_VnhaoDltEe2AXfh6SEaN_w" memberEnd="_VnhaozltEe2AXfh6SEaN_w _VnhapjltEe2AXfh6SEaN_w">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_VnhaoTltEe2AXfh6SEaN_w" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_VnhaojltEe2AXfh6SEaN_w" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_VnhapjltEe2AXfh6SEaN_w" name="storydao" type="_oVPjcDi8Ee2DR-cblne_fA" association="_VnhaoDltEe2AXfh6SEaN_w"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_26t5oDltEe2AXfh6SEaN_w" memberEnd="_26ugsjltEe2AXfh6SEaN_w _26ugtTltEe2AXfh6SEaN_w">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_26ugsDltEe2AXfh6SEaN_w" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_26ugsTltEe2AXfh6SEaN_w" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_26ugtTltEe2AXfh6SEaN_w" name="registerservlet" type="_D1aT4Di9Ee2DR-cblne_fA" association="_26t5oDltEe2AXfh6SEaN_w"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_6R7tEDltEe2AXfh6SEaN_w" memberEnd="_6R8UIjltEe2AXfh6SEaN_w _6R8UJTltEe2AXfh6SEaN_w">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6R8UIDltEe2AXfh6SEaN_w" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6R8UITltEe2AXfh6SEaN_w" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_6R8UJTltEe2AXfh6SEaN_w" name="firstshortlist" type="_D1biGDi9Ee2DR-cblne_fA" association="_6R7tEDltEe2AXfh6SEaN_w"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_80XNkDltEe2AXfh6SEaN_w" memberEnd="_80XNkzltEe2AXfh6SEaN_w _80X0ojltEe2AXfh6SEaN_w">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_80XNkTltEe2AXfh6SEaN_w" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_80XNkjltEe2AXfh6SEaN_w" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_80X0ojltEe2AXfh6SEaN_w" name="updateshort" type="_D1cJEDi9Ee2DR-cblne_fA" association="_80XNkDltEe2AXfh6SEaN_w"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_-U3-EDltEe2AXfh6SEaN_w" memberEnd="_-U4lIjltEe2AXfh6SEaN_w _-U4lJTltEe2AXfh6SEaN_w">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-U4lIDltEe2AXfh6SEaN_w" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_-U4lITltEe2AXfh6SEaN_w" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_-U4lJTltEe2AXfh6SEaN_w" name="boardpostservlet" type="_D1a6_Di9Ee2DR-cblne_fA" association="_-U3-EDltEe2AXfh6SEaN_w"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_GCWAEDluEe2AXfh6SEaN_w" memberEnd="_GCWnIjluEe2AXfh6SEaN_w _GCWnJTluEe2AXfh6SEaN_w">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_GCWnIDluEe2AXfh6SEaN_w" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_GCWnITluEe2AXfh6SEaN_w" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_GCWnJTluEe2AXfh6SEaN_w" name="showshortlistservlet" type="_D1biDDi9Ee2DR-cblne_fA" association="_GCWAEDluEe2AXfh6SEaN_w"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_J76SoDluEe2AXfh6SEaN_w" memberEnd="_J76SozluEe2AXfh6SEaN_w _J765sTluEe2AXfh6SEaN_w">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_J76SoTluEe2AXfh6SEaN_w" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_J76SojluEe2AXfh6SEaN_w" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_J765sTluEe2AXfh6SEaN_w" name="readcontentservlet" type="_D1biADi9Ee2DR-cblne_fA" association="_J76SoDluEe2AXfh6SEaN_w"/>
     </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_L0Q2QDi8Ee2DR-cblne_fA">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_L0Q2QTi8Ee2DR-cblne_fA" source="http://www.eclipse.org/uml2/2.0.0/UML">

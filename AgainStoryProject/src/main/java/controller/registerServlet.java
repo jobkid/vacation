@@ -35,7 +35,7 @@ public class registerServlet extends HttpServlet {
 		String phone = request.getParameter("phone");
 		String birthday = request.getParameter("birthday");
 		String place = request.getParameter("place");
-		String admin = request.getParameter("admin");
+		String tribe = request.getParameter("tribe");
 		
 		MemberBean m = new MemberBean();
 		m.setName(name);
@@ -46,7 +46,7 @@ public class registerServlet extends HttpServlet {
 		m.setPhone(phone);
 		m.setBirthday(birthday);
 		m.setPlace(place);
-		m.setAdmin(admin);
+		m.setTribe(tribe);
 
 		MemberDAO mDao=MemberDAO.getInstance();
 		int result = mDao.insertMember(m);

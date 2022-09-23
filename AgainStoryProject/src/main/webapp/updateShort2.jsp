@@ -18,6 +18,7 @@
 		</style>
 	</head>
 	<body>
+		<jsp:include page = "loginComplete.jsp"/>
 		<div id = "wrap">
 			수정 단편소설 리스트 22
 			<table border="1">
@@ -72,5 +73,6 @@
 			<input type = "submit" value = "수정">
 		</form>
 		</div>
+		<jsp:include page = "goHome.jsp"/>
 	</body>
 </html>
