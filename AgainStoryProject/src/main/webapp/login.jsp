@@ -11,17 +11,19 @@
 			<form method="post" action="Login.do" name="login">
 				아이디 : <input type="text" id="inputid" name="id">
 				비밀번호 : <input type="password" id="inputpw" name="pwd">
-				<input type="submit" value="로그인" onclick = "#">
+				<input type="submit" value="로그인" onclick = "check()">
+			</form>	
 			</form>
 		</div>
 		<jsp:include page = "goHome.jsp"/>
 		<script>
 			function check(){
 				if(document.getElementById("inputid").value==""){
-					alert("아이디를 작성하셔야 합니다.")
+					alert("아이디를 작성하셔야 합니다.");
 					document.getElementById("inputid").focus();
 					return false;
 				}else if(document.getElementById("inputpw").value.length==0){
+					alert("비밀번호를 입력해주세요.");
 					document.getElementById("inputpw").focus();
 					return false;
 				}

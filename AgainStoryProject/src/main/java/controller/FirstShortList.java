@@ -34,7 +34,6 @@ public class FirstShortList extends HttpServlet {
 		request.setAttribute("nOfPage", nOfPage);//deleteShort.jsp와 firstshortList.jsp에게 보낼 키와 값을 정리
 		request.setAttribute("currentPage", 1);
 		request.setAttribute("recordsPerPage", 10);
-
 		request.setCharacterEncoding("utf-8");
 		int number = Integer.parseInt(request.getParameter("number"));//index.jsp의 Again의 a태그에서 받아온 number값.
 		RequestDispatcher dis=null;

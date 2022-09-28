@@ -30,12 +30,15 @@ public class LoginServlet extends HttpServlet {
 			MemberBean mBean = mDAO.getMember(id);
 			HttpSession session = request.getSession();
 			session.setAttribute("login", mBean);
+			session.setAttribute("id", id);
 			request.setAttribute("message", "로그인에 성공했습니다.");
 			System.out.println("로그인 성공");
 		}else if(result==0) {
 			request.setAttribute("message", "비밀번호가 맞지 않습니다.");
+			System.out.println("비밀번호 오류");
 		}else if(result==-1) {
 			request.setAttribute("message", "존재하지 않는 회원입니다.");
+			System.out.println("아이디 오류");
 		}
 		
 		dis=request.getRequestDispatcher("index.jsp");
