@@ -6,12 +6,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>로그인 완료</title>
-		<style>
-			h1{
-			background-color : white;
-			color : black;
-		}
-		</style>
+		<link rel="stylesheet" href = "CSS/loginComplete.css">
 	</head>
 	<body>
 		<div id="wrap">
@@ -21,7 +16,7 @@
 			int thisMonth = cal.get(Calendar.MONTH);
 			int thisDate = cal.get(Calendar.DATE);
 		%>
-		<h1>안녕하세요. 오늘은 <%=thisYear%>년 <%=thisMonth+1 %>월 <%=thisDate %>입니다.
+		<h1>안녕하세요. 오늘은 <%=thisYear%>년 <%=thisMonth+1 %>월 <%=thisDate %>일입니다.
 			<c:if test="${login.getId()!=null }">
 				${login.getId() }님 ${message } 오늘도 건필하세요.<a href="Logout.do">로그아웃</a></h1>
 			</c:if>

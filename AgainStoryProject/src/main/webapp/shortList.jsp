@@ -7,20 +7,15 @@
 	<head>
 		<meta charset="utf-8">
 		<title>단편소설</title>
-		<style>
-			*{
-				margin : 0 auto;
-				padding : 0;
-				text-align : center;
-			}
-			ul li{
-				display : inline-block;
-			}
-		</style>
+		<link rel = "stylesheet" href = "CSS/mainBoard.css">
 	</head>
 	<body>
 		<jsp:include page = "loginComplete.jsp"/>
 		<div id = "wrap">
+			<ul id = "menu">
+				<li><a href="short.jsp">단편모음집</a></li><li><a href="long.jsp">장편연재물</a></li><li><a href="succeed.jsp">연재소설 참가</a></li><li><a href="free.jsp">자유 게시판</a></li><li><a href="post.jsp">베스트 도전</a></li><li><a href="illust.jsp">표지 일러스토 공모</a></li><li><a href="login.jsp">로그인</a></li><li><a href="register.jsp">회원가입</a></li>
+			</ul>
+			<h1>단편소설 리스트</h1>
 			단편소설 리스트 
 			<table border="1">
 				<tr>
@@ -45,7 +40,7 @@
 			</select>
 			<input type = "submit" value = "보기">
 		</form>	
-		<ul>
+		<ul id="page">
 			<c:forEach begin = "1" end = "${nOfPage}" var = "i">
 				<c:choose>
 					<c:when test = "${currentPage eq i}">
@@ -57,23 +52,33 @@
 				</c:choose>
 			</c:forEach>
 		</ul>
-		<form method = "post" action = "writeShort.jsp" onclick="needLogin()">
-			<input type = "submit" value = "글쓰기">
-		</form>
-		<form method = "get" action = "ShowShortList.do" onclick="needLogin()">
-			<input type = "submit" value = "삭제">
-			<input type = "hidden" value = "1" name = "number">
-			<input type = "hidden" value = "${currentPage}" name = "currentPage">
-			<input type = "hidden" value = "${recordsPerPage }" name = "recordsPerPage">
-		</form>
-		<form method = "get" action = "ShowShortList.do" onclick="needLogin()">
-			<input type = "submit" value = "수정">
-			<input type = "hidden" value = "2" name = "number">
-			<input type = "hidden" value = "${currentPage}" name = "currentPage">
-			<input type = "hidden" value = "${recordsPerPage }" name = "recordsPerPage">
-		</form>
-		<input type = hidden value="${login.getId() }" id="session">
-		<input type = hidden value="${id }" id="checkid">
+		<div id = "button">
+		<ul>
+			<li>
+				<form method = "post" action = "writeShort.jsp" onclick="needLogin()">
+					<input type = "submit" value = "글쓰기">
+				</form>
+			</li>
+			<li>
+				<form method = "get" action = "ShowShortList.do" onclick="needLogin()">
+					<input type = "submit" value = "삭제">
+					<input type = "hidden" value = "1" name = "number">
+					<input type = "hidden" value = "${currentPage}" name = "currentPage">
+					<input type = "hidden" value = "${recordsPerPage }" name = "recordsPerPage">
+				</form>
+			</li>
+			<li>
+				<form method = "get" action = "ShowShortList.do" onclick="needLogin()">
+					<input type = "submit" value = "수정">
+					<input type = "hidden" value = "2" name = "number">
+					<input type = "hidden" value = "${currentPage}" name = "currentPage">
+					<input type = "hidden" value = "${recordsPerPage }" name = "recordsPerPage">
+				</form>
+			</li>	
+			<input type = hidden value="${login.getId() }" id="session">
+			<input type = hidden value="${id }" id="checkid">
+		</ul>
+		</div>
 		</div>
 		<jsp:include page = "goHome.jsp"/>
 	</body>

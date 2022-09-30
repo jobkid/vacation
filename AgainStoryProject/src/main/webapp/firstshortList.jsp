@@ -7,34 +7,15 @@
 	<head>
 		<meta charset="utf-8">
 		<title>단편소설</title>
-		<style>
-			*{
-				margin : 0 auto;
-				padding : 0;
-				text-align : center;
-			}
-			#wrap{
-				width:1204px;
-				margin: 0 auto;
-				border: 5px solid black; 
-			}
-			#menu li{
-				list-style:none;
-				border: 1px solid black;
-				text-align:center;
-				width:148px;
-				height:50px;
-				display:inline-block;
-			}
-		</style>
+		<link rel = "stylesheet" href = "CSS/mainBoard.css">
 	</head>
 	<body>
 		<jsp:include page = "loginComplete.jsp"/>
 		<div id = "wrap">
 			<ul id="menu">
-				<li><a href="short.jsp">단편모음집</a></li><li><a href="long.jsp">장편연재물</a></li><li><a href="succeed.jsp">연재소설 참가</a></li><li><a href="free.jsp">자유 게시판</a></li><li><a href="post.jsp">베스트 도전</a></li><li><a href="illust.jsp">표지 일러스토 공모</a></li><li><a href="login.jsp">로그인</a></li><li><a href="join.do">회원가입</a></li>
+				<li><a href="short.jsp">단편모음집</a></li><li><a href="long.jsp">장편연재물</a></li><li><a href="succeed.jsp">연재소설 참가</a></li><li><a href="free.jsp">자유 게시판</a></li><li><a href="post.jsp">베스트 도전</a></li><li><a href="illust.jsp">표지 일러스토 공모</a></li><li><a href="login.jsp">로그인</a></li><li><a href="register.jsp">회원가입</a></li>
 			</ul>
-		<h1>단편소설 리스트</h1>
+			<h1>단편소설 리스트</h1>
 			<table border="1">
 				<tr>
 					<th>번호</th><th>제목</th><th>작성자</th><th>날짜</th>
@@ -57,8 +38,8 @@
 				<option value = "15">단편 15개</option>
 			</select>
 			<input type = "submit" value = "보기">
-		</form>	
-		<ul>
+		</form>
+		<ul id="page">
 			<c:forEach begin = "1" end = "${nOfPage}" var = "i"><!-- for문이랑 기능이 값음 1페이지에서 마지막으로 설정한 페이지까지. 즉 FirstShortList.java에서 받아온 키  -->
 				<c:choose>
 					<c:when test = "${currentPage eq i}">
@@ -70,20 +51,30 @@
 				</c:choose>
 			</c:forEach>
 		</ul>
-		<form method = "post" action = "writeShort.jsp">
-			<input type = "submit" value = "글쓰기" id="write" onclick="needLogin()">
-		</form>
-		<form method = "get" action = "FirstShortList.do?number">
-			<input type = "submit" value="삭제" id="delete" onclick="needLogin()">
-			<input type = "hidden" value = "1" name = "number"><!-- number가 1이므로 FirstShortList.do로 들어간다음에 dis = request.getRequestDispatcher("deleteShort.jsp")로 간다. -->
-		</form>
-		<form method = "get" action = "FirstShortList.do?number">
-			<input type = "submit" value = "수정" id="update" onclick="needLogin()">
-			<input type = "hidden" value = "2" name = "number">	
-		</form>
-		<input type = hidden value="${login.getId() }" id="session">
-		<input type = hidden value="${id }" id="checkid">
-		<h1>${id }</h1>
+		<div id="button">
+		<ul>
+			<li>
+				<form method = "post" action = "writeShort.jsp">
+					<input type = "submit" value = "글쓰기" id="write" onclick="needLogin()">
+				</form>
+			</li>	
+			<li>
+				<form method = "get" action = "FirstShortList.do?number">
+					<input type = "submit" value="삭제" id="delete" onclick="needLogin()">
+					<input type = "hidden" value = "1" name = "number"><!-- number가 1이므로 FirstShortList.do로 들어간다음에 dis = request.getRequestDispatcher("deleteShort.jsp")로 간다. -->
+				</form>
+			</li>
+			<li>	
+				<form method = "get" action = "FirstShortList.do?number">
+					<input type = "submit" value = "수정" id="update" onclick="needLogin()">
+					<input type = "hidden" value = "2" name = "number">	
+				</form>
+			</li>	
+			<input type = hidden value="${login.getId() }" id="session">
+			<input type = hidden value="${id }" id="checkid">
+			<h1>${id }</h1>
+		</ul>		
+		</div>
 		</div>
 		<jsp:include page = "goHome.jsp"/>		
 	</body>

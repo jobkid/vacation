@@ -5,12 +5,6 @@
 	<head>
 		<meta charset="utf-8">
 		<title>소설 읽기</title>
-		<style>
-			*{
-				margin : 0 auto;
-				padding : 0;
-			}
-		</style>
 	</head>
 	<body>
 		<div id = "wrap">
