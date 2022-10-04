@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:style="http://www.eclipse.org/papyrus/infra/gmfdiag/style">
+  <ecore:EAnnotation xmi:id="_HwrtEDixEe2P08UctWYbvg" source="Internationalization">
+    <details xmi:id="_HwrtETixEe2P08UctWYbvg" key="use" value="true"/>
+    <details xmi:id="_HwrtEjixEe2P08UctWYbvg" key="language" value="ko_KR"/>
+  </ecore:EAnnotation>
+  <notation:Diagram xmi:id="_OmHT0DixEe2P08UctWYbvg" type="PapyrusUMLClassDiagram" name="DiagramTest1" measurementUnit="Pixel">
+    <styles xsi:type="notation:StringValueStyle" xmi:id="_OmHT0TixEe2P08UctWYbvg" name="diagram_compatibility_version" stringValue="1.4.0"/>
+    <styles xsi:type="notation:DiagramStyle" xmi:id="_OmHT0jixEe2P08UctWYbvg"/>
+    <styles xsi:type="style:PapyrusDiagramStyle" xmi:id="_OmHT0zixEe2P08UctWYbvg" diagramKindId="org.eclipse.papyrus.uml.diagram.class">
+      <owner href="Test.uml#_G2MawDixEe2P08UctWYbvg"/>
+    </styles>
+    <element href="Test.uml#_G2MawDixEe2P08UctWYbvg"/>
+  </notation:Diagram>
+</xmi:XMI>
