@@ -68,8 +68,8 @@
 					</tr>
 					<tr>
 						<td>
-							외계인<input type="radio" name="tribe" value="1">
-							마법사<input type="radio" name="tribe" value="2">
+							외계인<input type="radio" name="tribe" value="외계인">
+							마법사<input type="radio" name="tribe" value="마법사">
 						</td>
 					</tr>
 					<tr><td><input type="submit" value="회원가입 하기" onclick="return joinCheck()"><input type="reset" value="초기화"></td></tr>

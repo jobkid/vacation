@@ -3,6 +3,8 @@ import java.sql.*;
 import beans.MemberBean;
 
 public class MemberDAO {
+	private String ADMIN;
+	
 	private MemberDAO() {
 		
 	}//다른 곳에서 생성자를 쓰지 못하게 막는다. 싱글톤을 유지하기 위함.

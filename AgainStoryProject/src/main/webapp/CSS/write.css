@@ -1,0 +1,30 @@
+@charset "utf-8";
+*{
+	margin : 0 auto;
+	padding : 0;
+	text-align : center;
+}
+
+#wrap{
+	margin-top: 10px;
+	border : 1px solid black;
+	
+}
+textarea{
+	font-size : 20pt;
+	width : 70%;
+	height : 300px;
+	text-align : left;
+}
+#user{
+	text-align : left;
+	padding-left : 15%;
+}
+
+#user > input{
+	width : 30%px;
+	text-align : left;
+}
+#user #title{
+	width : 70%;
+}
