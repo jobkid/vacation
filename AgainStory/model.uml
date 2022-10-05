@@ -1,0 +1,768 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:PapyrusJava="http://www.eclipse.org/papyrus/PapyrusJava/1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
+  <uml:Model xmi:id="_Kn1PcDioEe2dgp2rMkP6Iw" name="model">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_Kp2osDioEe2dgp2rMkP6Iw">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Package" xmi:id="_-UOPIDivEe2P08UctWYbvg" name="generated">
+      <packagedElement xmi:type="uml:Package" xmi:id="_-XuPEDivEe2P08UctWYbvg" name="DAO">
+        <packagedElement xmi:type="uml:Class" xmi:id="_-Xx5cDivEe2P08UctWYbvg" name="MemberDAO" visibility="public">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-a430DivEe2P08UctWYbvg" name="instance" visibility="private" isStatic="true" type="_-Xx5cDivEe2P08UctWYbvg" isUnique="false">
+            <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_-a6tADivEe2P08UctWYbvg" name="defaultValue">
+              <language>JAVA</language>
+              <body>new MemberDAO()</body>
+            </defaultValue>
+          </ownedAttribute>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-a2bkDivEe2P08UctWYbvg" name="MemberDAO" specification="_-X4nIDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-a_lgDivEe2P08UctWYbvg" name="getInstance" specification="_-a7UEDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    return instance;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-bR5YDivEe2P08UctWYbvg" name="getConnection" specification="_-bAzoDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    Connection conn = null;&#xD;
+    String url = &quot;jdbc:mysql://127.0.0.1:3306/againstory&quot;;&#xD;
+    String dbid = &quot;root&quot;;&#xD;
+    String dbpw = &quot;iotiot&quot;;&#xD;
+    String driver = &quot;com.mysql.cj.jdbc.Driver&quot;;&#xD;
+    Class.forName(driver);&#xD;
+    conn = DriverManager.getConnection(url, dbid, dbpw);&#xD;
+    return conn;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-bc4gDivEe2P08UctWYbvg" name="getMember" specification="_-bZ1MDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    Member m = null;&#xD;
+    String sql = &quot;select *from members where id=?&quot;;&#xD;
+    Connection conn = null;&#xD;
+    PreparedStatement pstmt = null;&#xD;
+    ResultSet rs = null;&#xD;
+    try {&#xD;
+        conn = getConnection();&#xD;
+        pstmt = conn.prepareStatement(sql);&#xD;
+        pstmt.setString(1, id);&#xD;
+        rs = pstmt.executeQuery();&#xD;
+        if (rs.next()) {&#xD;
+            m = new Member();&#xD;
+            m.setNum(rs.getString(&quot;num&quot;));&#xD;
+            m.setName(rs.getString(&quot;name&quot;));&#xD;
+            m.setId(rs.getString(&quot;id&quot;));&#xD;
+            m.setPwd(rs.getString(&quot;pwd&quot;));&#xD;
+            m.setNickname(rs.getString(&quot;nickname&quot;));&#xD;
+            m.setEmail(rs.getString(&quot;email&quot;));&#xD;
+            m.setPhone(rs.getString(&quot;phone&quot;));&#xD;
+            m.setBirthday(rs.getString(&quot;birthday&quot;));&#xD;
+            m.setPlace(rs.getString(&quot;place&quot;));&#xD;
+            m.setJoindate(rs.getString(&quot;joindate&quot;));&#xD;
+            m.setAdmin(rs.getString(&quot;admin&quot;));&#xD;
+        }&#xD;
+    } catch (Exception e) {&#xD;
+        System.out.println(&quot;멤버 정보 조회 중 오류 발생 : &quot; + e);&#xD;
+    } finally {&#xD;
+        try {&#xD;
+            if (rs != null)&#xD;
+                rs.close();&#xD;
+            if (pstmt != null)&#xD;
+                pstmt.close();&#xD;
+            if (conn != null)&#xD;
+                conn.close();&#xD;
+        } catch (Exception ex) {&#xD;
+            System.out.println(&quot;멤버정보 조회 종료 중 오류 발생 : &quot; + ex);&#xD;
+        }&#xD;
+    }&#xD;
+    return m;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-bwagDivEe2P08UctWYbvg" name="insertMember" specification="_-beGoDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    int result = -1;&#xD;
+    String sql = &quot;insert into members(name, id, pwd, nickname, email, phone, birthday, place, admin) values (?,?,?,?,?,?,?,?,?)&quot;;&#xD;
+    Connection conn = null;&#xD;
+    PreparedStatement pstmt = null;&#xD;
+    try {&#xD;
+        conn = getConnection();&#xD;
+        pstmt = conn.prepareStatement(sql);&#xD;
+        pstmt.setString(1, m.getName());&#xD;
+        pstmt.setString(2, m.getId());&#xD;
+        pstmt.setString(3, m.getPwd());&#xD;
+        pstmt.setString(4, m.getNickname());&#xD;
+        pstmt.setString(5, m.getEmail());&#xD;
+        pstmt.setString(6, m.getPhone());&#xD;
+        pstmt.setString(7, m.getBirthday());&#xD;
+        pstmt.setString(8, m.getPlace());&#xD;
+        pstmt.setString(9, m.getAdmin());&#xD;
+        result = pstmt.executeUpdate();&#xD;
+    } catch (Exception e) {&#xD;
+        System.out.println(&quot;MemberDAO.insertMember() 실행 중 오류 발생 : &quot; + e);&#xD;
+    } finally {&#xD;
+        try {&#xD;
+            if (pstmt != null)&#xD;
+                pstmt.close();&#xD;
+            if (conn != null)&#xD;
+                conn.close();&#xD;
+        } catch (Exception ex) {&#xD;
+            System.out.println(&quot;MemberDAO.insertMember() 종료 중 오류 발생 : &quot; + ex);&#xD;
+        }&#xD;
+    }&#xD;
+    return result;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-b16EDivEe2P08UctWYbvg" name="userCheck" specification="_-byPsDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    int result = -1;&#xD;
+    String sql = &quot;select pwd from members where id=?&quot;;&#xD;
+    Connection conn = null;&#xD;
+    PreparedStatement pstmt = null;&#xD;
+    ResultSet rs = null;&#xD;
+    try {&#xD;
+        conn = getConnection();&#xD;
+        pstmt = conn.prepareStatement(sql);&#xD;
+        pstmt.setString(1, id);&#xD;
+        rs = pstmt.executeQuery();&#xD;
+        if (//해당 아이디가 존재하는 경우&#xD;
+        rs.next()) {&#xD;
+            if (rs.getString(&quot;pwd&quot;).equals(pwd) &amp;&amp; rs.getString(&quot;pwd&quot;) != null) {&#xD;
+                //아이디가 존재하고 비밀번호가 일치하는 경우&#xD;
+                result = 1;&#xD;
+            } else //비밀번호가 없거나 일치하지 않는 경우&#xD;
+            {&#xD;
+                result = 0;&#xD;
+            }&#xD;
+        } else {&#xD;
+            result = -1;&#xD;
+        }&#xD;
+    } catch (Exception e) {&#xD;
+        System.out.println(&quot;로그인 중 오류 발생 : &quot; + e);&#xD;
+    } finally {&#xD;
+        try {&#xD;
+            if (rs != null)&#xD;
+                rs.close();&#xD;
+            if (pstmt != null)&#xD;
+                pstmt.close();&#xD;
+            if (conn != null)&#xD;
+                conn.close();&#xD;
+        } catch (Exception ex) {&#xD;
+            System.out.println(&quot;로그인 회선 종료 중 오류 발생 : &quot; + ex);&#xD;
+        }&#xD;
+    }&#xD;
+    //계산된 결과를 return;&#xD;
+    return result;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-X4nIDivEe2P08UctWYbvg" name="MemberDAO" visibility="private" method="_-a2bkDivEe2P08UctWYbvg"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-a7UEDivEe2P08UctWYbvg" name="getInstance" visibility="public" isStatic="true" method="_-a_lgDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-a9wUDivEe2P08UctWYbvg" type="_-Xx5cDivEe2P08UctWYbvg" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-bAzoDivEe2P08UctWYbvg" name="getConnection" visibility="public" method="_-bR5YDivEe2P08UctWYbvg" raisedException="_-bNn8DivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-bIvcDivEe2P08UctWYbvg" type="_-bCBwDivEe2P08UctWYbvg" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-bZ1MDivEe2P08UctWYbvg" name="getMember" visibility="public" method="_-bc4gDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-bbDUTivEe2P08UctWYbvg" type="_-bbDUDivEe2P08UctWYbvg" direction="return"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-bcRcDivEe2P08UctWYbvg" name="id" type="_-bTukDivEe2P08UctWYbvg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-beGoDivEe2P08UctWYbvg" name="insertMember" visibility="public" method="_-bwagDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-bvMYDivEe2P08UctWYbvg" type="_-bulUDivEe2P08UctWYbvg" direction="return"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-bvzcDivEe2P08UctWYbvg" name="m" type="_-bbDUDivEe2P08UctWYbvg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-byPsDivEe2P08UctWYbvg" name="userCheck" visibility="public" method="_-b16EDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-by2wDivEe2P08UctWYbvg" type="_-bulUDivEe2P08UctWYbvg" direction="return"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-b0E4DivEe2P08UctWYbvg" name="id" type="_-bTukDivEe2P08UctWYbvg"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-b0r8DivEe2P08UctWYbvg" name="pwd" type="_-bTukDivEe2P08UctWYbvg"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_-bCBwDivEe2P08UctWYbvg" name="Connection"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_-bacQDivEe2P08UctWYbvg" name="beans">
+        <packagedElement xmi:type="uml:Class" xmi:id="_-bbDUDivEe2P08UctWYbvg" name="Member" visibility="public">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-cYsoDivEe2P08UctWYbvg" name="num" visibility="private" type="_-bTukDivEe2P08UctWYbvg" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-cZ6wDivEe2P08UctWYbvg" name="name" visibility="private" type="_-bTukDivEe2P08UctWYbvg" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-cah0DivEe2P08UctWYbvg" name="id" visibility="private" type="_-bTukDivEe2P08UctWYbvg" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-cbv8DivEe2P08UctWYbvg" name="pwd" visibility="private" type="_-bTukDivEe2P08UctWYbvg" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-cc-EDivEe2P08UctWYbvg" name="nickname" visibility="private" type="_-bTukDivEe2P08UctWYbvg" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-cdlIDivEe2P08UctWYbvg" name="email" visibility="private" type="_-bTukDivEe2P08UctWYbvg" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-cdlITivEe2P08UctWYbvg" name="phone" visibility="private" type="_-bTukDivEe2P08UctWYbvg" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-cezQDivEe2P08UctWYbvg" name="birthday" visibility="private" type="_-bTukDivEe2P08UctWYbvg" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-cfaUDivEe2P08UctWYbvg" name="place" visibility="private" type="_-bTukDivEe2P08UctWYbvg" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-cgocDivEe2P08UctWYbvg" name="joindate" visibility="private" type="_-bTukDivEe2P08UctWYbvg" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-chPgDivEe2P08UctWYbvg" name="admin" visibility="private" type="_-bTukDivEe2P08UctWYbvg" isUnique="false"/>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-cidoDivEe2P08UctWYbvg" name="getNum" specification="_-ch2kDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    return num;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-ckS0DivEe2P08UctWYbvg" name="setNum" specification="_-cjEsDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.num = num;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-clg8DivEe2P08UctWYbvg" name="getName" specification="_-ck54DivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    return name;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-cnWIDivEe2P08UctWYbvg" name="setName" specification="_-cmIADivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.name = name;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-cn9MTivEe2P08UctWYbvg" name="getId" specification="_-cnWITivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    return id;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-cpyYDivEe2P08UctWYbvg" name="setId" specification="_-cokQDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.id = id;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-crAgTivEe2P08UctWYbvg" name="getPwd" specification="_-cqZcDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    return pwd;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-ctcwDivEe2P08UctWYbvg" name="setPwd" specification="_-csOoDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.pwd = pwd;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-cvR8DivEe2P08UctWYbvg" name="getNickname" specification="_-cuD0DivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    return nickname;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-cxHIDivEe2P08UctWYbvg" name="setNickname" specification="_-cv5ADivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.nickname = nickname;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-cxuMTivEe2P08UctWYbvg" name="getEmail" specification="_-cxHITivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    return email;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-czjYTivEe2P08UctWYbvg" name="setEmail" specification="_-cy8UDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.email = email;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-c1YkDivEe2P08UctWYbvg" name="getPhone" specification="_-c0KcDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    return phone;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-c2msTivEe2P08UctWYbvg" name="setPhone" specification="_-c1_oDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.phone = phone;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-c5C8DivEe2P08UctWYbvg" name="getBirthday" specification="_-c3NwDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    return birthday;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-c7fMDivEe2P08UctWYbvg" name="setBirthday" specification="_-c6REDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.birthday = birthday;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-c8tUDivEe2P08UctWYbvg" name="getPlace" specification="_-c7fMTivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    return place;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-c97cDivEe2P08UctWYbvg" name="setPlace" specification="_-c8tUTivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.place = place;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-c_woTivEe2P08UctWYbvg" name="getJoindate" specification="_-c_JkDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    return joindate;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-dBl0DivEe2P08UctWYbvg" name="setJoindate" specification="_-dAXsDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.joindate = joindate;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-dECEDivEe2P08UctWYbvg" name="getAdmin" specification="_-dCz8DivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    return admin;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-dF3QDivEe2P08UctWYbvg" name="setAdmin" specification="_-dEpIDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.admin = admin;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-ch2kDivEe2P08UctWYbvg" name="getNum" visibility="public" method="_-cidoDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-ch2kTivEe2P08UctWYbvg" type="_-bTukDivEe2P08UctWYbvg" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-cjEsDivEe2P08UctWYbvg" name="setNum" visibility="public" method="_-ckS0DivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-cjrwDivEe2P08UctWYbvg" name="num" type="_-bTukDivEe2P08UctWYbvg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-ck54DivEe2P08UctWYbvg" name="getName" visibility="public" method="_-clg8DivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-ck54TivEe2P08UctWYbvg" type="_-bTukDivEe2P08UctWYbvg" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-cmIADivEe2P08UctWYbvg" name="setName" visibility="public" method="_-cnWIDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-cmvEDivEe2P08UctWYbvg" name="name" type="_-bTukDivEe2P08UctWYbvg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-cnWITivEe2P08UctWYbvg" name="getId" visibility="public" method="_-cn9MTivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-cn9MDivEe2P08UctWYbvg" type="_-bTukDivEe2P08UctWYbvg" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-cokQDivEe2P08UctWYbvg" name="setId" visibility="public" method="_-cpyYDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-cpLUDivEe2P08UctWYbvg" name="id" type="_-bTukDivEe2P08UctWYbvg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-cqZcDivEe2P08UctWYbvg" name="getPwd" visibility="public" method="_-crAgTivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-crAgDivEe2P08UctWYbvg" type="_-bTukDivEe2P08UctWYbvg" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-csOoDivEe2P08UctWYbvg" name="setPwd" visibility="public" method="_-ctcwDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-cs1sDivEe2P08UctWYbvg" name="pwd" type="_-bTukDivEe2P08UctWYbvg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-cuD0DivEe2P08UctWYbvg" name="getNickname" visibility="public" method="_-cvR8DivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-cuq4DivEe2P08UctWYbvg" type="_-bTukDivEe2P08UctWYbvg" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-cv5ADivEe2P08UctWYbvg" name="setNickname" visibility="public" method="_-cxHIDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-cwgEDivEe2P08UctWYbvg" name="nickname" type="_-bTukDivEe2P08UctWYbvg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-cxHITivEe2P08UctWYbvg" name="getEmail" visibility="public" method="_-cxuMTivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-cxuMDivEe2P08UctWYbvg" type="_-bTukDivEe2P08UctWYbvg" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-cy8UDivEe2P08UctWYbvg" name="setEmail" visibility="public" method="_-czjYTivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-czjYDivEe2P08UctWYbvg" name="email" type="_-bTukDivEe2P08UctWYbvg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-c0KcDivEe2P08UctWYbvg" name="getPhone" visibility="public" method="_-c1YkDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-c0xgDivEe2P08UctWYbvg" type="_-bTukDivEe2P08UctWYbvg" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-c1_oDivEe2P08UctWYbvg" name="setPhone" visibility="public" method="_-c2msTivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-c2msDivEe2P08UctWYbvg" name="phone" type="_-bTukDivEe2P08UctWYbvg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-c3NwDivEe2P08UctWYbvg" name="getBirthday" visibility="public" method="_-c5C8DivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-c4b4DivEe2P08UctWYbvg" type="_-bTukDivEe2P08UctWYbvg" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-c6REDivEe2P08UctWYbvg" name="setBirthday" visibility="public" method="_-c7fMDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-c64IDivEe2P08UctWYbvg" name="birthday" type="_-bTukDivEe2P08UctWYbvg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-c7fMTivEe2P08UctWYbvg" name="getPlace" visibility="public" method="_-c8tUDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-c8GQDivEe2P08UctWYbvg" type="_-bTukDivEe2P08UctWYbvg" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-c8tUTivEe2P08UctWYbvg" name="setPlace" visibility="public" method="_-c97cDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-c9UYDivEe2P08UctWYbvg" name="place" type="_-bTukDivEe2P08UctWYbvg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-c_JkDivEe2P08UctWYbvg" name="getJoindate" visibility="public" method="_-c_woTivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-c_woDivEe2P08UctWYbvg" type="_-bTukDivEe2P08UctWYbvg" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-dAXsDivEe2P08UctWYbvg" name="setJoindate" visibility="public" method="_-dBl0DivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-dA-wDivEe2P08UctWYbvg" name="joindate" type="_-bTukDivEe2P08UctWYbvg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-dCz8DivEe2P08UctWYbvg" name="getAdmin" visibility="public" method="_-dECEDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-dDbADivEe2P08UctWYbvg" type="_-bTukDivEe2P08UctWYbvg" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-dEpIDivEe2P08UctWYbvg" name="setAdmin" visibility="public" method="_-dF3QDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-dFQMDivEe2P08UctWYbvg" name="admin" type="_-bTukDivEe2P08UctWYbvg"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_-b7ZoDivEe2P08UctWYbvg" name="DTOShortStory" visibility="public">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-b8nwDivEe2P08UctWYbvg" name="num" visibility="private" type="_-bulUDivEe2P08UctWYbvg" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-b914DivEe2P08UctWYbvg" name="title" visibility="private" type="_-bTukDivEe2P08UctWYbvg" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-b_EADivEe2P08UctWYbvg" name="content" visibility="private" type="_-bTukDivEe2P08UctWYbvg" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-cASIDivEe2P08UctWYbvg" name="nickname" visibility="private" type="_-bTukDivEe2P08UctWYbvg" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-cBgQDivEe2P08UctWYbvg" name="password" visibility="private" type="_-bTukDivEe2P08UctWYbvg" isUnique="false"/>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-cDVcDivEe2P08UctWYbvg" name="getNum" specification="_-cCHUDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    return num;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-cFKoDivEe2P08UctWYbvg" name="setNum" specification="_-cD8gDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.num = num;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-cG_0TivEe2P08UctWYbvg" name="getTitle" specification="_-cFxsDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    return title;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-cKDIDivEe2P08UctWYbvg" name="setTitle" specification="_-cIN8DivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.title = title;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-cL4UDivEe2P08UctWYbvg" name="getContent" specification="_-cKqMDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    return content;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-cO7oDivEe2P08UctWYbvg" name="setContent" specification="_-cNGcDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.content = content;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-cQJwTivEe2P08UctWYbvg" name="getNickname" specification="_-cPisDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    return nickname;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-cR-8TivEe2P08UctWYbvg" name="setNickname" specification="_-cRX4DivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.nickname = nickname;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-cT0IDivEe2P08UctWYbvg" name="getPassword" specification="_-cTNEDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    return password;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-cVpUTivEe2P08UctWYbvg" name="setPassword" specification="_-cVCQDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    this.password = password;&#xD;
+</body>
+          </ownedBehavior>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-cCHUDivEe2P08UctWYbvg" name="getNum" visibility="public" method="_-cDVcDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-cCuYDivEe2P08UctWYbvg" type="_-bulUDivEe2P08UctWYbvg" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-cD8gDivEe2P08UctWYbvg" name="setNum" visibility="public" method="_-cFKoDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-cEjkDivEe2P08UctWYbvg" name="num" type="_-bulUDivEe2P08UctWYbvg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-cFxsDivEe2P08UctWYbvg" name="getTitle" visibility="public" method="_-cG_0TivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-cG_0DivEe2P08UctWYbvg" type="_-bTukDivEe2P08UctWYbvg" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-cIN8DivEe2P08UctWYbvg" name="setTitle" visibility="public" method="_-cKDIDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-cJcEDivEe2P08UctWYbvg" name="title" type="_-bTukDivEe2P08UctWYbvg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-cKqMDivEe2P08UctWYbvg" name="getContent" visibility="public" method="_-cL4UDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-cLRQDivEe2P08UctWYbvg" type="_-bTukDivEe2P08UctWYbvg" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-cNGcDivEe2P08UctWYbvg" name="setContent" visibility="public" method="_-cO7oDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-cOUkDivEe2P08UctWYbvg" name="content" type="_-bTukDivEe2P08UctWYbvg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-cPisDivEe2P08UctWYbvg" name="getNickname" visibility="public" method="_-cQJwTivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-cQJwDivEe2P08UctWYbvg" type="_-bTukDivEe2P08UctWYbvg" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-cRX4DivEe2P08UctWYbvg" name="setNickname" visibility="public" method="_-cR-8TivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-cR-8DivEe2P08UctWYbvg" name="nickname" type="_-bTukDivEe2P08UctWYbvg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-cTNEDivEe2P08UctWYbvg" name="getPassword" visibility="public" method="_-cT0IDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-cTNETivEe2P08UctWYbvg" type="_-bTukDivEe2P08UctWYbvg" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-cVCQDivEe2P08UctWYbvg" name="setPassword" visibility="public" method="_-cVpUTivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-cVpUDivEe2P08UctWYbvg" name="password" type="_-bTukDivEe2P08UctWYbvg"/>
+          </ownedOperation>
+          <ownedReception xmi:type="uml:Reception" xmi:id="_TRM_YDiwEe2P08UctWYbvg" name="Reception26"/>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_-dI6kDivEe2P08UctWYbvg" name="controller">
+        <packagedElement xmi:type="uml:Class" xmi:id="_-dKIsDivEe2P08UctWYbvg" name="WriteServlet" visibility="public">
+          <generalization xmi:type="uml:Generalization" xmi:id="_-dPBMDivEe2P08UctWYbvg" general="_-dLW0jivEe2P08UctWYbvg"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-dQPUTivEe2P08UctWYbvg" name="serialVersionUID" visibility="private" isLeaf="true" isStatic="true" type="_-dQPUDivEe2P08UctWYbvg" isUnique="false">
+            <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_-dRdcDivEe2P08UctWYbvg" name="defaultValue">
+              <language>JAVA</language>
+              <body>1L</body>
+            </defaultValue>
+          </ownedAttribute>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-dgG8DivEe2P08UctWYbvg" name="doGet" specification="_-dYLIDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    RequestDispatcher dis = request.getRequestDispatcher(&quot;/write.jsp&quot;);&#xD;
+    dis.forward(request, response);&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-djKQDivEe2P08UctWYbvg" name="doPost" specification="_-dhVEDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    request.setCharacterEncoding(&quot;utf-8&quot;);&#xD;
+    String title = request.getParameter(&quot;title&quot;);&#xD;
+    String content = request.getParameter(&quot;content&quot;);&#xD;
+    String nickname = request.getParameter(&quot;nickname&quot;);&#xD;
+    String password = request.getParameter(&quot;password&quot;);&#xD;
+    DTOShortStory ss = new DTOShortStory();&#xD;
+    ss.setTitle(title);&#xD;
+    ss.setContent(content);&#xD;
+    ss.setNickname(nickname);&#xD;
+    ss.setPassword(password);&#xD;
+    ShortStoryDAO sDao = ShortStoryDAO.getInstance();&#xD;
+    int result = sDao.insertStory(ss);&#xD;
+    HttpSession session = request.getSession();&#xD;
+    if (result == 1) {&#xD;
+        session.setAttribute(&quot;nickname&quot;, ss.getNickname());&#xD;
+        request.setAttribute(&quot;message&quot;, &quot;글쓰기에 성공했습니다.&quot;);&#xD;
+    } else {&#xD;
+        request.setAttribute(&quot;message&quot;, &quot;글쓰기에 실패했습니다.&quot;);&#xD;
+    }&#xD;
+    RequestDispatcher dis = request.getRequestDispatcher(&quot;check2.jsp&quot;);&#xD;
+    dis.forward(request, response);&#xD;
+</body>
+          </ownedBehavior>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-dYLIDivEe2P08UctWYbvg" name="doGet" visibility="protected" method="_-dgG8DivEe2P08UctWYbvg" raisedException="_-daAUDivEe2P08UctWYbvg _-ddqsDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-dYyMDivEe2P08UctWYbvg" name="request" type="_-dRdcTivEe2P08UctWYbvg"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-dZZQDivEe2P08UctWYbvg" name="response" type="_-dVH0DivEe2P08UctWYbvg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-dhVEDivEe2P08UctWYbvg" name="doPost" visibility="protected" method="_-djKQDivEe2P08UctWYbvg" raisedException="_-daAUDivEe2P08UctWYbvg _-ddqsDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-dh8IDivEe2P08UctWYbvg" name="request" type="_-dRdcTivEe2P08UctWYbvg"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-dh8ITivEe2P08UctWYbvg" name="response" type="_-dVH0DivEe2P08UctWYbvg"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_-dop0DivEe2P08UctWYbvg" name="IdCheckServlet" visibility="public">
+          <generalization xmi:type="uml:Generalization" xmi:id="_-dp38DivEe2P08UctWYbvg" general="_-dLW0jivEe2P08UctWYbvg"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-dqfADivEe2P08UctWYbvg" name="serialVersionUID" visibility="private" isLeaf="true" isStatic="true" type="_-dQPUDivEe2P08UctWYbvg" isUnique="false">
+            <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_-drGEDivEe2P08UctWYbvg" name="defaultValue">
+              <language>JAVA</language>
+              <body>1L</body>
+            </defaultValue>
+          </ownedAttribute>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-duwcDivEe2P08UctWYbvg" name="doGet" specification="_-dsUMDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-dxzwDivEe2P08UctWYbvg" name="doPost" specification="_-dv-kDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+</body>
+          </ownedBehavior>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-dsUMDivEe2P08UctWYbvg" name="doGet" visibility="protected" method="_-duwcDivEe2P08UctWYbvg" raisedException="_-daAUDivEe2P08UctWYbvg _-ddqsDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-ds7QDivEe2P08UctWYbvg" name="request" type="_-dRdcTivEe2P08UctWYbvg"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-dtiUDivEe2P08UctWYbvg" name="response" type="_-dVH0DivEe2P08UctWYbvg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-dv-kDivEe2P08UctWYbvg" name="doPost" visibility="protected" method="_-dxzwDivEe2P08UctWYbvg" raisedException="_-daAUDivEe2P08UctWYbvg _-ddqsDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-dwloDivEe2P08UctWYbvg" name="request" type="_-dRdcTivEe2P08UctWYbvg"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-dwloTivEe2P08UctWYbvg" name="response" type="_-dVH0DivEe2P08UctWYbvg"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_-d03EDivEe2P08UctWYbvg" name="LoginServlet" visibility="public">
+          <generalization xmi:type="uml:Generalization" xmi:id="_-d1eIDivEe2P08UctWYbvg" general="_-dLW0jivEe2P08UctWYbvg"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-d2sQDivEe2P08UctWYbvg" name="serialVersionUID" visibility="private" isLeaf="true" isStatic="true" type="_-dQPUDivEe2P08UctWYbvg" isUnique="false">
+            <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_-d3TUDivEe2P08UctWYbvg" name="defaultValue">
+              <language>JAVA</language>
+              <body>1L</body>
+            </defaultValue>
+          </ownedAttribute>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-d6WoDivEe2P08UctWYbvg" name="doGet" specification="_-d36YDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    RequestDispatcher dis = request.getRequestDispatcher(&quot;login.do&quot;);&#xD;
+    dis.forward(request, response);&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-d9Z8DivEe2P08UctWYbvg" name="doPost" specification="_-d69sDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    String url = &quot;login.jsp&quot;;&#xD;
+    request.setCharacterEncoding(&quot;utf-8&quot;);&#xD;
+    String id = request.getParameter(&quot;id&quot;);&#xD;
+    String pwd = request.getParameter(&quot;pwd&quot;);&#xD;
+    MemberDAO mDAO = MemberDAO.getInstance();&#xD;
+    int result = mDAO.userCheck(id, pwd);&#xD;
+    if (result == 1) {&#xD;
+        Member m = mDAO.getMember(id);&#xD;
+        HttpSession session = request.getSession();&#xD;
+        session.setAttribute(&quot;login&quot;, m);&#xD;
+        request.setAttribute(&quot;massage&quot;, &quot;로그인에 성공했습니다.&quot;);&#xD;
+        url = &quot;logincheck.jsp&quot;;&#xD;
+    } else if (result == 0) {&#xD;
+        request.setAttribute(&quot;massage&quot;, &quot;비밀번호가 맞지 않습니다.&quot;);&#xD;
+    } else if (result == -1) {&#xD;
+        request.setAttribute(&quot;massage&quot;, &quot;존재하지 않는 회원입니다.&quot;);&#xD;
+    }&#xD;
+    RequestDispatcher dis = request.getRequestDispatcher(url);&#xD;
+    dis.forward(request, response);&#xD;
+</body>
+          </ownedBehavior>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-d36YDivEe2P08UctWYbvg" name="doGet" visibility="protected" method="_-d6WoDivEe2P08UctWYbvg" raisedException="_-daAUDivEe2P08UctWYbvg _-ddqsDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-d5IgDivEe2P08UctWYbvg" name="request" type="_-dRdcTivEe2P08UctWYbvg"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-d5vkDivEe2P08UctWYbvg" name="response" type="_-dVH0DivEe2P08UctWYbvg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-d69sDivEe2P08UctWYbvg" name="doPost" visibility="protected" method="_-d9Z8DivEe2P08UctWYbvg" raisedException="_-daAUDivEe2P08UctWYbvg _-ddqsDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-d7kwDivEe2P08UctWYbvg" name="request" type="_-dRdcTivEe2P08UctWYbvg"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-d8L0DivEe2P08UctWYbvg" name="response" type="_-dVH0DivEe2P08UctWYbvg"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_-eAdQDivEe2P08UctWYbvg" name="JoinServlet" visibility="public">
+          <generalization xmi:type="uml:Generalization" xmi:id="_-eBEUDivEe2P08UctWYbvg" general="_-dLW0jivEe2P08UctWYbvg"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-eBrYDivEe2P08UctWYbvg" name="serialVersionUID" visibility="private" isLeaf="true" isStatic="true" type="_-dQPUDivEe2P08UctWYbvg" isUnique="false">
+            <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_-eC5gDivEe2P08UctWYbvg" name="defaultValue">
+              <language>JAVA</language>
+              <body>1L</body>
+            </defaultValue>
+          </ownedAttribute>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-eF80DivEe2P08UctWYbvg" name="doGet" specification="_-eEHoDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    RequestDispatcher dis = request.getRequestDispatcher(&quot;/join.jsp&quot;);&#xD;
+    dis.forward(request, response);&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-eJnMDivEe2P08UctWYbvg" name="doPost" specification="_-eHK8DivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    request.setCharacterEncoding(&quot;utf-8&quot;);&#xD;
+    String name = request.getParameter(&quot;name&quot;);&#xD;
+    String id = request.getParameter(&quot;id&quot;);&#xD;
+    String pwd = request.getParameter(&quot;pwd&quot;);&#xD;
+    String nickname = request.getParameter(&quot;nickname&quot;);&#xD;
+    String email = request.getParameter(&quot;email&quot;);&#xD;
+    String phone = request.getParameter(&quot;phone&quot;);&#xD;
+    String birthday = request.getParameter(&quot;birthday&quot;);&#xD;
+    String place = request.getParameter(&quot;place&quot;);&#xD;
+    String admin = request.getParameter(&quot;admin&quot;);&#xD;
+    Member m = new Member();&#xD;
+    m.setName(name);&#xD;
+    m.setId(id);&#xD;
+    m.setPwd(pwd);&#xD;
+    m.setNickname(nickname);&#xD;
+    m.setEmail(email);&#xD;
+    m.setPhone(phone);&#xD;
+    m.setBirthday(birthday);&#xD;
+    m.setPlace(place);&#xD;
+    m.setAdmin(admin);&#xD;
+    MemberDAO mDao = MemberDAO.getInstance();&#xD;
+    int result = mDao.insertMember(m);&#xD;
+    HttpSession session = request.getSession();&#xD;
+    if (result == 1) {&#xD;
+        session.setAttribute(&quot;id&quot;, m.getId());&#xD;
+        request.setAttribute(&quot;message&quot;, &quot;회원 가입에 성공했습니다.&quot;);&#xD;
+    } else {&#xD;
+        request.setAttribute(&quot;message&quot;, &quot;회원가입에 실패했습니다.&quot;);&#xD;
+    }&#xD;
+    RequestDispatcher dis = request.getRequestDispatcher(&quot;check.jsp&quot;);&#xD;
+    dis.forward(request, response);&#xD;
+</body>
+          </ownedBehavior>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-eEHoDivEe2P08UctWYbvg" name="doGet" visibility="protected" method="_-eF80DivEe2P08UctWYbvg" raisedException="_-daAUDivEe2P08UctWYbvg _-ddqsDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-eEusDivEe2P08UctWYbvg" name="request" type="_-dRdcTivEe2P08UctWYbvg"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-eEusTivEe2P08UctWYbvg" name="response" type="_-dVH0DivEe2P08UctWYbvg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-eHK8DivEe2P08UctWYbvg" name="doPost" visibility="protected" method="_-eJnMDivEe2P08UctWYbvg" raisedException="_-daAUDivEe2P08UctWYbvg _-ddqsDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-eIZEDivEe2P08UctWYbvg" name="request" type="_-dRdcTivEe2P08UctWYbvg"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-eJAIDivEe2P08UctWYbvg" name="response" type="_-dVH0DivEe2P08UctWYbvg"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_-eLcYDivEe2P08UctWYbvg" name="MemberListServlet" visibility="public">
+          <generalization xmi:type="uml:Generalization" xmi:id="_-eMDcDivEe2P08UctWYbvg" general="_-dLW0jivEe2P08UctWYbvg"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-eMqgDivEe2P08UctWYbvg" name="serialVersionUID" visibility="private" isLeaf="true" isStatic="true" type="_-dQPUDivEe2P08UctWYbvg" isUnique="false">
+            <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_-eNRkDivEe2P08UctWYbvg" name="defaultValue">
+              <language>JAVA</language>
+              <body>1L</body>
+            </defaultValue>
+          </ownedAttribute>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-ePt0DivEe2P08UctWYbvg" name="doGet" specification="_-eN4oDivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-eSxIDivEe2P08UctWYbvg" name="doPost" specification="_-eQU4DivEe2P08UctWYbvg">
+            <language>JAVA</language>
+            <body>&#xD;
+    doGet(request, response);&#xD;
+</body>
+          </ownedBehavior>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-eN4oDivEe2P08UctWYbvg" name="doGet" visibility="protected" method="_-ePt0DivEe2P08UctWYbvg" raisedException="_-daAUDivEe2P08UctWYbvg _-ddqsDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-eOfsDivEe2P08UctWYbvg" name="request" type="_-dRdcTivEe2P08UctWYbvg"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-ePGwDivEe2P08UctWYbvg" name="response" type="_-dVH0DivEe2P08UctWYbvg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_-eQU4DivEe2P08UctWYbvg" name="doPost" visibility="protected" method="_-eSxIDivEe2P08UctWYbvg" raisedException="_-daAUDivEe2P08UctWYbvg _-ddqsDivEe2P08UctWYbvg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-eQ78DivEe2P08UctWYbvg" name="request" type="_-dRdcTivEe2P08UctWYbvg"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_-eRjADivEe2P08UctWYbvg" name="response" type="_-dVH0DivEe2P08UctWYbvg"/>
+          </ownedOperation>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_lv7dIDizEe2P08UctWYbvg" client="_-Xx5cDivEe2P08UctWYbvg" supplier="_-eLcYDivEe2P08UctWYbvg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_-bLywDivEe2P08UctWYbvg" name="java">
+      <packagedElement xmi:type="uml:Package" xmi:id="_-bMZ0DivEe2P08UctWYbvg" name="java">
+        <packagedElement xmi:type="uml:Package" xmi:id="_-bNA4DivEe2P08UctWYbvg" name="lang">
+          <packagedElement xmi:type="uml:Class" xmi:id="_-bNn8DivEe2P08UctWYbvg" name="Exception"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_-bTukDivEe2P08UctWYbvg" name="String"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_-ddDoDivEe2P08UctWYbvg" name="io">
+          <packagedElement xmi:type="uml:Interface" xmi:id="_-ddqsDivEe2P08UctWYbvg" name="IOException"/>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_-btXMDivEe2P08UctWYbvg" name="importedTypes">
+      <packagedElement xmi:type="uml:Package" xmi:id="_-bt-QDivEe2P08UctWYbvg" name="primitivetype">
+        <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_-bulUDivEe2P08UctWYbvg" name="Integer"/>
+        <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_-dQPUDivEe2P08UctWYbvg" name="Long"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_-dKvwDivEe2P08UctWYbvg" name="javax">
+        <packagedElement xmi:type="uml:Package" xmi:id="_-dLW0DivEe2P08UctWYbvg" name="servlet">
+          <packagedElement xmi:type="uml:Package" xmi:id="_-dLW0TivEe2P08UctWYbvg" name="http">
+            <packagedElement xmi:type="uml:Class" xmi:id="_-dLW0jivEe2P08UctWYbvg" name="HttpServlet"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_-dRdcTivEe2P08UctWYbvg" name="HttpServletRequest"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_-dVH0DivEe2P08UctWYbvg" name="HttpServletResponse"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_-daAUDivEe2P08UctWYbvg" name="ServletException"/>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_-WWWEDivEe2P08UctWYbvg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-WdDwDivEe2P08UctWYbvg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/PapyrusJava/1#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://PapyrusJava_PROFILES/PapyrusJava.profile.uml#_j9REUByGEduN1bTiWJ0lyw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_-W-oMDivEe2P08UctWYbvg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-W_2UDivEe2P08UctWYbvg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/Codegen/1#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://Codegen_PROFILES/Codegen.profile.uml#_fPDsIBa-EearhdjjJ6cVzQ"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_-XPG4DivEe2P08UctWYbvg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-XQVADivEe2P08UctWYbvg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Model>
+  <standard:Create xmi:id="_-arccDivEe2P08UctWYbvg" base_BehavioralFeature="_-X4nIDivEe2P08UctWYbvg"/>
+  <PapyrusJava:External xmi:id="_-bGTMDivEe2P08UctWYbvg" name="Connection" base_Classifier="_-bCBwDivEe2P08UctWYbvg"/>
+  <PapyrusJava:External xmi:id="_-bQEMDivEe2P08UctWYbvg" name="java.lang.Exception" base_Classifier="_-bNn8DivEe2P08UctWYbvg"/>
+  <PapyrusJava:External xmi:id="_-bXY8DivEe2P08UctWYbvg" name="java.lang.String" base_Classifier="_-bTukDivEe2P08UctWYbvg"/>
+  <PapyrusJava:External xmi:id="_-dNzEDivEe2P08UctWYbvg" name="javax.servlet.http.HttpServlet" base_Classifier="_-dLW0jivEe2P08UctWYbvg"/>
+  <PapyrusJava:External xmi:id="_-dTSoDivEe2P08UctWYbvg" name="javax.servlet.http.HttpServletRequest" base_Classifier="_-dRdcTivEe2P08UctWYbvg"/>
+  <PapyrusJava:External xmi:id="_-dW9ADivEe2P08UctWYbvg" name="javax.servlet.http.HttpServletResponse" base_Classifier="_-dVH0DivEe2P08UctWYbvg"/>
+  <PapyrusJava:External xmi:id="_-db1gDivEe2P08UctWYbvg" name="javax.servlet.ServletException" base_Classifier="_-daAUDivEe2P08UctWYbvg"/>
+  <PapyrusJava:External xmi:id="_-de40DivEe2P08UctWYbvg" name="java.io.IOException" base_Classifier="_-ddqsDivEe2P08UctWYbvg"/>
+</xmi:XMI>
