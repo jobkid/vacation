@@ -1,0 +1,22 @@
+@charset "utf-8";
+#wrap{
+	width:600px;
+	margin:0 auto;
+}
+h1{
+	color:green;
+}
+table{
+	width:100%;
+	border-collapse:collapse;
+	font-size:15px;
+	line-height:40px;
+}
+
+table td, th{
+	border:1px solid black;
+}
+
+th{
+	background-color: yellowgreen;
+}
