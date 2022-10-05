@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.IOException;
-
+import java.util.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +22,22 @@ public class registerServlet extends HttpServlet {
        
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		System.out.println("register.do 실행");
+		Object element = request.getParameter("element");
+		MemberDAO mDao = MemberDAO.getInstance();
+		ArrayList<MemberBean> memberList = mDao.getMember();
+		ArrayList<MemberBean> memberList2 = mDao.getMember(element);
+		
+		request.setAttribute("members", memberList);
+		request.setCharacterEncoding("utf-8");
+		RequestDispatcher dis = null;
+		if(element==null) {
+			System.out.println("element가 null일 때");
+			dis = request.getRequestDispatcher("memberList.jsp");
+			dis.forward(request, response);
+		}else{
+			
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

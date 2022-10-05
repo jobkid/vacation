@@ -21,7 +21,7 @@
 				<c:choose >
 					<c:when test="${login.getId()=='AgainStory'}"> 
 						<h3>${login.getNickname() }가 로그인했습니다.<a href="Logout.do">로그아웃</a><br>
-						<a href = "#">회원 목록 보기</a></h3>
+						<a href = "register.do">회원 목록 보기</a></h3>
 					</c:when>
 					<c:otherwise>
 						<h3>${login.getId() }님 ${message } 오늘도 건필하세요.<a href="Logout.do">로그아웃</a></h3>

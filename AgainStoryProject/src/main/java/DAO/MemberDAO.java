@@ -1,6 +1,7 @@
 package DAO;
 import java.sql.*;
 import beans.MemberBean;
+import java.util.*;
 
 public class MemberDAO {
 	private String ADMIN;
@@ -29,13 +30,12 @@ public class MemberDAO {
 	//회원 정보 조회
 	public MemberBean getMember(String id) {
 		MemberBean m=null;
-		String sql="select *from members where id=?";
+		String sql="select * from members where id=?";
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
 			conn=getConnection();
-			pstmt=conn.prepareStatement(sql);
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs=pstmt.executeQuery();
@@ -67,9 +67,92 @@ public class MemberDAO {
 		return m;
 	}
 	
+	//전체 회원 조회
+	public ArrayList <MemberBean> getMember() {
+		MemberBean member=null;
+		ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
+		String sql="select * from members";
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				member=new MemberBean();
+				member.setNum(rs.getString("num"));
+				member.setName(rs.getString("name"));
+				member.setId(rs.getString("id"));
+				member.setPwd(rs.getString("pwd"));
+				member.setNickname(rs.getString("nickname"));
+				member.setEmail(rs.getString("email"));
+				member.setPhone(rs.getString("phone"));
+				member.setBirthday(rs.getString("birthday"));
+				member.setPlace(rs.getString("place"));
+				member.setJoindate(rs.getString("joindate"));
+				member.setTribe(rs.getString("tribe"));
+				memberList.add(member);
+			}
+		}catch(Exception e) {
+			System.out.println("멤버 정보 조회 중 오류 발생 : "+e);
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				System.out.println("멤버정보 조회 종료 중 오류 발생 : "+ex);
+			}
+		}
+		return memberList;
+	}
+	
+	//검색
+	public ArrayList <MemberBean> getMember(Object element){
+		MemberBean member=null;
+		ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
+		String sql="select * from members where id=? or name = ? or pwd = ? or nickname = ? or email = ? or phone = ? or birthday = ? or place = ? tribe = ? or tribe = ? joindate = ?";
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, (String)element);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				member=new MemberBean();
+				member.setNum(rs.getString("num"));
+				member.setName(rs.getString("name"));
+				member.setId(rs.getString("id"));
+				member.setPwd(rs.getString("pwd"));
+				member.setNickname(rs.getString("nickname"));
+				member.setEmail(rs.getString("email"));
+				member.setPhone(rs.getString("phone"));
+				member.setBirthday(rs.getString("birthday"));
+				member.setPlace(rs.getString("place"));
+				member.setJoindate(rs.getString("joindate"));
+				member.setTribe(rs.getString("tribe"));
+				memberList.add(member);
+			}
+		}catch(Exception e) {
+			System.out.println("멤버 정보 조회 중 오류 발생 : "+e);
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				System.out.println("멤버정보 조회 종료 중 오류 발생 : "+ex);
+			}
+		}
+		return memberList;
+	}
+	
+	
 	
 	//회원 가입
-	
 	public int insertMember(MemberBean m) {
 		int result=-1;
 		//String sql="insert into members(name, id, pwd, nickname, email, phone, birthday, place) values (?,?,?,?,?,?,?,?)";
