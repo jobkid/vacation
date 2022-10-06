@@ -35,18 +35,16 @@
 			</tbody>
 		</table>
 		<form method="get" action="register.do">
-			<select name = "element">
+			<select name = "column">
 				<option value="all">전체</option>
 				<option value="name">이름</option>
 				<option value="id">아이디</option>
-				<option value="pwd">비밀번호</option>
 				<option value="nickname">닉네임</option>
 				<option value="email">이메일</option>
 				<option value="phone">전화번호</option>
 				<option value="birthday">생년월일</option>
 				<option value="place">주소</option>
 				<option value="tribe">종족</option>
-				<option value="joindate">가입일시</option>
 			</select>
 			<input name = "search">
 			<input type = "submit" value = "검색">

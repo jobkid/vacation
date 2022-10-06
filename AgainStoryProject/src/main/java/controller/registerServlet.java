@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import DAO.MemberDAO;
 import beans.MemberBean;
 
@@ -23,21 +22,32 @@ public class registerServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("register.do 실행");
-		Object element = request.getParameter("element");
+		request.setCharacterEncoding("utf-8");
+		String column = request.getParameter("column");
+		String search = request.getParameter("search");
+		//String []elements = {search, search, search, search, search, search, search, search};
+		System.out.println(column);
 		MemberDAO mDao = MemberDAO.getInstance();
 		ArrayList<MemberBean> memberList = mDao.getMember();
-		ArrayList<MemberBean> memberList2 = mDao.getMember(element);
+		//ArrayList<MemberBean> memberList2 = mDao.getMember(element);
 		
-		request.setAttribute("members", memberList);
-		request.setCharacterEncoding("utf-8");
 		RequestDispatcher dis = null;
-		if(element==null) {
+		if(column==null) {
 			System.out.println("element가 null일 때");
-			dis = request.getRequestDispatcher("memberList.jsp");
-			dis.forward(request, response);
-		}else{
-			
+			request.setAttribute("members", memberList);
+		}else if(/*Arrays.asList(elements).contains(search)*/search!=null){
+			if(column=="all") {
+				column=null;
+				memberList=mDao.getMember(search, column);
+				request.setAttribute("members", memberList);
+			}
+			else{
+				memberList=mDao.getMember(search, column);
+				request.setAttribute("members", memberList);
+			}
 		}
+		dis = request.getRequestDispatcher("memberList.jsp");
+		dis.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

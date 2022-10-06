@@ -95,7 +95,7 @@ public class MemberDAO {
 				memberList.add(member);
 			}
 		}catch(Exception e) {
-			System.out.println("멤버 정보 조회 중 오류 발생 : "+e);
+			System.out.println("전체 멤버 정보 조회 중 오류 발생 : "+e);
 		}finally {
 			try {
 				if(rs!=null)rs.close();
@@ -108,18 +108,27 @@ public class MemberDAO {
 		return memberList;
 	}
 	
-	//검색
-	public ArrayList <MemberBean> getMember(Object element){
+	//검색 회원 조회
+	public ArrayList <MemberBean> getMember(String element, String column){
 		MemberBean member=null;
 		ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
-		String sql="select * from members where id=? or name = ? or pwd = ? or nickname = ? or email = ? or phone = ? or birthday = ? or place = ? tribe = ? or tribe = ? joindate = ?";
+		//String sql= "select * from members where id = ? or name = ? or nickname = ? or email = ? or phone = ? or birthday = ? or place = ? or tribe = ?;";
+		String sql= "select * from members where "+column+"=?";
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
 			conn=getConnection();
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, (String)element);
+			pstmt.setString(1, element);
+//			pstmt.setString(1, elements[0]);
+//			pstmt.setString(2, elements[1]);
+//			pstmt.setString(3, elements[2]);
+//			pstmt.setString(4, elements[3]);
+//			pstmt.setString(5, elements[4]);
+//			pstmt.setString(6, elements[5]);
+//			pstmt.setString(7, elements[6]);
+//			pstmt.setString(8, elements[7]);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				member=new MemberBean();
@@ -137,7 +146,7 @@ public class MemberDAO {
 				memberList.add(member);
 			}
 		}catch(Exception e) {
-			System.out.println("멤버 정보 조회 중 오류 발생 : "+e);
+			System.out.println("멤버 정보 검색 중 오류 발생 : "+e);
 		}finally {
 			try {
 				if(rs!=null)rs.close();
