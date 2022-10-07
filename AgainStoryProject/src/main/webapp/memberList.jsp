@@ -35,7 +35,7 @@
 			</tbody>
 		</table>
 		<form method="get" action="register.do">
-			<select name = "column">
+			<select name = "category">
 				<option value="all">전체</option>
 				<option value="name">이름</option>
 				<option value="id">아이디</option>

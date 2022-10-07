@@ -25,26 +25,26 @@ public class registerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("register.do 실행");
 		request.setCharacterEncoding("utf-8");
-		String column = request.getParameter("column");
+		String category = request.getParameter("category");
 		String search = request.getParameter("search");
 		//String []elements = {search, search, search, search, search, search, search, search};
-		System.out.println(column);
+		System.out.println(category);
 		MemberDAO mDao = MemberDAO.getInstance();
 		ArrayList<MemberBean> memberList = mDao.getMember();
 		//ArrayList<MemberBean> memberList2 = mDao.getMember(element);
 		
 		RequestDispatcher dis = null;
-		if(column==null) {
+		if(category==null) {
 			System.out.println("element가 null일 때");
 			request.setAttribute("members", memberList);
 		}else if(/*Arrays.asList(elements).contains(search)*/search!=null){
-			if(column=="all") {
-				column=null;
-				memberList=mDao.getMember(search, column);
+			if(category=="all") {
+				category=null;
+				memberList=mDao.getMember(search, category);
 				request.setAttribute("members", memberList);
 			}
 			else{
-				memberList=mDao.getMember(search, column);
+				memberList=mDao.getMember(search, category);
 				request.setAttribute("members", memberList);
 			}
 		}

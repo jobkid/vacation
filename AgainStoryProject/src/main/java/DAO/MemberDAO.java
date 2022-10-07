@@ -113,54 +113,79 @@ public class MemberDAO {
 		MemberBean member=null;
 		ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
 		//String sql= "select * from members where id = ? or name = ? or nickname = ? or email = ? or phone = ? or birthday = ? or place = ? or tribe = ?;";
-		String sql= " ";
-		sql="select * from members where "+column+"=?";
+		String sql = "";
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		try {
-			conn=getConnection();
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, element);
-//			pstmt.setString(1, elements[0]);
-//			pstmt.setString(2, elements[1]);
-//			pstmt.setString(3, elements[2]);
-//			pstmt.setString(4, elements[3]);
-//			pstmt.setString(5, elements[4]);
-//			pstmt.setString(6, elements[5]);
-//			pstmt.setString(7, elements[6]);
-//			pstmt.setString(8, elements[7]);
-			rs=pstmt.executeQuery();
-			while(rs.next()) {
-				member=new MemberBean();
-				member.setNum(rs.getString("num"));
-				member.setName(rs.getString("name"));
-				member.setId(rs.getString("id"));
-				member.setPwd(rs.getString("pwd"));
-				member.setNickname(rs.getString("nickname"));
-				member.setEmail(rs.getString("email"));
-				member.setPhone(rs.getString("phone"));
-				member.setBirthday(rs.getString("birthday"));
-				member.setPlace(rs.getString("place"));
-				member.setJoindate(rs.getString("joindate"));
-				member.setTribe(rs.getString("tribe"));
-				memberList.add(member);
-			}
-		}catch(Exception e) {
-			System.out.println("멤버 정보 검색 중 오류 발생 : "+e);
-		}finally {
+		if(!sql.contains(column)) {
+			sql="select * from members where "+column+" =?";
 			try {
-				if(rs!=null)rs.close();
-				if(pstmt!=null)pstmt.close();
-				if(conn!=null)conn.close();
-			}catch(Exception ex) {
-				System.out.println("멤버정보 조회 종료 중 오류 발생 : "+ex);
+				conn=getConnection();
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, element);
+				rs=pstmt.executeQuery();	
+				while(rs.next()) {
+					member=new MemberBean();
+					member.setNum(rs.getString("num"));
+					member.setName(rs.getString("name"));
+					member.setId(rs.getString("id"));
+					member.setPwd(rs.getString("pwd"));
+					member.setNickname(rs.getString("nickname"));
+					member.setEmail(rs.getString("email"));
+					member.setPhone(rs.getString("phone"));
+					member.setBirthday(rs.getString("birthday"));
+					member.setPlace(rs.getString("place"));
+					member.setJoindate(rs.getString("joindate"));
+					member.setTribe(rs.getString("tribe"));
+					memberList.add(member);
+				}
+			}catch(Exception e) {
+				System.out.println("멤버 정보 검색 중 오류 발생 : "+e);
+			}finally {
+				try {
+					if(rs!=null)rs.close();
+					if(pstmt!=null)pstmt.close();
+					if(conn!=null)conn.close();
+				}catch(Exception ex) {
+					System.out.println("멤버정보 조회 종료 중 오류 발생 : "+ex);
+				}
+			}
+		}else {
+			sql="select * from members where "+column+" like ?";
+			try {
+				conn=getConnection();
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, element);
+				rs=pstmt.executeQuery();	
+				while(rs.next()) {
+					member=new MemberBean();
+					member.setNum(rs.getString("num"));
+					member.setName(rs.getString("name"));
+					member.setId(rs.getString("id"));
+					member.setPwd(rs.getString("pwd"));
+					member.setNickname(rs.getString("nickname"));
+					member.setEmail(rs.getString("email"));
+					member.setPhone(rs.getString("phone"));
+					member.setBirthday(rs.getString("birthday"));
+					member.setPlace(rs.getString("place"));
+					member.setJoindate(rs.getString("joindate"));
+					member.setTribe(rs.getString("tribe"));
+					memberList.add(member);
+				}
+			}catch(Exception e) {
+				System.out.println("멤버 정보 부분 검색 중 오류 발생 : "+e);
+			}finally {
+				try {
+					if(rs!=null)rs.close();
+					if(pstmt!=null)pstmt.close();
+					if(conn!=null)conn.close();
+				}catch(Exception ex) {
+					System.out.println("멤버정보 조회 종료 중 오류 발생 : "+ex);
+				}
 			}
 		}
 		return memberList;
 	}
-	
-	
 	
 	//회원 가입
 	public int insertMember(MemberBean m) {
