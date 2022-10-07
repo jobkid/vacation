@@ -113,7 +113,8 @@ public class MemberDAO {
 		MemberBean member=null;
 		ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
 		//String sql= "select * from members where id = ? or name = ? or nickname = ? or email = ? or phone = ? or birthday = ? or place = ? or tribe = ?;";
-		String sql= "select * from members where "+column+"=?";
+		String sql= " ";
+		sql="select * from members where "+column+"=?";
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
