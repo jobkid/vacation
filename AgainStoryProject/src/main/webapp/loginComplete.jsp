@@ -20,11 +20,11 @@
 			<c:if test="${login.getId()!=null }">
 				<c:choose >
 					<c:when test="${login.getId()=='AgainStory'}"> 
-						<h3>${login.getNickname() }가 로그인했습니다.<a href="Logout.do">로그아웃</a><br>
-						<a href = "register.do">회원 목록 보기</a></h3>
+						<h3>${login.getNickname() }가 로그인했습니다.<a href="myPage.jsp">마이 페이지</a> <a href="Logout.do">로그아웃</a><br>
+						<a href = "register.do?recordsPerPage=10&currentPage=1">회원 목록 보기</a></h3>
 					</c:when>
 					<c:otherwise>
-						<h3>${login.getId() }님 ${message } 오늘도 건필하세요.<a href="Logout.do">로그아웃</a></h3>
+						<h3>${login.getId() }님 ${message } 오늘도 건필하세요.<a href="myPage.jsp">마이 페이지</a> <a href="Logout.do">로그아웃</a></h3>
 					</c:otherwise>
 				</c:choose>
 			</c:if>	

@@ -36,7 +36,7 @@ public class UpdateShort extends HttpServlet {
 		System.out.println("UpdateShort.do¿« doPost");
 		request.setCharacterEncoding("utf-8");
 		int num = Integer.parseInt(request.getParameter("num"));
-		String password = request.getParameter("password");
+		String password = request.getParameter("pass");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		

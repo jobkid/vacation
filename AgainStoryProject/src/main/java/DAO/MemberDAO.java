@@ -26,6 +26,31 @@ public class MemberDAO {
 		conn=DriverManager.getConnection(url, dbid, dbpw);
 		return conn;
 	}
+	public int getNumberOfRows() {
+		String sql = "select count(num) from members;";
+		int numberOfRows = 0;//몇 개 데이터가 있는지를 저장할 공간
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			rs.next();
+			numberOfRows = rs.getInt("count(num)");
+		}catch(Exception e) {
+			System.out.println("게시글 줄 개수 생성 중 오류 발생"+e);
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				System.out.println("게시글 줄 개수 생성 후 오류 발생 : "+ex);
+			}
+		}		
+		return numberOfRows;
+	}
 	
 	//회원 정보 조회
 	public MemberBean getMember(String id) {
@@ -41,7 +66,7 @@ public class MemberDAO {
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				m=new MemberBean();
-				m.setNum(rs.getString("num"));
+				m.setNum(rs.getInt("num"));
 				m.setName(rs.getString("name"));
 				m.setId(rs.getString("id"));
 				m.setPwd(rs.getString("pwd"));
@@ -68,20 +93,23 @@ public class MemberDAO {
 	}
 	
 	//전체 회원 조회
-	public ArrayList <MemberBean> getMember() {
+	public ArrayList <MemberBean> getMember(int currentPage, int recordsPerPage) {
 		MemberBean member=null;
 		ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
-		String sql="select * from members";
+		int start=currentPage*recordsPerPage-recordsPerPage;
+		String sql="select * from members limit ?, ?";
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
 			conn=getConnection();
 			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, recordsPerPage);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				member=new MemberBean();
-				member.setNum(rs.getString("num"));
+				member.setNum(rs.getInt("num"));
 				member.setName(rs.getString("name"));
 				member.setId(rs.getString("id"));
 				member.setPwd(rs.getString("pwd"));
@@ -109,24 +137,85 @@ public class MemberDAO {
 	}
 	
 	//검색 회원 조회
-	public ArrayList <MemberBean> getMember(String element, String column){
-		MemberBean member=null;
-		ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
-		//String sql= "select * from members where id = ? or name = ? or nickname = ? or email = ? or phone = ? or birthday = ? or place = ? or tribe = ?;";
-		String sql = "";
-		Connection conn=null;
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
-		if(!sql.contains(column)) {
-			sql="select * from members where "+column+" =?";
+		public ArrayList <MemberBean> getMember(String element, String column, int currentPage, int recordsPerPage){
+			MemberBean member=null;
+			ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
+			//String sql= "select * from members where id = ? or name = ? or nickname = ? or email = ? or phone = ? or birthday = ? or place = ? or tribe = ?;";
+			String sql ="select * from members ";
+			int start=currentPage*recordsPerPage-recordsPerPage;
+			Connection conn=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
 			try {
 				conn=getConnection();
-				pstmt=conn.prepareStatement(sql);
-				pstmt.setString(1, element);
+				if(column.equals("num")){
+					sql+="where name like ? or id like ? or nickname like ? or "+
+						"email like ? or phone like ? or "+
+						"birthday like ? or place like ? or tribe like ? limit ?, ?";
+					pstmt=conn.prepareStatement(sql);
+					pstmt.setString(1, "%"+element+"%");
+					pstmt.setString(2, "%"+element+"%");
+					pstmt.setString(3, "%"+element+"%");
+					pstmt.setString(4, "%"+element+"%");
+					pstmt.setString(5, "%"+element+"%");
+					pstmt.setString(6, "%"+element+"%");
+					pstmt.setString(7, "%"+element+"%");
+					pstmt.setString(8, "%"+element+"%");
+					pstmt.setInt(9, start);
+					pstmt.setInt(10, recordsPerPage);
+				}else if(column.equals("name")) {
+					sql+="where name like ? limit ?, ?";
+					pstmt=conn.prepareStatement(sql);
+					pstmt.setString(1, "%"+element+"%");
+					pstmt.setInt(2, start);
+					pstmt.setInt(3, recordsPerPage);
+				}else if(column.equals("id")) {
+					sql+="where id like ? limit ?, ?";
+					pstmt=conn.prepareStatement(sql);
+					pstmt.setString(1, "%"+element+"%");
+					pstmt.setInt(2, start);
+					pstmt.setInt(3, recordsPerPage);
+				}else if(column.equals("nickname")) {
+					sql+="where nickname like ? limit ?, ?";
+					pstmt=conn.prepareStatement(sql);
+					pstmt.setString(1, "%"+element+"%");
+					pstmt.setInt(2, start);
+					pstmt.setInt(3, recordsPerPage);
+				}else if(column.equals("email")) {
+					sql+="where email like ? limit ?, ?";
+					pstmt=conn.prepareStatement(sql);
+					pstmt.setString(1, "%"+element+"%");
+					pstmt.setInt(2, start);
+					pstmt.setInt(3, recordsPerPage);
+				}else if(column.equals("phone")) {
+					sql+="where phone like ? limit ?, ?";
+					pstmt=conn.prepareStatement(sql);
+					pstmt.setString(1, "%"+element+"%");
+					pstmt.setInt(2, start);
+					pstmt.setInt(3, recordsPerPage);
+				}else if(column.equals("birthday")) {
+					sql+="where birthday like ? limit ?, ?";
+					pstmt=conn.prepareStatement(sql);
+					pstmt.setString(1, "%"+element+"%");
+					pstmt.setInt(2, start);
+					pstmt.setInt(3, recordsPerPage);
+				}else if(column.equals("place")) {
+					sql+="where place like ? limit ?, ?";
+					pstmt=conn.prepareStatement(sql);
+					pstmt.setString(1, "%"+element+"%");
+					pstmt.setInt(2, start);
+					pstmt.setInt(3, recordsPerPage);
+				}else if(column.equals("tribe")) {
+					sql+="where tribe like ? limit ?, ?";
+					pstmt=conn.prepareStatement(sql);
+					pstmt.setString(1, "%"+element+"%");
+					pstmt.setInt(2, start);
+					pstmt.setInt(3, recordsPerPage);
+				}
 				rs=pstmt.executeQuery();	
 				while(rs.next()) {
 					member=new MemberBean();
-					member.setNum(rs.getString("num"));
+					member.setNum(rs.getInt("num"));
 					member.setName(rs.getString("name"));
 					member.setId(rs.getString("id"));
 					member.setPwd(rs.getString("pwd"));
@@ -140,7 +229,7 @@ public class MemberDAO {
 					memberList.add(member);
 				}
 			}catch(Exception e) {
-				System.out.println("멤버 정보 검색 중 오류 발생 : "+e);
+					System.out.println("멤버 정보 검색 중 오류 발생 : "+e);
 			}finally {
 				try {
 					if(rs!=null)rs.close();
@@ -150,42 +239,8 @@ public class MemberDAO {
 					System.out.println("멤버정보 조회 종료 중 오류 발생 : "+ex);
 				}
 			}
-		}else {
-			sql="select * from members where "+column+" like ?";
-			try {
-				conn=getConnection();
-				pstmt=conn.prepareStatement(sql);
-				pstmt.setString(1, element);
-				rs=pstmt.executeQuery();	
-				while(rs.next()) {
-					member=new MemberBean();
-					member.setNum(rs.getString("num"));
-					member.setName(rs.getString("name"));
-					member.setId(rs.getString("id"));
-					member.setPwd(rs.getString("pwd"));
-					member.setNickname(rs.getString("nickname"));
-					member.setEmail(rs.getString("email"));
-					member.setPhone(rs.getString("phone"));
-					member.setBirthday(rs.getString("birthday"));
-					member.setPlace(rs.getString("place"));
-					member.setJoindate(rs.getString("joindate"));
-					member.setTribe(rs.getString("tribe"));
-					memberList.add(member);
-				}
-			}catch(Exception e) {
-				System.out.println("멤버 정보 부분 검색 중 오류 발생 : "+e);
-			}finally {
-				try {
-					if(rs!=null)rs.close();
-					if(pstmt!=null)pstmt.close();
-					if(conn!=null)conn.close();
-				}catch(Exception ex) {
-					System.out.println("멤버정보 조회 종료 중 오류 발생 : "+ex);
-				}
-			}
+			return memberList;
 		}
-		return memberList;
-	}
 	
 	//회원 가입
 	public int insertMember(MemberBean m) {
@@ -256,5 +311,56 @@ public class MemberDAO {
 			}
 		}
 		return result;//계산된 결과를 return;
+	}
+	
+	public void updateMember(MemberBean member) {
+		String sql = "update members set name = ?, id = ?, pwd = ?, nickname = ?, email = ?, phone = ?, place = ?, tribe = ? where num = ?";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, member.getName());
+			pstmt.setString(2, member.getId());
+			pstmt.setString(3, member.getPwd());
+			pstmt.setString(4, member.getNickname());
+			pstmt.setString(5, member.getEmail());
+			pstmt.setString(6, member.getPhone());
+			pstmt.setString(7, member.getPlace());
+			pstmt.setString(8, member.getTribe());
+			pstmt.setInt(9, member.getNum());
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			System.out.println("회원 정보 수정 중 오류 발생 : "+e);
+		}finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				System.out.println("회원 정보 수정 후 오류 발생 : "+ex);
+			}
+		}
+	}
+	
+	public void deleteMember(int num) {
+		String sql = "delete from members where num = ?";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			System.out.println("회원 삭제 중 오류 발생 : "+e);
+		}finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				System.out.println("회원 삭제 후 오류 발생 : "+ex);
+			}
+		}
+		
 	}
 }

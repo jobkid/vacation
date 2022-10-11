@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>회원목록 보기</title>
-		<link rel="stylesheet" href="memberList.css">
+		<link rel="stylesheet" href="CSS/memberList.css">
 	</head>
 	<body>
 		<jsp:include page="loginComplete.jsp"/>
@@ -21,22 +21,24 @@
 			<tbody>
 				<c:forEach items="${members }" var="memberList">
 				<tr>
-					<td>${memberList.getName() }</td>
-					<td>${memberList.getId() }</td>
-					<td>${memberList.getNickname() }</td>
-					<td>${memberList.getEmail() }</td>
-					<td>${memberList.getPhone() }</td>
-					<td>${memberList.getBirthday() }</td>
-					<td>${memberList.getPlace() }</td>
-					<td>${memberList.getTribe() }</td>
-					<td>${memberList.getJoindate() }</td>
+					<td>${memberList.name }</td>
+					<td>${memberList.id }</td>
+					<td>${memberList.nickname }</td>
+					<td>${memberList.email }</td>
+					<td>${memberList.phone }</td>
+					<td>${memberList.birthday }</td>
+					<td>${memberList.place }</td>
+					<td>${memberList.tribe }</td>
+					<td>${memberList.joindate }</td>
 				</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		<form method="get" action="register.do">
+		<input type = "hidden" name ="recordsPerPage" value = "10">
+		<input type = "hidden" name ="currentPage" value = "1">
 			<select name = "category">
-				<option value="all">전체</option>
+				<option value="num">전체</option>
 				<option value="name">이름</option>
 				<option value="id">아이디</option>
 				<option value="nickname">닉네임</option>
@@ -48,7 +50,20 @@
 			</select>
 			<input name = "search">
 			<input type = "submit" value = "검색">
-		</form>	
+		</form>
 		</div>
+		<jsp:include page="memberlistPerPage.jsp"/>
+		<ul id="page">
+			<c:forEach begin = "1" end = "${nOfPage}" var = "i"><!-- for문이랑 기능이 값음 1페이지에서 마지막으로 설정한 페이지까지. 즉 registerServlet.java에서 받아온 키  -->
+				<c:choose>
+					<c:when test = "${currentPage eq i}">
+						<li><a>${i}(현재)</a></li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="register.do?currentPage=${i}&recordsPerPage=${recordsPerPage}&category=${category}&search=${search}">${i}, ${category}, ${search}</a></li>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+		</ul>
 	</body>
 </html>

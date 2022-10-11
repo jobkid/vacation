@@ -75,8 +75,6 @@ public class StoryDAO {
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
-			//pstmt.setInt(1, start);
-			//pstmt.setInt(2, recordsPerPage);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				story = new StoryBean();
@@ -137,6 +135,45 @@ public class StoryDAO {
 		return storyList;
 	}
 	
+	//회원이 작성한 글 목록
+	public ArrayList<StoryBean> getStoryList(int currentPage, int recordsPerPage, String id){
+		ArrayList<StoryBean> storyList = new ArrayList<StoryBean>();
+		StoryBean story=null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int start = currentPage*recordsPerPage-recordsPerPage;
+		String sql = "select * from shortboard where nickname in (select nickname from members where id = ?) order by num desc limit ?, ?";
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, recordsPerPage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				story=new StoryBean();
+				story.setNum(rs.getInt("num"));
+				story.setTitle(rs.getString("title"));
+				story.setNickname(rs.getString("nickname"));
+				story.setWritingdate(rs.getString("writingdate"));
+				storyList.add(story);
+			}
+		}catch(Exception e) {
+			System.out.println("회원 작성 글 확인 중 오류 발생 : "+e);
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex){
+				System.out.println("회원 작성 글 확인 후 오류 발생 : "+ex);
+			}
+			
+		}
+		return storyList;
+	}
+	
 	//게시글 줄 개수 생성
 	public int getNumberOfRows() {
 		String sql = "select count(num) from shortboard;";
@@ -166,7 +203,6 @@ public class StoryDAO {
 	
 	//내용 보기
 	public StoryBean getContent(int num) {
-		
 		StoryBean sb = new StoryBean();;
 		Connection conn = null;
 		PreparedStatement pstmt = null;

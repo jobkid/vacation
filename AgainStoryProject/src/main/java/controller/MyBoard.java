@@ -7,24 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import DAO.StoryDAO;
+import beans.StoryBean;
 
-/**
- * Servlet implementation class deleteShortServlet
- */
-@WebServlet("/deleteShort.do")
-public class deleteShortServlet extends HttpServlet {
+@WebServlet("/MyBoard.do")
+public class MyBoard extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		int num = Integer.parseInt(request.getParameter("num"));		
-		System.out.println("deleteShort.do의 doGet 실행"+num);
-		StoryDAO SDao = StoryDAO.getInstance();
-		SDao.deleteContent(num);
-		response.sendRedirect("deleteComplete.jsp");
+		System.out.println("내 글 확인하기");
+		String id = request.getParameter("nice");
+		StoryDAO sDAO = StoryDAO.getInstance();
+		
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 	}
 }

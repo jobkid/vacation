@@ -13,7 +13,7 @@
 		<div id="wrap">
 			<form method="post" action = "post.do">
 			<div id="user">
-				닉네임 : ${login.getNickname()}<br><!-- 멤버 닉네임에서 가져올 것 -->
+				닉네임 : ${login.getNickname()}<input type="hidden" value="${login.getNickname()}" name="nick"><br><!-- 멤버 닉네임에서 가져올 것 -->
 				종족 : ${login.getTribe() }<br>
 				비밀번호 : <input type="password" name="pass" id = "pass" placeholder="비밀번호를 입력해주세요."><br>
 				제목 : <input type="text" name="title" id = "title" placeholder = "제목을 입력해주세요."><br>

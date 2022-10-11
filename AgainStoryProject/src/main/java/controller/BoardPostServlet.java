@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,12 +13,15 @@ import javax.servlet.http.HttpSession;
 import beans.StoryBean;
 import DAO.StoryDAO;
 
+/**
+ * Servlet implementation class BoardPostServlet
+ */
 @WebServlet("/post.do")
 public class BoardPostServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Post.do 실행");
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,7 +39,7 @@ public class BoardPostServlet extends HttpServlet {
 		sb.setTitle(title);
 		sb.setWritingdate(writedate);
 		sb.setContent(content);
-		
+		System.out.println("Post.do 실행");
 		StoryDAO sdao = StoryDAO.getInstance();
 		int result = sdao.insertStory(sb);
 		
