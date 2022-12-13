@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import beans.StoryBean;
 import DAO.StoryDAO;
+import DAO.CommentDAO;
+import beans.CommentBean;
 
 /**
  * Servlet implementation class ReadContentServlet
@@ -24,22 +26,27 @@ public class ReadContentServlet extends HttpServlet {
 		int num = Integer.parseInt(request.getParameter("num"));
 		StoryDAO sDAO = StoryDAO.getInstance();
 		StoryBean sb = sDAO.getContent(num);
-		/*
-		sb.getNum();
-		sb.getNickname();
-		sb.getWritingdate();
-		sb.getContent();
-		*/
 		request.setAttribute("sb", sb);
-		/*
-		request.setAttribute("nickname", sb.getNickname());
-		request.setAttribute("writing", sb.getWritingdate());
-		request.setAttribute("content", sb.getContent());
-		*/
+		
+		//여기서부터 댓글
+		int current = Integer.parseInt(request.getParameter("currentPage"));
+		int records = Integer.parseInt(request.getParameter("recordsPerPage"));
+		CommentDAO cDAO = CommentDAO.getInstance();
+		int row = cDAO.getNumberOfRows();
+		int nOfPage = row/records;
+		if(row%records>0) {
+			nOfPage++;
+		}
+		request.setAttribute("nOfPage", nOfPage);
+		request.setAttribute("current", current);
+		request.setAttribute("recordsPerPage", records);
+		
+		ArrayList<CommentBean> commentList = cDAO.readComment(num, current, records);	
+		request.setAttribute("comment", commentList);
+		
 		RequestDispatcher dis = request.getRequestDispatcher("readShortContent.jsp");
-		//RequestDispatcher dis2 = request.getRequestDispatcher("shortList.jsp");
 		dis.forward(request, response);
-		//dis2.forward(request, response);
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -19,7 +19,6 @@ import beans.MemberBean;
 public class registerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("register.do 실행");
 		request.setCharacterEncoding("utf-8");
@@ -29,10 +28,12 @@ public class registerServlet extends HttpServlet {
 		//String []elements = {search, search, search, search, search, search, search, search};
 		int recordsPerPage = Integer.parseInt(request.getParameter("recordsPerPage"));
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		String category = request.getParameter("category");
+		String search = request.getParameter("search");
 		MemberDAO mDao = MemberDAO.getInstance();
 		ArrayList<MemberBean> memberList = null;
 		//ArrayList<MemberBean> memberList2 = mDao.getMember(element);
-		int row = mDao.getNumberOfRows();
+		int row = mDao.getNumberOfRows(category, search);
 		int nOfPage = row/recordsPerPage;
 		
 		if(row%recordsPerPage>0) {
@@ -43,25 +44,22 @@ public class registerServlet extends HttpServlet {
 		request.setAttribute("recordsPerPage", recordsPerPage);
 		
 		//회원 검색을 할 때
-		String category = request.getParameter("category");
-		String search = request.getParameter("search");
-		System.out.println(search);
+		
+		System.out.println(category);
 		RequestDispatcher dis = null;
-		if(category==null) {
-			System.out.println("category가 null일 때 즉, 처음 회원 목록을 볼 때 : "+category);
+		if(category.equals("num")) {
+			System.out.println("category가 num일 때 즉, 처음 회원 목록을 볼 때 : "+category);
 			System.out.println("search도 null일 때 : "+search);
 			memberList = mDao.getMember(currentPage, recordsPerPage);
 			request.setAttribute("members", memberList);
 			request.setAttribute("search", search);
 			request.setAttribute("category", category);
-		}
-		else if(search==""&&category=="") {
+		}else if(search==""&&category=="") {
 			memberList = mDao.getMember(currentPage, recordsPerPage);
 			request.setAttribute("members", memberList);
 			request.setAttribute("search", search);
 			request.setAttribute("category", category);
-		}
-		else if(search!=null&&category!=null){
+		}else if(search!=null&&category!=null){
 			System.out.println("카테고리 별 검색 : "+category);
 			memberList=mDao.getMember(search, category, currentPage, recordsPerPage);
 			request.setAttribute("search", search);

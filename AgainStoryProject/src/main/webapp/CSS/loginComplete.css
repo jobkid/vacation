@@ -2,11 +2,15 @@
 *{
 	margin : 0 auto;
 	text-align : center;
+	padding : 0;
 }
 #wrap{
 	/*margin:1%;*/
 	background-color : white;
 	color : black;
+}
+#user{
+    margin-right: -80%;
 }
 h3{
 	text-align : center;

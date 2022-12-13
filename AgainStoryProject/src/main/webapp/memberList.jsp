@@ -10,9 +10,9 @@
 	</head>
 	<body>
 		<jsp:include page="loginComplete.jsp"/>
-		<h1>회원목록보기</h1>
-		<div>
+		<div id="wrap">
 		<table border = "1">
+			<caption>회원목록</caption>
 			<thead>
 				<tr>
 					<td>이름</td><td>아이디</td><td>닉네임</td><td>이메일</td><td>전화번호</td><td>생년월일</td><td>주소</td><td>종족</td><td>가입일시</td>
@@ -60,10 +60,11 @@
 						<li><a>${i}(현재)</a></li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="register.do?currentPage=${i}&recordsPerPage=${recordsPerPage}&category=${category}&search=${search}">${i}, ${category}, ${search}</a></li>
+						<li><a href="register.do?currentPage=${i}&recordsPerPage=${recordsPerPage}&category=${category}&search=${search}">${i}</a></li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 		</ul>
+		<jsp:include page="goHome.jsp"/>
 	</body>
 </html>

@@ -4,18 +4,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<meta charset="utf-8">
+		<meta charset="utf-8">
 		<title>수정 창222</title>
-		<style>
-			*{
-				margin : 0 auto;
-				padding : 0;
-				text-align : center;
-			}
-			ul li{
-				display : inline-block;
-			}
-		</style>
+		<link rel = "stylesheet" href = "CSS/mainBoard.css">
 	</head>
 	<body>
 		<jsp:include page = "loginComplete.jsp"/>
@@ -45,33 +36,45 @@
 			</select>
 			<input type = "submit" value = "보기">
 		</form>	
+		<div id="page">
+			<ul>
+				<c:forEach begin = "1" end = "${nOfPage}" var = "i">
+					<c:choose>
+						<c:when test = "${currentPage eq i}">
+							<li><a>${i}(현재)</a></li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="ShowShortList.do?currentPage=${i}&recordsPerPage=${recordsPerPage}&number=2">${i}</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</ul>
+		</div>	
+		<div id = "button">
 		<ul>
-			<c:forEach begin = "1" end = "${nOfPage}" var = "i">
-				<c:choose>
-					<c:when test = "${currentPage eq i}">
-						<li><a>${i}(현재)</a></li>
-					</c:when>
-					<c:otherwise>
-						<li><a href="ShowShortList.do?currentPage=${i}&recordsPerPage=${recordsPerPage}&number=2">${i}</a></li>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-		</ul>
-		<form method = "post" action = "writeShort.jsp">
-			<input type = "submit" value = "글쓰기">
-		</form>
-		<form method = "get" action = "ShowShortList.do">
-			<input type = "hidden" value = "1" name = "number">
-			<input type = "hidden" value = "${currentPage}" name = "currentPage">
-			<input type = "hidden" value = "${recordsPerPage }" name = "recordsPerPage">
-			<input type = "submit" value="삭제">
-		</form>
-		<form>
-			<input type = "hidden" value = "2" name = "number">
-			<input type = "hidden" value = "${currentPage }" name = "currentPage">
-			<input type = "hidden" value = "${recordsPerPage }" name = "recordsPerPage">
-			<input type = "submit" value = "수정">
-		</form>
+			<li>
+				<form method = "post" action = "writeShort.jsp">
+					<input type = "submit" value = "글쓰기">
+				</form>
+			</li>
+			<li>	
+				<form method = "get" action = "ShowShortList.do">
+					<input type = "hidden" value = "1" name = "number">
+					<input type = "hidden" value = "${currentPage}" name = "currentPage">
+					<input type = "hidden" value = "${recordsPerPage }" name = "recordsPerPage">
+					<input type = "submit" value="삭제">
+				</form>
+			</li>
+			<li>	
+				<form>
+					<input type = "hidden" value = "2" name = "number">
+					<input type = "hidden" value = "${currentPage }" name = "currentPage">
+					<input type = "hidden" value = "${recordsPerPage }" name = "recordsPerPage">
+					<input type = "submit" value = "수정">
+				</form>
+			</li>	
+		</ul>		
+		</div>
 		</div>
 		<jsp:include page = "goHome.jsp"/>
 	</body>

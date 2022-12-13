@@ -10,6 +10,7 @@
 	border : 1px solid black;
 	
 }
+
 textarea{
 	font-size : 20pt;
 	width : 70%;
@@ -27,4 +28,7 @@ textarea{
 }
 #user #title{
 	width : 70%;
+}
+#comment textarea{
+	width : 40%;
 }

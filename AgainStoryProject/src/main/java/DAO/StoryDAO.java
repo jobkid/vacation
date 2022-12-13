@@ -40,7 +40,7 @@ public class StoryDAO {
 		int result = -1;
 		String sql = "insert into shortboard(nickname, pass, title, content) values (?,?,?,?);";
 		Connection conn=null;
-		PreparedStatement pstmt=null;		
+		PreparedStatement pstmt=null;
 		try {
 			conn=getConnection();
 			pstmt=conn.prepareStatement(sql);
@@ -63,18 +63,19 @@ public class StoryDAO {
 	}
 	
 	//Again으로 처음 들어갈 때.
-	public ArrayList <StoryBean> getStoryList(){
-		ArrayList <StoryBean> storyList = new ArrayList<StoryBean>();;
-		//int start = 0;
-		//int recordsPerPage = 10;
+	public ArrayList <StoryBean> getStoryList(int currentPage, int recordsPerPage){
+		ArrayList <StoryBean> storyList = new ArrayList<StoryBean>();
+		int start = currentPage*recordsPerPage-recordsPerPage;
 		StoryBean story = null;
-		String sql = "select * from shortboard order by num desc limit 0, 10;";
+		String sql = "select * from shortboard order by num desc limit ?, ?;";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, recordsPerPage);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				story = new StoryBean();
@@ -98,20 +99,47 @@ public class StoryDAO {
 		return storyList;
 	}
 	
-	//게시글 목록 갯수 설정 shortListservlet으로
-	public ArrayList <StoryBean> getStoryList(int currentPage, int recordsPerPage){
+	//게시글 목록 설정 shortListservlet으로
+	public ArrayList <StoryBean> getStoryList(int currentPage, int recordsPerPage, String category, String search){
 		ArrayList <StoryBean> storyList = new ArrayList<StoryBean>();;
 		int start = currentPage*recordsPerPage-recordsPerPage;
 		StoryBean story = null;
-		String sql = "select * from shortboard order by num desc limit ?, ?;";
+		String sql = "select * from shortboard ";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, start);
-			pstmt.setInt(2, recordsPerPage);
+			if(category.equals("num")) {
+				sql +="where title like ? or nickname like ? or content like ? order by num desc limit ?, ?;";
+				conn = getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, "%"+search+"%");
+				pstmt.setString(2, "%"+search+"%");
+				pstmt.setString(3, "%"+search+"%");
+				pstmt.setInt(4, start);
+				pstmt.setInt(5, recordsPerPage);
+			}else if(category.equals("title")){
+				sql+="where title like ? order by num desc limit ?, ?";
+				conn = getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, "%"+search+"%");
+				pstmt.setInt(2, start);
+				pstmt.setInt(3, recordsPerPage);
+			}else if(category.equals("nickname")){
+				sql+="where nickname like ? order by num desc limit ?, ?";
+				conn = getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, "%"+search+"%");
+				pstmt.setInt(2, start);
+				pstmt.setInt(3, recordsPerPage);
+			}else if(category.equals("content")){
+				sql+="where title like ? order by num desc limit ?, ?";
+				conn = getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, "%"+search+"%");
+				pstmt.setInt(2, start);
+				pstmt.setInt(3, recordsPerPage);
+			}
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				story = new StoryBean();
@@ -119,6 +147,7 @@ public class StoryDAO {
 				story.setTitle(rs.getString("title"));
 				story.setNickname(rs.getString("nickname"));
 				story.setWritingdate(rs.getString("writingdate"));
+				story.setContent(rs.getString("content"));
 				storyList.add(story);
 			}
 		}catch(Exception e) {
@@ -175,8 +204,60 @@ public class StoryDAO {
 	}
 	
 	//게시글 줄 개수 생성
-	public int getNumberOfRows() {
-		String sql = "select count(num) from shortboard;";
+	public int getNumberOfRows(String category, String search) {
+		String sql = "select count(num) from shortboard ";
+		int numberOfRows = 0;//몇 개 데이터가 있는지를 저장할 공간
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			if(category==null) {
+				conn = getConnection();
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				rs.next();
+				numberOfRows = rs.getInt("count(num)");
+			}else if(category=="") {
+				conn = getConnection();
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				rs.next();
+				numberOfRows = rs.getInt("count(num)");
+			}else if(category.equals("num")) {
+				sql+="where nickname like ? or title like ? or content like ? ";
+				conn = getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, "%"+search+"%");
+				pstmt.setString(2, "%"+search+"%");
+				pstmt.setString(3, "%"+search+"%");
+				rs = pstmt.executeQuery();
+				rs.next();
+				numberOfRows = rs.getInt("count(num)");
+			}else if(!category.equals("num")&&category!=""&&search!="") {
+				sql+= "where num in (select num from shortboard where "+category+" like ?)";
+				conn = getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, "%"+search+"%");
+				rs = pstmt.executeQuery();
+				rs.next();
+				numberOfRows = rs.getInt("count(num)");
+			}
+		}catch(Exception e) {
+			System.out.println("게시글 줄 개수 생성 중 오류 발생"+e);
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				System.out.println("게시글 줄 개수 생성 후 오류 발생 : "+ex);
+			}
+		}		
+		return numberOfRows;
+	}
+	
+	public int getNumberOfRows(String id) {
+		String sql = "select count(num) from shortboard where nickname in (select nickname from members where id = ?)";
 		int numberOfRows = 0;//몇 개 데이터가 있는지를 저장할 공간
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -184,6 +265,7 @@ public class StoryDAO {
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			rs.next();
 			numberOfRows = rs.getInt("count(num)");
@@ -281,4 +363,7 @@ public class StoryDAO {
 			}
 		}
 	}
+	
+	//댓글 작성
+	
 }

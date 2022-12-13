@@ -1,5 +1,13 @@
 @charset "utf-8";
 *{
 	margin : 0 auto;
-	text-align : center;
+	text-align:center;
+}
+
+.login{
+	width:40%;
+	border: 1px solid gray;
+	margin-top:10%;
+	padding:5%;
+	
 }

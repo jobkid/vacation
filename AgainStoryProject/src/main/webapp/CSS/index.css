@@ -24,6 +24,10 @@
 	font-size : 10pt;
 	text-align : left;
 }
+a{
+	text-decoration : none;
+}
+
 /*a{
 	margin : 0px 0px 0px 10%;
 	font-size : 10pt;

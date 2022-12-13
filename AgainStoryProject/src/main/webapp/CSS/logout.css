@@ -1,0 +1,9 @@
+@charset "utf-8";
+#wrap{
+	width : 80%;
+	margin : 10% auto;
+	text-align : center;
+	height : 80%;
+	border-right: 1px solid black;
+    border-left: 1px solid black;
+}

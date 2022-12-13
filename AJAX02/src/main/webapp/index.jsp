@@ -53,8 +53,6 @@
 			// 4 : complete, 모든 요청이 완료된 상태
 			// XMLHttpRequest.responseText : 응답받은 데이터를 String표현
 			// XMLHttpRequest.responseXML : 응답받은 데이터를 XML로 표현
-			
-			
 		</script>
 	</body>
 </html>

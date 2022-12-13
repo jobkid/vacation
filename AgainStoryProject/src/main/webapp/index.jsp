@@ -11,10 +11,8 @@
 		<jsp:include page = "loginComplete.jsp"/>
 		<div id="wrap">
 			<div id="again">
-				<a href="FirstShortList.do?number=0"><p>Again</p></a><!-- 미리  서블릿을 주지 말 것. -->
+				<a href="FirstShortList.do?number=0&recordsPerPage=10&currentPage=1"><p>Again</p></a><!-- 미리  서블릿을 주지 말 것. -->
 			</div>									<!-- 메인에서 controller 패키지의 FirstShortList.java 파일로 간다. 즉 FirstShort.do 서블렛으로 간다. -->							
-			<div class = "user"><a href = "login.jsp" id="login">로그인</a></div>
-			<div class = "user"><a href = "register.jsp">회원가입</a></div>
 			<div id="story">
 				<a href = "longList" onclick=#><p>Story</p></a>
 			</div>

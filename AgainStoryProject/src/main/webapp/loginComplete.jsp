@@ -17,17 +17,23 @@
 			int thisDate = cal.get(Calendar.DATE);
 		%>
 		<h1>안녕하세요. 오늘은 <%=thisYear%>년 <%=thisMonth+1 %>월 <%=thisDate %>일입니다.</h1>
-			<c:if test="${login.getId()!=null }">
-				<c:choose >
-					<c:when test="${login.getId()=='AgainStory'}"> 
-						<h3>${login.getNickname() }가 로그인했습니다.<a href="myPage.jsp">마이 페이지</a> <a href="Logout.do">로그아웃</a><br>
-						<a href = "register.do?recordsPerPage=10&currentPage=1">회원 목록 보기</a></h3>
-					</c:when>
-					<c:otherwise>
-						<h3>${login.getId() }님 ${message } 오늘도 건필하세요.<a href="myPage.jsp">마이 페이지</a> <a href="Logout.do">로그아웃</a></h3>
-					</c:otherwise>
-				</c:choose>
-			</c:if>	
+			<c:choose>
+				<c:when test="${login.getId()!=null }">
+					<c:choose >
+						<c:when test="${login.getId()=='AgainStory'}"> 
+							<h3>${login.getNickname() }가 로그인했습니다.<a href="myPage.jsp">마이 페이지</a> <a href="Logout.do">로그아웃</a><br>
+							<a href = "register.do?recordsPerPage=10&currentPage=1&category=num">회원 목록 보기</a></h3>
+						</c:when>
+						<c:otherwise>
+							<h3>${login.getId() }님 ${message } 오늘도 건필하세요.<a href="myPage.jsp">마이 페이지</a> <a href="Logout.do">로그아웃</a></h3>
+						</c:otherwise>
+					</c:choose>
+				</c:when>
+				<c:otherwise>
+				<div id = "user"><a href = "login.jsp" id="login">로그인</a><br>
+								<a href = "register.jsp">회원가입</a></div>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		<!-- 이곳에 로그인을 하면 로그아웃 메뉴가 뜨도록 한다. -->
 	</body>

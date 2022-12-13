@@ -6,9 +6,16 @@
 	<head>
 		<meta charset="utf-8">
 		<title>회원 정보 수정하기</title>
+		<link rel="stylesheet" href="CSS/updateMember.css">
 	</head>
 	<body>
 		<div id="wrap">
+		<div id="usermenu">
+			마이페이지입니다.<br>
+			<a href = "UpdateMember.do?nice=${login.getId().hashCode() }">회원정보 수정하기</a><br>
+			<a href = "DeleteMember.do?nice=${login.getNum() }">회원 탈퇴하기</a><br>
+			<a href = "MyBoard.do?nice=${login.id }&current=1&record=10&number=${0}&number2=${0}">내 글 확인하기</a>
+		</div>
 		<h1>여기는 회원수정 페이지입니다.</h1>
 		<h1>"*"표시는 필수 입력 항목입니다.</h1>
 			<form method="post" action="UpdateMember.do" name="update">
@@ -73,7 +80,9 @@
 				</table>
 			</form>
 		</div>
+		<div class="goHome">
 		<jsp:include page = "goHome.jsp"/>
+		</div>
 		<script>
 			function idCheck(){
 				if(document.register.id.value=""){

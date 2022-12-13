@@ -26,16 +26,25 @@ public class MemberDAO {
 		conn=DriverManager.getConnection(url, dbid, dbpw);
 		return conn;
 	}
-	public int getNumberOfRows() {
-		String sql = "select count(num) from members;";
+	public int getNumberOfRows(String category, String search) {
+		String sql = "select count(num) from members ";
 		int numberOfRows = 0;//몇 개 데이터가 있는지를 저장할 공간
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
+			if(category.equals("num")&&search==null) {
+				sql += "where num in (select num from members where num)";
+				conn = getConnection();
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+			}else if(search!=null){
+				sql += "where num in (select num from members where "+category+" like ?)";
+				conn = getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, "%"+search+"%");
+				rs = pstmt.executeQuery();			
+			}
 			rs.next();
 			numberOfRows = rs.getInt("count(num)");
 		}catch(Exception e) {
@@ -150,8 +159,8 @@ public class MemberDAO {
 				conn=getConnection();
 				if(column.equals("num")){
 					sql+="where name like ? or id like ? or nickname like ? or "+
-						"email like ? or phone like ? or "+
-						"birthday like ? or place like ? or tribe like ? limit ?, ?";
+						"email like ? or phone like ? or birthday like ? or "+
+						"place like ? or tribe like ? limit ?, ?";
 					pstmt=conn.prepareStatement(sql);
 					pstmt.setString(1, "%"+element+"%");
 					pstmt.setString(2, "%"+element+"%");

@@ -44,7 +44,7 @@
 			<c:forEach begin = "1" end = "${nOfPage}" var = "i">
 				<c:choose>
 					<c:when test = "${currentPage eq i}">
-						<li><a>${i}(현재)</a></li>
+						<li>${i}(현재)</li>
 					</c:when>
 				<c:otherwise>
 						<li><a href="ShowShortList.do?currentPage=${i}&recordsPerPage=${recordsPerPage}&number=0">${i}</a></li>

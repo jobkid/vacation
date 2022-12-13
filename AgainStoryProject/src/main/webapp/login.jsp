@@ -8,10 +8,10 @@
 		<link rel = "stylesheet" href = "CSS/login.css">
 	</head>
 	<body>
-		<div>
+		<div class="login">
 			<form method="post" action="Login.do" name="login">
-				아이디 : <input type="text" id="inputid" name="id"><br>
-				비밀번호 : <input type="password" id="inputpw" name="pwd"><br>
+				아이디 : <input type="text" id="inputid" name="id" required><br>
+				비밀번호 : <input type="password" id="inputpw" name="pwd" required><br>
 				<input type="submit" value="로그인" onclick = "return loginCheck()">
 			</form>	
 		</div>
